@@ -1,32 +1,21 @@
-# Prerequisites
-*.d
+# Dependencies
+/node_modules
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+# Production
+/build
+build
 
-# Precompiled Headers
-*.gch
-*.pch
+# Generated files
+.docusaurus
+.cache-loader
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+# Misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

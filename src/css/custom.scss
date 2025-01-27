@@ -1,0 +1,334 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+@import 'satoshi';
+@import "~polipop/src/sass/core";
+@import "~polipop/src/sass/default";
+/* You can override the default Infima variables here. */
+:root {
+
+  // // Custom color testing
+  // --ifm-color-primary: #00bbff;
+
+  // // Custom color testing
+  // --ifm-color-primary: #260079;
+
+  // Custom color testing
+  --ifm-color-primary: #8e81d7;
+
+  // // Custom color testing
+  // --ifm-color-primary: #6b6399;
+
+  // // Brand color testing
+  // --ifm-color-primary: #49EDED;
+
+  --ifm-code-font-size: 95%;
+
+  --ifm-color-primary-dark: #707070;
+  --ifm-color-primary-darker: #606060;
+  --ifm-color-primary-darkest: #505050;
+
+  --ifm-color-primary-light: #909090;
+  --ifm-color-primary-lighter: #A0A0A0;
+  --ifm-color-primary-lightest: #B0B0B0;
+
+}
+
+html[data-theme='dark'] { /* Overriding root Infima variables */
+  
+  // // Brand color testing
+  // --ifm-background-color: #3700ff;
+  // --ifm-background-surface-color: #3700ff;
+
+  // // Custom color testing
+  // --ifm-background-color: #260079;
+  // --ifm-background-surface-color: #260079;
+
+  // GitBook Colors
+  --ifm-background-color: #1f1f22;
+  --ifm-background-surface-color: #1f1f22;
+
+  --ifm-color-scheme: light;
+}
+
+[data-theme='light'] { /* Overriding root Infima variables */
+
+  // // Brand color testing
+  // --ifm-color-primary: #3700ff;
+  // --ifm-background-color: #49EDED;
+  // --ifm-background-surface-color: #49EDED;
+
+  // Custom color testing
+  --ifm-color-primary: #00bbff;
+  --ifm-background-color: #260079;
+  --ifm-background-surface-color: #260079;
+  
+  /* Force light text */
+  --ifm-font-color-base: #ffffff; /* Base text color */
+  --ifm-color-content: #ffffff; /* Content text color */
+  --ifm-color-secondary: #e0e0e0; /* Secondary text color */
+
+}
+
+body,
+html {
+  padding: 0;
+  margin: 0;
+  font-family: Satoshi-Variable, Roboto;
+}
+
+.docusaurus-highlight-code-line {
+  background-color: rgba(0, 0, 0, 0.1);
+  display: block;
+  margin: 0 calc(-1 * var(--ifm-pre-padding));
+  padding: 0 var(--ifm-pre-padding);
+}
+
+[data-theme='dark'] .docusaurus-highlight-code-line {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+[data-theme='dark'] .react-daterange-picker__button svg {
+  stroke: white;
+}
+
+[data-theme='dark'] .faucetItem {
+border:  1px solid white;
+}
+
+[data-theme='dark'] .react-daterange-picker__inputGroup__input {
+
+color: white;
+}
+
+.react-calendar__month-view__weekdays__weekday {
+    color: black;
+}
+
+img[alt*="adding_shardeum_1"],
+img[alt*="create_account_1"],
+img[alt*="create_account_2"],
+img[alt*="sending_transactions_2"],
+img[alt*="sending_transactions_3"],
+img[alt*="sending_transactions_4"],
+img[alt*="tokenomics"] {
+  width: 50%;
+}
+
+img[alt*="remix_1"],
+img[alt*="remix_2"],
+img[alt*="remix_3"],
+img[alt*="remix_4"],
+img[alt*="remix_5"],
+img[alt*="remix_6"],
+img[alt*="remix_7"],
+img[alt*="remix_8"],
+img[alt*="claim_1"],
+img[alt*="claim_2"],
+img[alt*="claim_3"],
+img[alt*="claim_4"],
+img[alt*="claim_5"],
+img[alt*="claim_6"],
+img[alt*="claim_7"] {
+  width: 50%;
+}
+
+img[alt*="claim_8"] {
+  width: 25%;
+}
+@media (min-width: 997px) {
+  .navbar_item_1 {
+    padding-left: 150px;
+  }
+}
+
+.announcementBar_node_modules-\@docusaurus-theme-classic-lib-next-theme-AnnouncementBar-styles-module {
+  height: 80px !important;
+}
+@media (max-width: 997px) {
+  .announcementBar_node_modules-\@docusaurus-theme-classic-lib-next-theme-AnnouncementBar-styles-module {
+    height: 200px !important;
+  }
+}
+
+.navbar__item.navbar__link.navbar_item_2 > svg,
+.navbar__item.navbar__link.navbar_item_1 > svg {
+  display: none;
+}
+
+.polipop_position_bottom-right {
+  position: fixed;
+  /* right: 50%; */
+  bottom: 50%;
+  /* display: flex; */
+  /* justify-content: flex-end !important; */
+  transform: translateX(-10%);
+  width: 80%;
+}
+
+.polipop__notification-inner {
+  text-align: center;
+}
+
+.polipop__notification-title {
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.polipop_theme_default .polipop__notification-icon {
+  margin: 0 12px 0 0;
+  position: absolute;
+}
+
+#mypolipop > div.polipop__notifications > div {
+  box-shadow: -1px 1px 2px 2px rgb(0 0 0 / 30%);
+}
+
+
+// .navbar_item_1, .navbar_item_2  {
+//   color: #FFFFFF;
+// }
+
+// .navbar_item_1:hover, .navbar_item_2:hover  {
+// color: #808080;
+// }
+
+// a[href="/faucetExplorer"], a[href="/networkHealth"]  {
+//   display: none;
+// }
+
+.faucetContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+}
+
+.faucetItem {
+  width: 20%;
+  margin: 2%;
+  padding: 5%;
+      flex: 1 1 auto;
+      text-align: center;
+      min-height: 50px;
+      min-width: 300px;
+      flex-wrap: wrap;
+      border: 1px solid black;
+}
+
+// a.navbar__item.navbar__link.navbar_item_button {
+//     background-color: #808080;
+//     color: white;
+// }
+//
+// a.navbar__item.navbar__link.navbar_item_button:hover {
+//     background-color: #808080;
+//     color: white;
+// }
+
+.react-daterange-picker__inputGroup__input:invalid {
+    background: none !important;
+}
+
+
+.video {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+}
+
+[data-theme='light'] .DocSearch {
+  /* --docsearch-primary-color: var(--ifm-color-primary); */
+  /* --docsearch-text-color: var(--ifm-font-color-base); */
+  --docsearch-muted-color: var(--ifm-color-secondary-darkest);
+  --docsearch-container-background: rgba(94, 100, 112, 0.7);
+  /* Modal */
+  --docsearch-modal-background: var(--ifm-color-secondary-lighter);
+  /* Search box */
+  // --docsearch-searchbox-background: var(--ifm-color-secondary);
+  --docsearch-searchbox-background: var(--ifm-color-black);
+  // --docsearch-searchbox-focus-background: var(--ifm-color-white);  
+  --docsearch-searchbox-focus-background: var(--ifm-color-black);
+  /* Hit */
+  --docsearch-hit-color: var(--ifm-font-color-base);
+  // --docsearch-hit-active-color: var(--ifm-color-white);
+  --docsearch-hit-active-color: var(--ifm-color-black);
+  // --docsearch-hit-background: var(--ifm-color-white);
+  --docsearch-hit-background: var(--ifm-color-black);
+  /* Footer */
+  // --docsearch-footer-background: var(--ifm-color-white);
+  --docsearch-footer-background: var(--ifm-color-black);
+}
+
+.footer {
+  background-color: #000 !important; /* Directly enforce the color */
+}
+
+[data-theme='dark'] .DocSearch {
+  --docsearch-text-color: var(--ifm-font-color-base);
+  --docsearch-muted-color: var(--ifm-color-secondary-darkest);
+  --docsearch-container-background: rgba(0, 0, 0, 0.7);
+  /* Modal */
+  --docsearch-modal-background: var(--ifm-background-color);
+  /* Search box */
+  --docsearch-searchbox-background: var(--ifm-background-color);
+  --docsearch-searchbox-focus-background: var(--ifm-color-black);
+  /* Hit */
+  --docsearch-hit-color: var(--ifm-font-color-base);
+  --docsearch-hit-active-color: var(--ifm-color-black);
+  --docsearch-hit-background: var(--ifm-color-emphasis-100);
+  /* Footer */
+  --docsearch-footer-background: var(--ifm-background-surface-color);
+  --docsearch-key-gradient: linear-gradient(
+    -26.5deg,
+    var(--ifm-color-emphasis-200) 0%,
+    var(--ifm-color-emphasis-100) 100%
+  );
+}
+
+[data-theme='dark'] .buttonHighContrast {
+  background-color: #00FF00;
+  border: none;
+  color: black;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+[data-theme='dark'] .buttonHighContrast:hover {
+  background-color: #ffffff;
+  border: none;
+  color: black;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+[data-theme='light'] .buttonHighContrast {
+  background-color: #FF0000;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+[data-theme='light'] .buttonHighContrast:hover {
+  background-color: #000000;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
