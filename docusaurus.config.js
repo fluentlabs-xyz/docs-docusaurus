@@ -26,7 +26,7 @@ module.exports = {
           routeBasePath: '/',
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
-          editUrl: 'https://github.com/fluentlabs-xyz/',
+          editUrl: 'https://github.com/fluentlabs-xyz/docs-docusaurus/blob/main/',
         },
         blog:false,
         theme: {

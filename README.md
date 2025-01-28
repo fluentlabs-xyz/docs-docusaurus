@@ -9,21 +9,21 @@ https://fluentlabs-xyz.github.io/docs-docusaurus/
 ### Installation
 
 Node Version v23.3.0
-```
+```shell
 nvm use v23.3.0
 ```
 Install npm packages:
-```
+```shell
 npm i
 ```
 or
-```
+```shell
 npm install --legacy-peer-deps
 ```
 
 ### Local Development
 
-```
+```shell
 npm run start
 ```
 
@@ -31,7 +31,7 @@ This command starts a local development server and opens up a browser window. Mo
 
 ### Build
 
-```
+```shell
 npm run build
 ```
 
