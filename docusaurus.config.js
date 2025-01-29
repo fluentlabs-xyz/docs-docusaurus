@@ -13,7 +13,8 @@ module.exports = {
   onBrokenLinks: 'throw',
   onBrokenAnchors: 'warn',
   onBrokenMarkdownLinks: 'warn',
-  favicon: 'img/favicon.ico',
+  // favicon: 'img/logos/faviconDark.png',  
+  favicon: 'img/logos/faviconPurple.png',  
   organizationName: 'Fluent', // Usually your GitHub org/user name.
   projectName: 'Fluent-docs', // Usually your repo name.
 
@@ -66,8 +67,8 @@ module.exports = {
         hideOnScroll: true,
         logo: {
           alt: 'Fluent Docs Logo',
-          src:     '/img/fluent_documentation_dark.png',
-          srcDark: '/img/fluent_documentation_light.png',
+          src:     '/img/logos/rectangle.png',
+          srcDark: '/img/logos/rectangle.png',
         },
 
         items: [
@@ -141,7 +142,7 @@ module.exports = {
         ],
         logo: {
           alt: 'Fluent Logo',
-          src: 'img/fluent_logo.png',
+          src: 'img/logos/square.png',
           href: 'https://github.com/fluentlabs-xyz/',
           height: 100,
           width: 100
