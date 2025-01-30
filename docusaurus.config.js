@@ -25,7 +25,8 @@ module.exports = {
       ({
         docs: {
           routeBasePath: '/',
-          sidebarPath: require.resolve('./sidebars.js'),
+          // sidebarPath: require.resolve('./sidebars.js'),
+          sidebarCollapsed: false,
           // Please change this to your repo.
           editUrl: 'https://github.com/fluentlabs-xyz/docs-docusaurus/blob/main/',
         },
@@ -44,6 +45,7 @@ module.exports = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      
       algolia: {
         appId: "M4JGWXQJP4",
         apiKey: "5681f211df732bda5a2631e5d29b8efd",
@@ -54,14 +56,14 @@ module.exports = {
      // selector: '.markdown img',
      // Optional medium-zoom options
      // see: https://www.npmjs.com/package/medium-zoom#options
-     options: {
-       margin: 40,
-       background: '#000',
-       scrollOffset: 60,
-       // container: 'main',
-       // template: '#zoom-template',
-     },
-   },
+        options: {
+          margin: 40,
+          background: '#000',
+          scrollOffset: 60,
+          // container: 'main',
+          // template: '#zoom-template',
+        },
+      },
       navbar: {
         title: '',
         hideOnScroll: true,
