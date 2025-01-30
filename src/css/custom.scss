@@ -3,15 +3,23 @@
  * bundles Infima by default. Infima is a CSS framework designed to
  * work well for content-centric websites.
  */
+ 
+
+// Fonts from local scss files which import the raw font files.
 @import 'satoshi';
+@import 'montserrat';
+
 @import "~polipop/src/sass/core";
 @import "~polipop/src/sass/default";
 /* You can override the default Infima variables here. */
 :root {
 
   // // Fonts imported from satoshi.scss which calls raw font files like: woff2, woff and truetype
-  --ifm-font-family-base: 'Satoshi-Bold', sans-serif;
+  // --ifm-font-family-base: 'Satoshi-Bold', sans-serif;
   // --ifm-heading-font-family: 'Satoshi-Regular', sans-serif;
+
+  // Font test 
+  --ifm-font-family-base: 'Montserrat-Bold', sans-serif;
 
   // // Brand color testing pink
   --ifm-color-primary: #FF8FDA;
