@@ -9,6 +9,10 @@
 /* You can override the default Infima variables here. */
 :root {
 
+  // // Fonts imported from satoshi.scss which calls raw font files like: woff2, woff and truetype
+  --ifm-font-family-base: 'Satoshi-Bold', sans-serif;
+  // --ifm-heading-font-family: 'Satoshi-Regular', sans-serif;
+
   // // Brand color testing pink
   --ifm-color-primary: #FF8FDA;
 
