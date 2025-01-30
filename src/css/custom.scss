@@ -6,20 +6,30 @@
  
 
 // Fonts from local scss files which import the raw font files.
-@import 'satoshi';
-@import 'montserrat';
+
+// @import 'satoshi';
+// @import 'montserrat';
+@import 'bossa';
 
 @import "~polipop/src/sass/core";
 @import "~polipop/src/sass/default";
 /* You can override the default Infima variables here. */
 :root {
 
+  // NOTE: FOR FONTS IN THIS SECTION, THIS WILL JUST MODIFY THE TITLE TEXT SECTIONS.
+  // TO MODIFY BODY TEXT FONTS, GO TO THIS OTHER SECTION TO MODIFY: 
+  // body, html {
+  //   font-family: <font_family_name>, Roboto;
+  // }
+
   // // Fonts imported from satoshi.scss which calls raw font files like: woff2, woff and truetype
   // --ifm-font-family-base: 'Satoshi-Bold', sans-serif;
-  // --ifm-heading-font-family: 'Satoshi-Regular', sans-serif;
 
-  // Font test 
-  --ifm-font-family-base: 'Montserrat-Bold', sans-serif;
+  // // Font test Montserrat
+  // --ifm-font-family-base: 'Montserrat-Bold', sans-serif;
+
+  // Font test Bossa
+  --ifm-font-family-base: 'Bossa-Bold', sans-serif;
 
   // // Brand color testing pink
   --ifm-color-primary: #FF8FDA;
@@ -94,11 +104,12 @@ html[data-theme='dark'] { /* Overriding root Infima variables */
 
 }
 
-body,
-html {
+body, html {
   padding: 0;
   margin: 0;
-  font-family: Satoshi-Variable, Roboto;
+  // font-family: Satoshi-Variable, Roboto;
+  // font-family: Montserrat-Bold, Roboto;
+  font-family: Bossa-Bold, Roboto;
 }
 
 .docusaurus-highlight-code-line {
