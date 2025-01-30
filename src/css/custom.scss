@@ -3,7 +3,6 @@
  * bundles Infima by default. Infima is a CSS framework designed to
  * work well for content-centric websites.
  */
- 
 
 // Fonts from local scss files which import the raw font files.
 
@@ -108,8 +107,8 @@ body, html {
   padding: 0;
   margin: 0;
   // font-family: Satoshi-Variable, Roboto;
-  // font-family: Montserrat-Bold, Roboto;
-  font-family: Bossa-Bold, Roboto;
+  // font-family: Montserrat-Medium, Roboto;
+  font-family: Bossa-Medium, Roboto;
 }
 
 .docusaurus-highlight-code-line {
