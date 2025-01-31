@@ -21,7 +21,7 @@
     "@wojtekmaj/react-daterange-picker": "^3.4.0",
     "clsx": "^1.1.1",
     "dayjs": "^1.11.2",
-    "docusaurus-lunr-search": "^3.5.0",
+    "docusaurus-lunr-search": "^3.6.1",
     "docusaurus-plugin-sass": "^0.2.2",
     "plugin-image-zoom": "github:flexanalytics/plugin-image-zoom",
     "polipop": "^1.0.0",
