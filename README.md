@@ -87,6 +87,24 @@ here:
 
 https://docusaurus.io/docs/deployment#triggering-deployment-with-github-actions
 
+### Cloudflare Pages Hosting and CI/CD Pull Request Build and Preview Pipeline
+
+#### Cloudflare Pages Setup Steps:
+
+1. On the Cloudflare Dashboard, navigate the left column sidebar for:
+```
+Workers and Pages > Create > Pages
+```
+2. Then on pages, navigate to:
+```
+Connect to Git > Import GitHub Repos > Select Repo > Begin Setup > Framework preset > Docusaurus > Save and Deploy
+```
+#### Tutorials used for reference:
+
+https://www.youtube.com/watch?v=O4jV8Zz2w9I
+
+https://www.youtube.com/watch?v=t068JaUiuj4&t=85s
+
 ### Search Bar
 
 Add Algolia Search Bar with API Key:
