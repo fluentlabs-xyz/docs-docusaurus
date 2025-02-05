@@ -176,6 +176,32 @@ img[alt*="claim_8"] {
   }
 }
 
+/* Make the search bar smaller on mobile */
+@media (max-width: 768px) {
+  .navbar__search-input {
+    max-width: 90px !important; /* Reduce width */
+    // font-size: 14px !important; /* Smaller font */
+    // padding: 4px 8px !important; /* Adjust padding */
+    height: 30px !important; /* Reduce height */
+  }
+
+  // Hide the search bar text on mobile
+  .navbar__search-input::placeholder {
+    color: transparent !important;
+  }
+
+  /* Reduce placeholder text size */
+  .navbar__search-input::placeholder {
+    font-size: 12px;
+  }
+
+  /* Make the search button smaller */
+  .search-bar button {
+    padding: 4px !important;
+    font-size: 12px !important;
+  }
+}
+
 .announcementBar_node_modules-\@docusaurus-theme-classic-lib-next-theme-AnnouncementBar-styles-module {
   height: 80px !important;
 }
