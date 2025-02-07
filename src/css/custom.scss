@@ -142,37 +142,12 @@ color: white;
     color: black;
 }
 
-img[alt*="adding_shardeum_1"],
-img[alt*="create_account_1"],
-img[alt*="create_account_2"],
-img[alt*="sending_transactions_2"],
-img[alt*="sending_transactions_3"],
-img[alt*="sending_transactions_4"],
-img[alt*="tokenomics"] {
-  width: 50%;
+// Navbar logo scale down 75% by using transform()
+.navbar__logo img {
+  transform: scale(0.75); /* Adjust percentage (0.75 = 75%) */
+  transform-origin: center; /* Ensures scaling from the center */
 }
 
-img[alt*="remix_1"],
-img[alt*="remix_2"],
-img[alt*="remix_3"],
-img[alt*="remix_4"],
-img[alt*="remix_5"],
-img[alt*="remix_6"],
-img[alt*="remix_7"],
-img[alt*="remix_8"],
-img[alt*="claim_1"],
-img[alt*="claim_2"],
-img[alt*="claim_3"],
-img[alt*="claim_4"],
-img[alt*="claim_5"],
-img[alt*="claim_6"],
-img[alt*="claim_7"] {
-  width: 50%;
-}
-
-img[alt*="claim_8"] {
-  width: 25%;
-}
 @media (min-width: 997px) {
   .navbar_item_1 {
     padding-left: 150px;

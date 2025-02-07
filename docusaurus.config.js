@@ -69,6 +69,8 @@ module.exports = {
         hideOnScroll: true,
         logo: {
           alt: 'Fluent Docs Logo',
+          // Note: these raw images are scaled down with CSS 
+          // with class .navbar__logo img inside file custom.scss
           src:     '/img/logos/rectangle.png',
           srcDark: '/img/logos/rectangle.png',
         },
