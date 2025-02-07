@@ -1,0 +1,13 @@
+// From ttf files from: 
+// https://fonts.google.com/specimen/Inter
+// From otf files from: 
+// https://www.fontsquirrel.com/fonts/inter
+
+
+@font-face {
+  font-family: "Inter-Medium";
+  src: url("./fonts/Inter/Inter-Medium.otf") format("truetype");
+  font-weight: 300 900;
+  font-display: swap;
+  font-style: normal;
+}

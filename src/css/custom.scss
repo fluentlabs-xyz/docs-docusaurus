@@ -9,6 +9,7 @@
 // @import 'satoshi';
 // @import 'montserrat';
 @import 'bossa';
+@import 'inter';
 
 @import "~polipop/src/sass/core";
 @import "~polipop/src/sass/default";
@@ -108,7 +109,9 @@ body, html {
   margin: 0;
   // font-family: Satoshi-Variable, Roboto;
   // font-family: Montserrat-Medium, Roboto;
-  font-family: Bossa-Medium, Roboto;
+  // font-family: Bossa-Medium, Roboto;
+  font-family: Inter-Medium, Roboto;
+
 }
 
 .docusaurus-highlight-code-line {
