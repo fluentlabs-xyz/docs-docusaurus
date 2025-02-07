@@ -50,6 +50,9 @@ Select the option that aligns with your preferred programming language for smart
                 <a href="rust"><strong>Rust</strong></a>
             </td>
             <td align="center">
+                <a href="go"><strong>Go</strong></a>
+            </td>
+            <td align="center">
                 <a href="vyper"><strong>Vyper</strong></a>
             </td>
         </tr>

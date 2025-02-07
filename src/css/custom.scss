@@ -148,6 +148,29 @@ color: white;
   transform-origin: center; /* Ensures scaling from the center */
 }
 
+// Add space between sidebar and body 
+.theme-doc-sidebar-container {
+  margin-right: 15px; /* Adjust spacing between sidebar and body */
+}
+
+.theme-doc-markdown {
+  padding-left: 10px; /* Adds spacing to the body */
+}
+
+// Table styling 
+.theme-doc-markdown table {
+  table-layout: fixed !important;
+  width: 100%;
+  min-height: 200px; /* Prevents table from shrinking */
+  display: table !important; /* Ensures correct rendering */
+}
+
+.theme-doc-markdown table td, .theme-doc-markdown table th {
+  height: 50px !important; /* Set a fixed row height */
+  vertical-align: middle !important;
+  overflow: hidden !important;
+}
+
 @media (min-width: 997px) {
   .navbar_item_1 {
     padding-left: 150px;
