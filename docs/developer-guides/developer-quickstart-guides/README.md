@@ -43,17 +43,29 @@ Select the option that aligns with your preferred programming language for smart
 <table data-column-title-hidden data-view="cards">
     <tbody>
         <tr>
-            <td align="center">
-                <a href="solidity"><strong>Solidity</strong></a>
+            <td>
+                <a href="solidity">
+                    <span>Smart Contracts on</span> 
+                    <strong>Solidity</strong>
+                </a>
             </td>
-            <td align="center">
-                <a href="rust"><strong>Rust</strong></a>
+            <td>
+                <a href="rust">
+                    <span>Smart Contracts on</span> 
+                    <strong>Rust</strong>
+                </a>
             </td>
-            <td align="center">
-                <a href="go"><strong>Go</strong></a>
+            <td>
+                <a href="go">
+                    <span>Smart Contracts on</span> 
+                    <strong>Go</strong>
+                </a>
             </td>
-            <td align="center">
-                <a href="vyper"><strong>Vyper</strong></a>
+            <td>
+                <a href="vyper">
+                    <span>Smart Contracts on</span> 
+                    <strong>Vyper</strong>
+                </a>
             </td>
         </tr>
     </tbody>
