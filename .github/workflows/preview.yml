@@ -9,6 +9,9 @@ on:
 jobs:
   preview:
     runs-on: ubuntu-latest
+    env:
+      BASE_URL: "/docs-docusaurus/preview/pr-${{ github.event.pull_request.number }}/"
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -21,10 +24,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build website with dynamic baseUrl
-        run: |
-          npx docusaurus build \
-            --base-url="/${{ github.event.repository.name }}/preview/pr-${{ github.event.pull_request.number }}/"
+      - name: Build Docusaurus
+        run: npx docusaurus build
 
       - name: Deploy to GH Pages subfolder
         uses: peaceiris/actions-gh-pages@v3

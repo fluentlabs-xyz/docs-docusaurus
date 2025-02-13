@@ -4,12 +4,14 @@
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
+const baseUrl = process.env.CUSTOM_BASE_URL || '/docs-docusaurus/';
+
 /** @type {import('@docusaurus/types').Config} */
 module.exports = {
   title: 'Fluent Docs',
   tagline: 'Explore Fluent Docs',
   url: 'https://docs.fluent.org',
-  baseUrl: '/docs-docusaurus/',
+  baseUrl,
   onBrokenLinks: 'throw',
   onBrokenAnchors: 'warn',
   onBrokenMarkdownLinks: 'warn',
