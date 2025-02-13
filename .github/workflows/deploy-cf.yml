@@ -3,7 +3,7 @@ name: Deploy to CF
 on:
   push:
     branches:
-      - redesign
+      - main
 
 jobs:
   deploy:
