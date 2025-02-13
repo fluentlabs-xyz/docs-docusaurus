@@ -13,13 +13,14 @@ jobs:
       BASE_URL: "/docs-docusaurus/preview/pr-${{ github.event.pull_request.number }}/"
 
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 18
+          cache: npm
 
       - name: Install dependencies
         run: npm ci
@@ -34,7 +35,8 @@ jobs:
           publish_branch: gh-pages
           publish_dir: ./build
           destination_dir: "preview/pr-${{ github.event.pull_request.number }}"
-          commit_message: "Deploy preview for PR #${{ github.event.pull_request.number }}"
+          commit_message: "Preview for PR #${{ github.event.pull_request.number }}"
+          enable_jekyll: false
 
       - name: Comment on PR with preview link
         uses: thollander/actions-comment-pull-request@v2
