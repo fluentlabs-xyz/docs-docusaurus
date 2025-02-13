@@ -4,26 +4,44 @@ on:
   push:
     branches:
       - main
-    # Review gh actions docs if you want to further define triggers, paths, etc
-    # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#on
 
 jobs:
   build:
     name: Build Docusaurus
     runs-on: ubuntu-latest
+    env:
+      BASE_URL: "/"
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 18
           cache: npm
 
       - name: Install dependencies
         run: npm ci
-      - name: Build website
-        run: npm run build
+
+      - name: Clean old build and cache
+        run: rm -rf ./build ./node_modules/.cache
+
+      - name: Log BASE_URL
+        run: |
+          echo "Using BASE_URL: $BASE_URL"
+
+      - name: Build Docusaurus with correct BASE_URL
+        run: BASE_URL=${{ env.BASE_URL }} npm run build
+
+      - name: Debug Base URL in index.html
+        run: grep -o '<base href=".*">' ./build/index.html || echo "No base href found"
+
+      - name: Create .nojekyll file
+        run: touch ./build/.nojekyll
 
       - name: Upload Build Artifact
         uses: actions/upload-pages-artifact@v3
@@ -39,7 +57,7 @@ jobs:
       pages: write # to deploy to Pages
       id-token: write # to verify the deployment originates from an appropriate source
 
-    # Deploy to the github-pages environment
+    # Deploy to the GitHub Pages environment
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
