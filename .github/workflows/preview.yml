@@ -1,0 +1,70 @@
+name: GH Pages PR Preview
+
+on:
+  pull_request:
+    branches:
+      - main
+      - redesign
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    env:
+      BASE_URL: "/docs-docusaurus/preview/pr-${{ github.event.pull_request.number }}/"
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Clean old build and cache
+        run: rm -rf ./build ./node_modules/.cache
+
+      - name: Log BASE_URL
+        run: |
+            echo "Using BASE_URL: $BASE_URL"
+
+      - name: Build Docusaurus with correct BASE_URL
+        run: BASE_URL=${{ env.BASE_URL }} npm run build
+
+      - name: Debug Base URL in index.html
+        run: grep -o '<base href=".*">' ./build/index.html || echo "No base href found"
+
+      - name: Create .nojekyll file
+        run: touch ./build/.nojekyll
+
+      - name: Debug Build Output
+        run: ls -l ./build
+
+      - name: Deploy to GH Pages subfolder
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./build
+          destination_dir: "preview/pr-${{ github.event.pull_request.number }}/"
+          commit_message: "Preview for PR #${{ github.event.pull_request.number }}"
+          enable_jekyll: false
+          keep_files: true
+
+      - name: Debug gh-pages branch after deployment
+        run: |
+          git fetch origin gh-pages
+          git checkout gh-pages
+          ls -l preview/pr-${{ github.event.pull_request.number }} || echo "Preview folder not found!"
+
+      - name: Comment on PR with preview link
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          message: |
+            🚀 **Preview**: 
+            https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/preview/pr-${{ github.event.pull_request.number }}/
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
