@@ -21,8 +21,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build website
-        run: npm run build
+      - name: Build website with dynamic baseUrl
+        run: |
+          npx docusaurus build \
+            --base-url="/${{ github.event.repository.name }}/preview/pr-${{ github.event.pull_request.number }}/"
 
       - name: Deploy to GH Pages subfolder
         uses: peaceiris/actions-gh-pages@v3
