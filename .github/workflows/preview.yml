@@ -43,9 +43,10 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: ./build
-          destination_dir: "preview/pr-${{ github.event.pull_request.number }}"
+          destination_dir: "preview/pr-${{ github.event.pull_request.number }}/"
           commit_message: "Preview for PR #${{ github.event.pull_request.number }}"
           enable_jekyll: false
+          force_orphan: true
 
       - name: Debug gh-pages branch after deployment
         run: |
