@@ -10,7 +10,7 @@ jobs:
     name: Build Docusaurus
     runs-on: ubuntu-latest
     env:
-      BASE_URL: "/"
+      BASE_URL: /docs-docusaurus/
 
     steps:
       - name: Checkout repository
