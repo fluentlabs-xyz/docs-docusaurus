@@ -4,7 +4,7 @@
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
-const baseUrl = process.env.CUSTOM_BASE_URL || '/docs-docusaurus/';
+const baseUrl = process.env.BASE_URL || '/docs-docusaurus/';
 
 /** @type {import('@docusaurus/types').Config} */
 module.exports = {
