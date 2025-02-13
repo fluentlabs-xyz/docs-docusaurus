@@ -1,4 +1,4 @@
-name: Deploy to CF Pages
+name: Deploy to CF
 
 on:
   push:
@@ -6,8 +6,8 @@ on:
       - redesign
 
 jobs:
-  build:
-    name: Build Docusaurus
+  deploy:
+    name: Deploy Docusaurus
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -23,18 +23,17 @@ jobs:
       - name: Build website
         run: npm run build
 
-  deploy:
-    - name: Prepare deployment
-      run: |
-        mkdir -p ./deploy
-        cp -r build/* ./deploy/
-        cd ./deploy
-        echo '{"name":"deploy","version":"1.0.0","private":true}' > package.json
-        npm install wrangler@3 --save-dev
+      - name: Prepare deployment
+        run: |
+          mkdir -p ./deploy
+          cp -r build/* ./deploy/
+          cd ./deploy
+          echo '{"name":"deploy","version":"1.0.0","private":true}' > package.json
+          npm install wrangler@3 --save-dev
 
-    - name: Deploy to Cloudflare Pages
-      working-directory: ./deploy
-      run: npm wrangler pages deploy . --project-name=docs-docusaurus --commit-dirty=true
-      env:
-        CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-        CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      - name: Deploy to Cloudflare Pages
+        working-directory: ./deploy
+        run: npm wrangler pages deploy . --project-name=docs-docusaurus --commit-dirty=true
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
