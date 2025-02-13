@@ -25,8 +25,17 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Clean old build
+        run: rm -rf ./build
+
       - name: Build Docusaurus
         run: npx docusaurus build
+
+      - name: Debug Base URL in index.html
+        run: grep -o 'base href=".*"' ./build/index.html || echo "No base href found"
+
+      - name: Debug Build Output
+        run: ls -l ./build
 
       - name: Deploy to GH Pages subfolder
         uses: peaceiris/actions-gh-pages@v3
@@ -37,6 +46,12 @@ jobs:
           destination_dir: "preview/pr-${{ github.event.pull_request.number }}"
           commit_message: "Preview for PR #${{ github.event.pull_request.number }}"
           enable_jekyll: false
+
+      - name: Debug gh-pages branch after deployment
+        run: |
+          git fetch origin gh-pages
+          git checkout gh-pages
+          ls -l preview/pr-${{ github.event.pull_request.number }} || echo "Preview folder not found"
 
       - name: Comment on PR with preview link
         uses: thollander/actions-comment-pull-request@v2
