@@ -13,10 +13,10 @@ jobs:
       BASE_URL: "/docs-docusaurus/preview/pr-${{ github.event.pull_request.number }}/"
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18
@@ -25,14 +25,21 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Clean old build
-        run: rm -rf ./build
+      - name: Clean old build and cache
+        run: rm -rf ./build ./node_modules/.cache
 
-      - name: Build Docusaurus
-        run: BASE_URL=${{ env.BASE_URL }} npx docusaurus build
+      - name: Log BASE_URL
+        run: |
+            echo "Using BASE_URL: $BASE_URL"
+
+      - name: Build Docusaurus with correct BASE_URL
+        run: BASE_URL=${{ env.BASE_URL }} npm run build
 
       - name: Debug Base URL in index.html
-        run: grep -o 'base href=".*"' ./build/index.html || echo "No base href found"
+        run: grep -o '<base href=".*">' ./build/index.html || echo "No base href found"
+
+      - name: Create .nojekyll file
+        run: touch ./build/.nojekyll
 
       - name: Debug Build Output
         run: ls -l ./build
@@ -46,13 +53,13 @@ jobs:
           destination_dir: "preview/pr-${{ github.event.pull_request.number }}/"
           commit_message: "Preview for PR #${{ github.event.pull_request.number }}"
           enable_jekyll: false
-          force_orphan: true
+          keep_files: true
 
       - name: Debug gh-pages branch after deployment
         run: |
           git fetch origin gh-pages
           git checkout gh-pages
-          ls -l preview/pr-${{ github.event.pull_request.number }} || echo "Preview folder not found"
+          ls -l preview/pr-${{ github.event.pull_request.number }} || echo "Preview folder not found!"
 
       - name: Comment on PR with preview link
         uses: thollander/actions-comment-pull-request@v2
