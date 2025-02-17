@@ -75,8 +75,8 @@
 }
 
 html[data-theme='dark'] { /* Overriding root Infima variables */
+  background: #000000;
   --ifm-link-decoration: underline
-  
   // // Brand color testing
   // --ifm-background-color: #3700ff;
   // --ifm-background-surface-color: #3700ff;
@@ -331,11 +331,15 @@ color: white;
   color: var(--ifm-color-cyan)
 }
 
+.markdown > * {
+  font-family: "Inter Medium", sans-serif;
+}
+
 .toc-highlight:hover {
   color: var(--ifm-color-cyan) !important
 }
 
-.pagination > * > span, p, a {
+.pagination > * > span, p, .pagination-link {
   color: var(--ifm-menu-color);
   margin: 0;
   text-decoration: none !important;
@@ -359,7 +363,9 @@ color: white;
 }
 
 .pagination-right:active > * > span,
-.pagination-left:active > * > span {
+.pagination-left:active > * > span,
+.pagination-right:active > * > p,
+.pagination-left:active > * > p {
   color: var(--ifm-color-primary)
 }
 
@@ -432,8 +438,14 @@ color: white;
 }
 
 .markdown p > a {
-  color: var(--ifm-font-color-base);
+  color: var(--ifm-menu-color);
   text-decoration: underline;
+}
+
+.markdown > ul {
+  font-family: 'Inter Medium', sans-serif;
+  color: var(--ifm-menu-color);
+  font-size: 18px;
 }
 
 .markdown p > a:hover {
@@ -610,6 +622,84 @@ div[aria-label="Expand sidebar"] > svg > g {
   }
 }
 
+@media (max-width: 768px) {
+  table[data-view="cards"] {
+    display: none !important;
+  }
+  div[data-view="cards"] {
+    display: flex;
+    flex-direction: column;
+    gap: 10px
+  }
+
+  div[data-view="cards"] > a > strong {
+    font-size: 14px;
+  }
+
+  div[data-view="cards"] > a > span {
+    font-family: var(--ifm-font-family-base);
+    font-size: 16px
+  }
+
+  div[data-view="cards"] > a {
+    position: relative;
+    border: 1px solid transparent !important;
+    border-radius: 10px;
+    background: black;
+    overflow: hidden;
+    z-index: 2;
+    text-align: start;
+    padding: 0;
+    position: relative;
+    padding: 16px;
+    gap: 2px;
+    cursor: pointer;
+    background: transparent;
+    font-size: inherit;
+    border: none;
+    color: var(--ifm-font-color-base);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    justify-content: flex-end;
+    text-align: start;
+    -webkit-text-decoration: none;
+    text-decoration: none;
+  }
+
+  div[data-view="cards"] a::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    z-index: -2;
+    border-radius: 10px;
+    opacity: 0.7;
+    background: linear-gradient(135deg, yellow, orange, purple, blue);
+  }
+
+  div[data-view="cards"] a::after {
+    content: "";
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    right: 1px;
+    bottom: 1px;
+    z-index: -1;
+    border-radius: 9px;
+    background: black;
+  }
+}
+
+@media (min-width: 769px) {
+  div[data-view="cards"] {
+    display: none;
+  }
+}
+
 /* Make the search bar smaller on mobile */
 @media (max-width: 768px) {
   .navbar__search-input {
@@ -617,6 +707,31 @@ div[aria-label="Expand sidebar"] > svg > g {
     // font-size: 14px !important; /* Smaller font */
     // padding: 4px 8px !important; /* Adjust padding */
     height: 30px !important; /* Reduce height */
+  }
+
+  .theme-doc-markdown.markdown {
+    padding: 20px;
+  }
+
+  .theme-doc-footer.docusaurus-mt-lg {
+    margin-top: 16px;
+  }
+
+  .theme-doc-toc-mobile > div > ul {
+    border: none !important
+  }
+
+  .markdown h2 {
+    font-size: 30px;
+  }
+
+  .markdown hr {
+    display: none;
+  }
+
+  .pagination-left > * > p,
+  .pagination-right > * > P {
+    display: none;
   }
 
   // Hide the search bar text on mobile

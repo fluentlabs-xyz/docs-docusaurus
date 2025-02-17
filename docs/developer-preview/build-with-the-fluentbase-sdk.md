@@ -30,7 +30,6 @@ Contains all [Fluentbase modules](https://github.com/fluentlabs-xyz/fluentbase/t
 
 A [set of e2e tests](https://github.com/fluentlabs-xyz/fluentbase/tree/devel/e2e) for testing EVM transition and other Wasm features.
 
-***
 
 ## Supported Languages&#x20;
 
@@ -40,7 +39,6 @@ The Fluentbase SDK currently supports writing smart contracts in:
 * Solidity&#x20;
 * Vyper
 
-***
 
 ## Example Code
 
@@ -68,8 +66,6 @@ impl GREETING {
 }
 basic_entrypoint!(GREETING);
 ```
-
-***
 
 ## Fluentbase Operation
 

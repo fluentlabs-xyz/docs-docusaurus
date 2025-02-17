@@ -34,3 +34,17 @@ Smart contracts from different VM targets can directly call each other on Fluent
         </tr>
     </tbody>
 </table>
+<div data-view="cards">
+        <a href="developer-preview/connect-to-the-fluent-devnet">
+            <strong>Get Started</strong> 
+            <span>Connect to the Fluent Devnet</span>
+        </a>
+        <a href="developer-preview/connect-to-the-fluent-devnet">
+            <strong>Developers </strong>
+            <span>Explore developer documentation</span>
+        </a>
+        <a href="developer-guides/developer-quickstart-guides">
+            <strong>Technology </strong>
+            <span>Explore Fluent’s architecture</span>
+        </a>
+</div>

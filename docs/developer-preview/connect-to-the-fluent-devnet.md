@@ -26,8 +26,6 @@ To quickly integrate Fluent with MetaMask, visit our [Dev Homepage](https://dev.
 
 <table><tbody><tr><td><strong class="row-name">Faucet:</strong></td><td><a href="https://faucet.dev.gblend.xyz/">https://faucet.dev.gblend.xyz/</a></td></tr><tr><td><strong class="row-name">RPC:</strong></td><td><a href="https://rpc.dev.gblend.xyz/">https://textrpc.dev.gblend.xyz/</a></td></tr><tr><td><strong class="row-name">Explorer:</strong></td><td><a href="https://blockscout.dev.gblend.xyz/">https://blockscout.dev.gblend.xyz/</a></td></tr></tbody></table>
 
-***
-
 ## Supported Languages
 
 The Fluentbase SDK currently supports writing smart contracts in:

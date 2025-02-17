@@ -13,7 +13,7 @@ export default function DocPaginatorWrapper({previous, next}) {
       className='pagination'
     >
       {previous && (
-        <Link to={previous.permalink} style={{flex: 1}}>
+        <Link to={previous.permalink} style={{flex: 1}} className="pagination-link">
           <div className='pagination-left'>
           <div className="chevron-arrow-left"></div>
             <div>
@@ -24,7 +24,7 @@ export default function DocPaginatorWrapper({previous, next}) {
         </Link>
       )}
       {next && (
-        <Link to={next.permalink} style={{flex: 1}}>
+        <Link to={next.permalink} style={{flex: 1}} className="pagination-link">
          <div className='pagination-right'>
             <div>
               <span>Skip ahead</span>

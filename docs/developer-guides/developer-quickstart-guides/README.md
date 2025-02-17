@@ -69,3 +69,22 @@ Select the option that aligns with your preferred programming language for smart
         </tr>
     </tbody>
 </table>
+<div data-view="cards">
+    <a href="solidity">
+        <span>Smart Contracts on</span> 
+        <strong>Solidity</strong>
+    </a>
+    <a href="rust">
+        <span>Smart Contracts on</span> 
+        <strong>Rust</strong>
+    </a>
+    <a href="go">
+        <span>Smart Contracts on</span> 
+        <strong>Go</strong>
+    </a>
+    <a href="vyper">
+        <span>Smart Contracts on</span> 
+        <strong>Vyper</strong>
+    </a>
+</div>
+
