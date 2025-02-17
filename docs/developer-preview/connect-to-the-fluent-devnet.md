@@ -5,7 +5,7 @@ sidebar_position: 1
 
 # Connect to the Fluent Devnet
 
----
+
 Fluent Public Devnet
 ---
 
@@ -16,7 +16,7 @@ This is the second devnet version of the Fluent L2, explicitly designed for depl
 > Due to possible issues in devnet implementations, 
 > we can reset the network at any time to upgrade it to a more stable version.
 
-## **Network Parameters**
+## Network Parameters
 
 <table><tbody><tr><td><strong class="row-name">Network Name:</strong></td><td>Fluent Developer Preview</td></tr><tr><td><strong class="row-name">RPC URL:</strong></td><td><a href="https://rpc.dev.gblend.xyz/">https://rpc.dev.gblend.xyz/</a></td></tr><tr><td><strong class="row-name">Chain ID:</strong></td><td>20993</td></tr><tr><td><strong class="row-name">Symbol:</strong></td><td>ETH</td></tr></tbody></table>
 

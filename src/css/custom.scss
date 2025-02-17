@@ -311,27 +311,60 @@ color: white;
 }
 
 .container.padding-top--md.padding-bottom--lg > .row > .col.col--3 {
-  display: none;
+  //display: none;
 }
 
+.table-of-contents__left-border {
+  border-left: 1px solid var(--ifm-menu-color);
+  color: var(--ifm-menu-color);
+}
+
+.toc-highlight {
+  color: var(--ifm-menu-color);
+}
+
+.table-of-contents__left-border:hover > * > .toc-highlight {
+  color: white;
+}
+
+.table-of-contents__left-border:hover > * > .table-of-contents__link--active {
+  color: var(--ifm-color-cyan)
+}
+
+.toc-highlight:hover {
+  color: var(--ifm-color-cyan) !important
+}
+
+.table-of-contents__left-border:hover {
+  border-left: 1px solid var(--ifm-border-color);
+  opacity: 1;
+}
+
+
 .markdown h1:first-child {
-  font-weight: 300;
-  font-size: 40px;
-  font-family: "Bossa", sans-serif;
+  display: none;
 }
 
 .markdown h2 {
   font-weight: 300;
-  font-size: 36px;
+  margin-bottom: 25px;
+  font-size: 40px;
   font-family: "Bossa", sans-serif;
 }
 
 .markdown p {
   font-size: 18px;
+  font-family: 'Inter-Regular', sans-serif;
+  font-weight: 400;
 }
 
 .markdown p > a {
   color: var(--ifm-font-color-base);
+  text-decoration: underline;
+}
+
+.markdown p > a:hover {
+  color: #49EDED;
   text-decoration: underline;
 }
 
@@ -394,6 +427,7 @@ table thead tr {
 
 td > h4 > a {
   color: var(--ifm-color-cyan) !important;
+  font-weight: 500;
 }
 
 table[data-view="cards"] {
@@ -465,6 +499,31 @@ table[data-view="cards"] td:hover {
   border-color: transparent !important;
 }
 
+button[aria-label="Collapse sidebar"] {
+  background-color: var(--ifm-navbar-background-color);
+  border-right: none;
+  border-left: none;
+  border-bottom: none;
+  border-top: 1px solid var(--ifm-border-color);
+}
+
+div[aria-label="Expand sidebar"] {
+  background-color: var(--ifm-navbar-background-color);
+}
+
+button[aria-label="Collapse sidebar"]:hover,
+div[aria-label="Expand sidebar"]:hover {
+  background-color: var(--ifm-menu-color-background-hover);
+}
+
+button[aria-label="Collapse sidebar"] > svg,
+div[aria-label="Expand sidebar"] > svg,
+button[aria-label="Collapse sidebar"] > svg > g,
+div[aria-label="Expand sidebar"] > svg > g {
+  stroke: var(--ifm-menu-color);
+  fill: var(--ifm-menu-color);
+}
+
 @media (min-width: 997px) {
   .navbar_item_1 {
     padding-left: 150px;
@@ -509,6 +568,10 @@ a.hash-link {
 }
 
 a.theme-edit-this-page {
+  color: var(--ifm-font-color-base);
+}
+
+a.theme-edit-this-page:hover {
   color: var(--ifm-color-cyan);
 }
 

@@ -5,7 +5,6 @@ sidebar_position: 2
 
 # Build with the Fluentbase SDK
 
----
 Deploy on the Fluent Public Devnet
 ---
 

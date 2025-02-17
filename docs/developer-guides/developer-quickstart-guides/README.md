@@ -4,7 +4,6 @@ title: Building a Blended App
 
 # Developer Quickstart Guides
 
----
 Get started building on Fluent
 ---
 

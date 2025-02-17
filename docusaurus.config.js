@@ -54,6 +54,11 @@ module.exports = {
         apiKey: "5681f211df732bda5a2631e5d29b8efd",
         indexName: "Fluent",
       },
+      docs: {
+        sidebar: {
+          hideable: true,
+        },
+      },
       imageZoom: {
         // CSS selector to apply the plugin to, defaults to '.markdown img'
         // selector: '.markdown img',
