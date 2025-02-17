@@ -489,13 +489,17 @@ table th, table td {
   border-right: none
 }
 
+.theme-back-to-top-button {
+  display: none;
+}
+
 table td a {
   color: var(--ifm-font-color-base) !important;
   text-decoration: underline
 }
 
 td strong.row-name {
-  color: var(--ifn-color-cyan);
+  color: #49eded;
   font-family: var(--ifm-font-family-base);
   text-transform: uppercase;
 }
