@@ -335,6 +335,79 @@ color: white;
   color: var(--ifm-color-cyan) !important
 }
 
+.pagination > * > span, p, a {
+  color: var(--ifm-menu-color);
+  margin: 0;
+  text-decoration: none !important;
+  font-size: 13px;
+}
+
+.pagination-right > * > p,
+.pagination-left > * > p {
+  font-family: var(--ifm-font-family-base);
+  text-transform: uppercase;
+}
+
+.pagination-right:hover > * > span,
+.pagination-left:hover > * > span {
+  color: white
+}
+
+.pagination-right:hover > * > p,
+.pagination-left:hover > * > p {
+  color: white
+}
+
+.pagination-right:active > * > span,
+.pagination-left:active > * > span {
+  color: var(--ifm-color-primary)
+}
+
+.chevron-arrow-left {
+  display: inline-block;
+  border-right: 2px solid var(--ifm-menu-color);
+  border-bottom: 2px solid var(--ifm-menu-color);
+  width: 10px; height: 10px;
+  transform: rotate(-225deg);
+}
+
+.chevron-arrow-right {
+  display: inline-block;
+  border-right: 2px solid var(--ifm-menu-color);
+  border-bottom: 2px solid var(--ifm-menu-color);
+  width: 10px; height: 10px;
+  transform: rotate(-45deg);
+}
+
+.pagination-right:hover > .chevron-arrow-right,
+.pagination-left:hover > .chevron-arrow-left {
+  border-right: 2px solid white !important;
+  border-bottom: 2px solid white !important;
+}
+
+.pagination-right:active > .chevron-arrow-right,
+.pagination-left:active > .chevron-arrow-left {
+  border-right: 2px solid var(--ifm-color-primary) !important;
+  border-bottom: 2px solid var(--ifm-color-primary) !important;
+}
+
+.pagination-right,
+.pagination-left {
+  background: var(--ifm-navbar-background-color);
+  border-radius: 10px;
+  flex-grow: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 18px
+}
+
+.pagination-right {
+  justify-content: flex-end;
+  text-align: end;
+}
+
 .table-of-contents__left-border:hover {
   border-left: 1px solid var(--ifm-border-color);
   opacity: 1;
@@ -529,7 +602,7 @@ div[aria-label="Expand sidebar"] > svg > g {
     padding-left: 150px;
   }
   .container.padding-top--md.padding-bottom--lg > .row > .col {
-    max-width: unset !important;
+    // max-width: unset !important;
     padding-left: 0;
   }
   .theme-doc-sidebar-container {
