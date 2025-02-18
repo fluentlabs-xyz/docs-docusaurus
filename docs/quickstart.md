@@ -4,11 +4,7 @@ sidebar_position: 1
 slug: /
 ---
 
-# What is Fluent?
-
----
-The First Blended Execution Network
----
+# Fluent - The First Blended Execution Network
 
 Fluent is the first [blended execution network](https://mirror.xyz/fluentlabs.eth/8IelEprNblwr1HENCzbp9WFEc7FieEapD5SAiBNUBGA) - an Ethereum L2 and framework that blends Wasm, EVM and (soon) SVM-based smart contracts into a unified execution environment.
 
@@ -17,21 +13,38 @@ Smart contracts from different VM targets can directly call each other on Fluent
 <table data-column-title-hidden data-view="cards">
     <tbody>
         <tr>
-            <td align="center">
-                <strong>Get Started</strong> 
-                <br> </br>
-                <a href="developer-preview/connect-to-the-fluent-devnet">Connect to the Fluent Devnet.</a>
+            <td>
+                <a href="developer-preview/connect-to-the-fluent-devnet">
+                    <strong>Get Started</strong> 
+                    <span>Connect to the Fluent Devnet</span>
+                </a>
             </td>
-            <td align="center">
-                <strong>Developers </strong>
-                <br> </br>
-                <a href="developer-preview/connect-to-the-fluent-devnet">Explore Fluent’s developer documentation.</a>
+            <td>
+                <a href="developer-preview/connect-to-the-fluent-devnet">
+                    <strong>Developers </strong>
+                    <span>Explore developer documentation</span>
+                </a>
             </td>
-            <td align="center">
-                <strong>Technology </strong>
-                <br> </br> 
-                <a href="developer-guides/developer-quickstart-guides">Dive into Fluent's architecture</a>
+            <td>
+                <a href="developer-guides/developer-quickstart-guides">
+                    <strong>Technology </strong>
+                    <span>Explore Fluent’s architecture</span>
+                </a>
             </td>
         </tr>
     </tbody>
 </table>
+<div data-view="cards">
+        <a href="developer-preview/connect-to-the-fluent-devnet">
+            <strong>Get Started</strong> 
+            <span>Connect to the Fluent Devnet</span>
+        </a>
+        <a href="developer-preview/connect-to-the-fluent-devnet">
+            <strong>Developers </strong>
+            <span>Explore developer documentation</span>
+        </a>
+        <a href="developer-guides/developer-quickstart-guides">
+            <strong>Technology </strong>
+            <span>Explore Fluent’s architecture</span>
+        </a>
+</div>

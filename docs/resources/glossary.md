@@ -5,10 +5,6 @@ sidebar_position: 1
 
 # Glossary
 
----
-Short descriptions of Fluent specific keywords and concepts.
----
-
 ## The Fluent VM
 
 Fluent's rWasm (reduced WebAssembly) virtual machine (VM) is a versatile VM that simulates the execution environment (EE) of multiple distinct VMs including Wasm, the EVM, the SVM, and more.

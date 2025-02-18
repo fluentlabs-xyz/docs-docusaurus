@@ -5,7 +5,6 @@ sidebar_position: 2
 
 # Build with the Fluentbase SDK
 
----
 Deploy on the Fluent Public Devnet
 ---
 
@@ -25,13 +24,12 @@ A [crate](https://github.com/fluentlabs-xyz/fluentbase/tree/devel/bin) with a bi
 
 Contains all [Fluentbase modules](https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates).
 
-<table><thead><tr><th width="227">Crates</th><th>Explanation</th></tr></thead><tbody><tr><td><h4><a href="https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/codec"><code>codec</code></a></h4></td><td><p>A crate with a custom ABI codec for encoding/decoding input messages. </p><p></p><p>This codec is optimized for random reads that are used to extract only required information from passed system context. </p><p></p><p>It’s very similar to Solidity ABI encoding, but uses a more Wasm friendly binary encoding and alignment. </p></td></tr><tr><td><h4><a href="https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/contracts"><code>contracts</code></a></h4></td><td>A crate with all system precompiled contracts that brings support of different execution environment (EE) compatibility, including the EVM, SVM, Wasm and all corresponding system contracts like blake2, sha256, etc. </td></tr><tr><td><h4><a href="https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/core"><code>core</code></a> </h4></td><td>Core of EE runtimes with EVM, SVM, and Wasm support including deployment logic, AOT translation and contract execution. </td></tr><tr><td><h4><a href="https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/evm"><code>evm (outdated)</code></a></h4></td><td>Contains EVM AOT compiler.</td></tr><tr><td><h4><a href="https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/genesis"><code>genesis</code></a></h4></td><td>A program for creating genesis files for the Fluent L2 network with precompiled system and compatibility contracts. </td></tr><tr><td><h4><a href="https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/poseidon"><code>poseidon</code></a> </h4></td><td>Library for poseidon hashing. </td></tr><tr><td><h4><a href="https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/revm"><code>revm (migrating)</code></a></h4></td><td>The fork of revm crate, but optimized and adapted for Fluentbase SDK methods and which maps the original revm’s database objects into Fluentbase’s structures. It’s needed to execute EVM transactions inside reth. </td></tr><tr><td><h4><a href="https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/runtime"><code>runtime</code></a></h4></td><td> A basic execution runtime of rWasm that enables Fluentbase’s host functions. </td></tr><tr><td><h4><a href="https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/sdk"><code>sdk</code></a></h4></td><td>A basic repository for developers where they can explore all required types and methods to develop their applications. It also includes macroses, definition of entrypoint, allocator, etc. </td></tr><tr><td><h4><a href="https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/types"><code>types</code></a></h4></td><td>Contains basic primitive types for all crates.</td></tr><tr><td><h4><a href="https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/zktrie"><code>zktrie</code></a></h4></td><td>Implementation of the zktrie (sparse merkle binary trie).</td></tr></tbody></table>
+<table><tbody><tr><td><h4><a href="https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/codec"><code>codec</code></a></h4></td><td><p>A crate with a custom ABI codec for encoding/decoding input messages. </p><p></p><p>This codec is optimized for random reads that are used to extract only required information from passed system context. </p><p></p><p>It’s very similar to Solidity ABI encoding, but uses a more Wasm friendly binary encoding and alignment. </p></td></tr><tr><td><h4><a href="https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/contracts"><code>contracts</code></a></h4></td><td>A crate with all system precompiled contracts that brings support of different execution environment (EE) compatibility, including the EVM, SVM, Wasm and all corresponding system contracts like blake2, sha256, etc. </td></tr><tr><td><h4><a href="https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/core"><code>core</code></a> </h4></td><td>Core of EE runtimes with EVM, SVM, and Wasm support including deployment logic, AOT translation and contract execution. </td></tr><tr><td><h4><a href="https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/evm"><code>evm (outdated)</code></a></h4></td><td>Contains EVM AOT compiler.</td></tr><tr><td><h4><a href="https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/genesis"><code>genesis</code></a></h4></td><td>A program for creating genesis files for the Fluent L2 network with precompiled system and compatibility contracts. </td></tr><tr><td><h4><a href="https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/poseidon"><code>poseidon</code></a> </h4></td><td>Library for poseidon hashing. </td></tr><tr><td><h4><a href="https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/revm"><code>revm (migrating)</code></a></h4></td><td>The fork of revm crate, but optimized and adapted for Fluentbase SDK methods and which maps the original revm’s database objects into Fluentbase’s structures. It’s needed to execute EVM transactions inside reth. </td></tr><tr><td><h4><a href="https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/runtime"><code>runtime</code></a></h4></td><td> A basic execution runtime of rWasm that enables Fluentbase’s host functions. </td></tr><tr><td><h4><a href="https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/sdk"><code>sdk</code></a></h4></td><td>A basic repository for developers where they can explore all required types and methods to develop their applications. It also includes macroses, definition of entrypoint, allocator, etc. </td></tr><tr><td><h4><a href="https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/types"><code>types</code></a></h4></td><td>Contains basic primitive types for all crates.</td></tr><tr><td><h4><a href="https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/zktrie"><code>zktrie</code></a></h4></td><td>Implementation of the zktrie (sparse merkle binary trie).</td></tr></tbody></table>
 
 3. ### `e2e` (partially outdated)
 
 A [set of e2e tests](https://github.com/fluentlabs-xyz/fluentbase/tree/devel/e2e) for testing EVM transition and other Wasm features.
 
-***
 
 ## Supported Languages&#x20;
 
@@ -41,7 +39,6 @@ The Fluentbase SDK currently supports writing smart contracts in:
 * Solidity&#x20;
 * Vyper
 
-***
 
 ## Example Code
 
@@ -69,8 +66,6 @@ impl GREETING {
 }
 basic_entrypoint!(GREETING);
 ```
-
-***
 
 ## Fluentbase Operation
 

@@ -31,3 +31,8 @@ Fluent supports atomic composability between apps targeting different VMs, and â
         </tr>
     </tbody>
 </table>
+<div data-view="cards">
+    <a href="the-fluent-vm">The Virtual Machine</a>
+    <a href="the-fluent-l2-network">The Layer 2 Network</a>
+    <a href="the-fluentbase-framework">The Development Framework</a>
+</div>
