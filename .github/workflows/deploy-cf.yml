@@ -36,7 +36,7 @@ jobs:
 
       - name: Deploy to Cloudflare Pages
         working-directory: ./deploy
-        run: npx wrangler pages deploy . --project-name=docs-docusaurus --commit-dirty=true
+        run: npx wrangler pages deploy .  --commit-dirty=true
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
