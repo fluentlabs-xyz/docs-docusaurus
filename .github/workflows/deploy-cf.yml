@@ -22,14 +22,15 @@ jobs:
         run: npm ci
       - name: Build website
         run: npm run build
+        env:
+          NODE_ENV: production
 
-      - name: Prepare deployment
-        run: |
-          mkdir -p ./deploy
-          cp -r build/* ./deploy/
-          cd ./deploy
-          echo '{"name":"deploy","version":"1.0.0","private":true}' > package.json
-          npm install wrangler@3 --save-dev
+      - name: Deploy to Cloudflare
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy build --project-name=docs-docusaurus
 
       - name: Deploy to Cloudflare Pages
         working-directory: ./deploy
