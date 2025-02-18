@@ -166,7 +166,8 @@ module.exports = {
       },
       colorMode: {
         defaultMode: "dark",
-        disableSwitch: false,
+        // Turn light and dark mode theme button on (false) or off (true).
+        disableSwitch: true,
         respectPrefersColorScheme: true,
       },
     }),
