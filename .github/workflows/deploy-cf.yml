@@ -16,6 +16,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
       - uses: actions/setup-node@v4
         with:
           node-version: 18
@@ -23,6 +24,7 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
       - name: Build website
         run: npm run build
 
@@ -36,7 +38,25 @@ jobs:
 
       - name: Deploy to Cloudflare Pages
         working-directory: ./deploy
-        run: npx wrangler pages deploy . --project-name=docs-docusaurus --commit-dirty=true
+        run: |
+          echo "Starting Cloudflare Pages deployment..."
+          npx wrangler pages deploy . --project-name=docs-docusaurus --commit-dirty=true 2>&1 | tee deploy.log
+
+          DEPLOY_URL=$(grep -o 'https://.*\.pages\.dev' deploy.log | head -n 1)
+
+          if [ -n "$DEPLOY_URL" ]; then
+            echo "DEPLOY_URL=$DEPLOY_URL" >> $GITHUB_ENV
+          else
+            echo "Failed to extract deploy URL."
+            exit 1
+          fi
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: Comment on PR with Preview URL
+        if: github.event_name == 'pull_request'
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          message: "🚀 **Preview deployed!**\n🔗 [View preview](${{ env.DEPLOY_URL }})"
+          comment_tag: preview-url
