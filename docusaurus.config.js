@@ -102,12 +102,12 @@ module.exports = {
             position: "left",
             // className: 'navbar_item_button',
           },
-          {
-            href: "https://defillama.com/chain/Ethereum",
-            label: "Ecosystem",
-            position: "left",
-            // className: 'navbar_item_1',
-          },
+          // {
+          //   href: "https://defillama.com/chain/Ethereum",
+          //   label: "Ecosystem",
+          //   position: "left",
+          //   // className: 'navbar_item_1',
+          // },
           {
             href: "https://discord.com/invite/fluentxyz",
             label: "Discord",
