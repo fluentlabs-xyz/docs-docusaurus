@@ -9,7 +9,7 @@ jobs:
   deploy:
     name: Deploy Docusaurus
     runs-on: ubuntu-latest
-    name: Deploy Docs
+    name: Deploy
     steps:
       - uses: actions/checkout@v4
         with:
