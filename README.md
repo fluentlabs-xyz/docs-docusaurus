@@ -2,9 +2,9 @@
 
 This website is built using Docusaurus 3.7.0, a modern static website generator.
 
-### GitHub Pages Hosted Website
+### Cloudflare Pages Hosted Website
 
-https://fluentlabs-xyz.github.io/docs-docusaurus/
+https://docs.fluent.xyz/
 
 ### Installation
 
