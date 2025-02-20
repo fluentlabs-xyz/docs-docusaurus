@@ -100,8 +100,11 @@ Executing this command compiles the code and generates a file named `lib.wasm` i
 
 To deploy contract, use gblend cli:
 
-```bash
-gblend deploy --private-key <PRIVATE_KEY> --dev lib.wasm --gas-limit 300000000
+```shell
+gblend deploy \
+--private-key <PRIVATE_KEY> \
+--dev lib.wasm \
+--gas-limit 300000
 ```
 
 Upon successful deployment, the receipt of your deployment transaction will be displayed, confirming the smart contract deployment on Fluent using the Fluent SDK.
