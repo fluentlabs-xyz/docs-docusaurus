@@ -53,7 +53,7 @@ pub trait RouterAPI
 is used to define Solidity interfaces.
 
 ```rust
-impl<SDK: SharedAPI> RouterAPI for ROUTER<SDK> > Solidity Function Implementations
+impl<SDK: SharedAPI> RouterAPI for ROUTER<SDK> 
 ```
 is used to define Solidity function implementations.
 
