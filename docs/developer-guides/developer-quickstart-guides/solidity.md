@@ -9,10 +9,106 @@ sidebar_position: 1
 
 Before getting started, make sure to install the following:
 
-* npm >= 19
-* [Fluent build tool]
+*Foundry 
 
-## Install Fluent Scaffold CLI Tool
+## Install Foundry
+
+Install Foundry
+```shell
+curl -L https://foundry.paradigm.xyz | bash
+```
+Update Foundry
+```shell
+foundryup
+```
+
+reference:
+
+https://book.getfoundry.sh/getting-started/installation
+
+## Start Foundry Project
+
+Generate Foundry file in your current directory
+
+```shell
+forge init 
+```
+
+## Start Solidity Contract
+
+In folder 
+
+```
+src
+```
+
+create a new file called
+
+```
+Contract.sol
+```
+
+and copy the contract below:
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.28;
+
+contract SimpleStorage {
+
+    uint256 public storedData; //Do not set 0 manually it wastes gas!
+
+    event setEvent();
+    
+    function set(uint256 x) public {
+        storedData = x;
+        emit setEvent();
+    }
+
+}
+```
+
+## Deploy and Verify 
+
+:::warning
+Note: Blockscout verification might fail during deployment.
+If this happens, verify the contract after it is deployed.
+:::
+
+```shell
+forge create src/Contract.sol:SimpleStorage \
+--private-key $devTestnetPrivateKey \
+--rpc-url https://rpc.dev.gblend.xyz/ \
+--broadcast \
+--verify \
+--verifier blockscout \
+--verifier-url https://blockscout.dev.gblend.xyz/api/
+```
+
+## Verify Contract Already Deployed 
+
+:::info
+Replace variable
+```
+<contract_address>
+```
+with the deployed contract address on Fluent testnet.
+:::
+
+
+```shell
+forge verify-contract \
+--rpc-url https://rpc.dev.gblend.xyz/ \
+<contract_address> \
+src/Contract.sol:SimpleStorage \
+--verifier blockscout \
+--verifier-url https://blockscout.dev.gblend.xyz/api/
+```
+
+<!-- * npm >= 19 -->
+<!-- * [Fluent build tool] -->
+
+<!-- ## Install Fluent Scaffold CLI Tool
 
 To install the Fluent scaffold CLI tool, run the following command in your terminal:
 
@@ -26,9 +122,9 @@ To create a project, run the following in your terminal:
 gblend init
 ```
 
-This will prompt you to choose from the available setup options. You can opt for either **Hardhat, JavaScript or TypeScript**; in this guide, we'll proceed with **JavaScript**.
+This will prompt you to choose from the available setup options. You can opt for either **Hardhat, JavaScript or TypeScript**; in this guide, we'll proceed with **JavaScript**. -->
 
-## **Project Structure**
+<!-- ## **Project Structure**
 
 ```
 .
@@ -40,17 +136,17 @@ This will prompt you to choose from the available setup options. You can opt for
 └── scripts
     ├── deploy-solidity.js (deployment script for solidity smart contract)
     └── deploy-vyper.js
-```
+``` -->
 
-## Getting Started
+<!-- ## Getting Started
 
 Before we interact with our `helloworld` smart contract, run the below command to install all dependencies in the `package.json` file.
 
 ```bash
 npm install
-```
+``` -->
 
-### Hardhat Configs
+<!-- ### Hardhat Configs
 
 To first get a quick sense of Fluent's network parameters, head over to the `hardhat.config.js` file in the root directory.&#x20;
 
@@ -81,8 +177,8 @@ require("@nomiclabs/hardhat-vyper");
     };
   
 
-```
-
+``` -->
+<!-- 
 Within the `networks` object, you can see the **`fluent_devnet1`** configuration. This specifies the URL to connect to the Fluent Devnet, along with the chain ID and the accounts available for transactions.
 
 > ℹ️ **Note**  
@@ -93,9 +189,9 @@ Next, let's explore how you can compile and deploy your first smart contract to 
 
 ### Compiling the Smart Contract
 
-If you take a look in the `contracts/` folder, you'll see `hello.sol` file:
+If you take a look in the `contracts/` folder, you'll see `hello.sol` file: -->
 
-```solidity
+<!-- ```
 // SPDX-License-Identifier: MIT
     pragma solidity ^0.8.0;
     contract Hello {
@@ -103,15 +199,15 @@ If you take a look in the `contracts/` folder, you'll see `hello.sol` file:
             return "Hello, Solidity!";
         }
     }
-```
+``` -->
 
-To compile it, simply run:
+<!-- To compile it, simply run:
 
 ```bash
  npm run compile
-```
+``` -->
 
-### Deploying the Solidity contract
+<!-- ### Deploying the Solidity contract
 
 In the `scripts` folder is the deployment script `deploy-solidity.js`:
 
@@ -159,4 +255,4 @@ npx hardhat run scripts/deploy-solidity.js --network fluent_devnet1
 # Contract address: 
 ```
 
-To view your deployed contract on Fluent, navigate to the [Fluent Devnet Explorer](https://blockscout.dev.gblend.xyz/). From there, you can input your token address to explore your deployed contract.
+To view your deployed contract on Fluent, navigate to the [Fluent Devnet Explorer](https://blockscout.dev.gblend.xyz/). From there, you can input your token address to explore your deployed contract. -->
