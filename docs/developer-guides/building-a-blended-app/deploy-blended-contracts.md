@@ -3,7 +3,7 @@ title: Step 3 - Deploy Blended Contracts
 sidebar_position: 4
 ---
 
-# Step 3: Deploy Blended Contracts
+<!-- # Step 3: Deploy Blended Contracts
 
 ### 3.1 Create the Deployment Script
 
@@ -134,4 +134,46 @@ Run the following commands to compile and deploy your contracts:
 pnpm hardhat compile
 pnpm hardhat deploy
 pnpm hardhat get-greeting --contract <CONTRACT_ADDRESS>
+``` -->
+
+# Step 3: Deploy Blended Contracts
+
+### 3.1 Deploy the Rust Contract with gblend
+
+```shell
+gblend deploy --private-key <PRIVATE_KEY> \ 
+--dev lib.wasm \ 
+--gas-limit 300000000
 ```
+
+### 3.2 Deploy the Solidity Contract with Remix IDE
+
+Copy and paste the Solidity contract above into Remix IDE.
+Select:
+```
+Deploy & Run Transactions > Environment > Injected Provider - Metamask
+```
+while connected to Fluent testnet, then deploy the contract with the deployed Rust contract address
+for the constructor input argument.
+
+### 3.3 Verify the Solidity Contract with Blockscout Frontend
+
+Go to the Fluent testnet Blockscout Explorer:
+
+https://blockscout.dev.gblend.xyz/
+
+Search for the contract address the Solidity contract was deployed to. 
+Go to:
+```
+Contract > Verify & publish
+```
+then select the correct parameters to verify the contract.
+
+### 3.4 Read the Solidity function return values
+
+With the Solidity contract verified on Blockscout, we are now able to test 
+the Solidity and Rust contract Blended App. With the verified Solidity contract on Blockscout, go to:
+```
+Read/Write contract > Read
+``` 
+and click on the different function names. You should see values that match the correct type for that function name, confirming your Blended App is setup between Solidity and Rust.

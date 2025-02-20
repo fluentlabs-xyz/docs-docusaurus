@@ -5,46 +5,58 @@ sidebar_position: 2
 
 # Step 1: Start Rust Contract
 
-### 1.1 Set Up the Rust Project
+<!-- ### 1.1 Set Up the Rust Project with Cargo
 
 ```bash
-cargo new --lib greeting
-cd greeting
+cargo new --lib types_test
+cd types_test
+``` -->
+
+### 1.1 Set Up the Rust Project with gblend
+
+
+<!-- > ℹ️ **Note**  
+>
+> You can also set up your first blended app with 
+> 
+>```shell
+>   gblend init
+>``` -->
+
+To install the Fluent scaffold CLI tool, run the following command in your terminal:
+
+```bash
+cargo install gblend
 ```
 
-### 1.2 Configure the Rust Project
+To create a project, run the following in your terminal:
 
-`Cargo.toml`
-
-```toml
-[package]
-edition = "2021"
-name = "greeting"
-version = "0.1.0"
-
-[dependencies]
-alloy-sol-types = {version = "0.7.4", default-features = false}
-fluentbase-sdk = {git = "https://github.com/fluentlabs-xyz/fluentbase", default-features = false}
-
-[lib]
-crate-type = ["cdylib", "staticlib"] #For accessing the C lib
-path = "src/lib.rs"
-
-[profile.release]
-lto = true
-opt-level = 'z'
-panic = "abort"
-strip = true
-
-[features]
-default = []
-std = [
-  "fluentbase-sdk/std",
-]
-
+```bash
+gblend init
 ```
 
-### 1.3 Write the Rust Smart Contract
+then use the arrow keys to get to option:
+```
+Rust
+```
+then press enter. This will generate the following files:
+```
+>Cargo.toml (Rust dependencies)
+>lib.rs (Rust contract)
+```
+
+### 1.2 Write the Rust Smart Contract with Fluentbase SDK
+
+```rust
+pub trait RouterAPI
+```
+is used to define Solidity interfaces.
+
+```rust
+impl<SDK: SharedAPI> RouterAPI for ROUTER<SDK> > Solidity Function Implementations
+```
+is used to define Solidity function implementations.
+
 
 `src/lib.rs`
 
@@ -57,6 +69,12 @@ use fluentbase_sdk::{
     basic_entrypoint,
     derive::{function_id, router, Contract},
     SharedAPI,
+    U256,    // alloy Solidity type for uint256
+    Address, // alloy Solidity type for address
+    address, // alloy Solidity marco to define values for type Address
+    Bytes,   // alloy Solidity type for bytes
+    B256,    // alloy Solidity type for bytes32
+    b256     // alloy Solidity marco to define values for type B256
 };
 
 #[derive(Contract)]
@@ -65,15 +83,63 @@ struct ROUTER<SDK> {
 }
 
 pub trait RouterAPI {
-    fn greeting(&self) -> String;
+    // Make sure type interfaces are defined here or else there will be a compiler error.
+    fn rustString(&self) -> String;
+    fn rustUint256(&self) -> U256;
+    // fn rustInt256(&self) -> I256;
+    fn rustAddress(&self) -> Address;
+    fn rustBytes(&self) -> Bytes;
+    fn rustBytes32(&self) -> B256;
+    fn rustBool(&self) -> bool;
 }
 
 #[router(mode = "solidity")]
 impl<SDK: SharedAPI> RouterAPI for ROUTER<SDK> {
-    #[function_id("greeting()")]
-    fn greeting(&self) -> String {
-        "Hello".to_string()
+
+    // ERC-20 with Fluent SDK example:
+    // https://github.com/fluentlabs-xyz/fluentbase/blob/devel/examples/erc20/lib.rs
+
+    #[function_id("rustString()")]
+    fn rustString(&self) -> String {
+        let string_test = "Hello".to_string();
+        return string_test;
     }
+
+    #[function_id("rustUint256()")]
+    fn rustUint256(&self) -> U256 {
+        let uint256_test = U256::from(10);
+        return uint256_test;
+    }
+
+    // #[function_id("rustInt256()")]
+    // fn rustInt256(&self) -> I256 {
+    //     return I256::from(-10)
+    // }
+
+    #[function_id("rustAddress()")]
+    fn rustAddress(&self) -> Address {
+        let address_test: Address = address!("d8da6bf26964af9d7eed9e03e53415d37aa96045"); // vitalik.eth 0xd8da6bf26964af9d7eed9e03e53415d37aa96045
+        return address_test;
+    }
+    
+    #[function_id("rustBytes()")]
+    fn rustBytes(&self) -> Bytes {
+        let bytes_test = Bytes::from("FLUENT");
+        return bytes_test;
+    }
+
+    #[function_id("rustBytes32()")]
+    fn rustBytes32(&self) -> B256 {
+        let bytes256_test = b256!("0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
+        return bytes256_test;
+    }
+
+    #[function_id("rustBool()")]
+    fn rustBool(&self) -> bool {
+        let bool_test = true;
+        return bool_test;
+    }
+
 }
 
 impl<SDK: SharedAPI> ROUTER<SDK> {
@@ -143,6 +209,40 @@ This macro invocation sets up the `ROUTER` struct as the main entry point for th
 This Rust code defines a smart contract that will be compiled to WebAssembly. The contract implements a single function `greeting` that returns the string "Hello". The contract is designed to be called from a Solidity environment, showcasing interoperability between different virtual machines. The `basic_entrypoint!` macro ties everything together, making `ROUTER` the entry point for the contract.
 
 </details>
+
+### 1.3 Optional Example Rust Cargo.toml file with Fluentbase SDK
+
+You can manually create the TOML file for your rust project with the Fluentbase SDK as well like the example below.
+This is already done in the gblend tool for reference.
+
+`Cargo.toml`
+
+```toml
+[package]
+edition = "2021"
+name = "types_test"
+version = "0.1.0"
+
+[dependencies]
+alloy-sol-types = {version = "0.7.4", default-features = false}
+fluentbase-sdk = {git = "https://github.com/fluentlabs-xyz/fluentbase", default-features = false}
+
+[lib]
+crate-type = ["cdylib", "staticlib"] #For accessing the C lib
+path = "src/lib.rs"
+
+[profile.release]
+lto = true
+opt-level = 'z'
+panic = "abort"
+strip = true
+
+[features]
+default = []
+std = [
+  "fluentbase-sdk/std",
+]
+```
 
 ### 1.4 Build the Wasm Project
 
