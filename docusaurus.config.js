@@ -27,12 +27,23 @@ module.exports = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
+         
           routeBasePath: "/",
+         
+          // // Custom sidebars file logic defined here.
           // sidebarPath: require.resolve('./sidebars.js'),
+        
+          // Sidebar plugins documentation:
+          // https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-docs
+         
+          // "sidebarCollapsible: false" forces all sidebars to be open at all times.
+          sidebarCollapsible: false,
+          // "sidebarCollapsed: false" sets all sidebars to open by default. Might be over written in CSS.
           sidebarCollapsed: false,
-          // Please change this to your repo.
-          editUrl:
-            "https://github.com/fluentlabs-xyz/docs-docusaurus/blob/main/",
+          
+          // "Edit this page" will redirect to this defined full GitHub repository with the branch defined as well.
+          editUrl: "https://github.com/fluentlabs-xyz/docs-docusaurus/blob/main/",
+          
         },
         blog: false,
         theme: {
@@ -57,6 +68,9 @@ module.exports = {
       docs: {
         sidebar: {
           hideable: true,
+          // // autoCollapseCategories option would collapse all sibling categories when expanding one category. 
+          // // This saves the user from having too many categories open and helps them focus on the selected section.
+          // autoCollapseCategories: true,
         },
       },
       imageZoom: {
