@@ -141,9 +141,10 @@ pnpm hardhat get-greeting --contract <CONTRACT_ADDRESS>
 ### 3.1 Deploy the Rust Contract with gblend
 
 ```shell
-gblend deploy --private-key <PRIVATE_KEY> \ 
---dev lib.wasm \ 
---gas-limit 300000000
+gblend deploy \
+--private-key <PRIVATE_KEY> \
+--dev lib.wasm \
+--gas-limit 300000
 ```
 
 ### 3.2 Deploy the Solidity Contract with Remix IDE
