@@ -3,7 +3,7 @@ title: Step 2 - Start Solidity Contract
 sidebar_position: 3
 ---
 
-# Step 2: Start Solidity Contract
+<!-- # Step 2: Start Solidity Contract -->
 
 <!-- ### 2.1 Create Your Project Directory
 
@@ -147,7 +147,7 @@ The final contract
 
 <!-- </details> -->
 
-# Step 2: Start Solidity Contract
+<!-- # Step 2: Start Solidity Contract -->
 
 ### 2.1 Solidity Contract with Interface 
 
@@ -240,12 +240,12 @@ contract FluentSdkRustTypesTest {
   * Calls the `greeting` function of the `fluentGreetingContract` to get the greeting message from the Rust contract.
   * Concatenates the greeting message with ", World" using `abi.encodePacked` and returns the resulting string.
 
-## Interaction with Rust Code:
+#### Interaction with Rust Code:
 
 * The `GreetingWithWorld` contract interacts with the Rust smart contract by calling the `greeting` function via the `IFluentGreeting` interface.
 * When `getGreeting` is called, it fetches the greeting message ("Hello") from the Rust contract, concatenates it with ", World", and returns the complete greeting ("Hello, World").
 
-## How Solidity and Rust Interact:
+#### How Solidity and Rust Interact:
 
 1. **Rust Smart Contract Deployment**: The Rust smart contract is compiled to Wasm and deployed to the blockchain. It contains a function that returns the greeting "Hello".
 2. **Solidity Interface (`IFluentGreeting`)**: The Solidity interface declares a `greeting` function that matches the function in the Rust contract.
