@@ -6,10 +6,10 @@
 
 // Fonts from local scss files which import the raw font files.
 
-// @import 'satoshi';
-// @import 'montserrat';
-@import 'bossa';
-@import 'inter';
+@import 'fonts/satoshi';
+@import 'fonts/montserrat';
+@import 'fonts/bossa';
+@import 'fonts/inter';
 
 @import "~polipop/src/sass/core";
 @import "~polipop/src/sass/default";
