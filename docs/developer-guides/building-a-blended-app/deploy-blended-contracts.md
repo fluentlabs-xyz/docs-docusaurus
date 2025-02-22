@@ -144,7 +144,7 @@ pnpm hardhat get-greeting --contract <CONTRACT_ADDRESS>
 gblend deploy \
 --private-key <PRIVATE_KEY> \
 --dev lib.wasm \
---gas-limit 300000
+--gas-limit 3000000
 ```
 
 ### 3.2 Deploy the Solidity Contract with Remix IDE
