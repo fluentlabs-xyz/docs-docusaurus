@@ -39,7 +39,7 @@ Select the option that aligns with your preferred programming language for smart
 
 ## Smart Contracts on Fluent Guides
 
-<table data-column-title-hidden data-view="cards">
+<table data-column-title-hidden data-view="cards" id="language-table">
     <tbody>
         <tr>
             <td>
@@ -69,7 +69,7 @@ Select the option that aligns with your preferred programming language for smart
         </tr>
     </tbody>
 </table>
-<div data-view="cards">
+<div data-view="cards" id="language-table">
     <a href="solidity">
         <span>Smart Contracts on</span> 
         <strong>Solidity</strong>
