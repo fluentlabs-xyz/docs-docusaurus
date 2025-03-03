@@ -9,7 +9,7 @@ sidebar_position: 1
 Fluent Public Devnet
 ---
 
-This is the second devnet version of the Fluent L2, explicitly designed for deploying and interacting with EVM and Rust-based smart contracts. Solidity and Rust contracts can be deployed independently, or call each other as part of a [blended application](https://docs.fluentlabs.xyz/learn/developer-guides/building-a-blended-app) that utilizes both types of contracts.
+This is the second devnet version of the Fluent L2, explicitly designed for deploying and interacting with EVM and Rust-based smart contracts. Solidity and Rust contracts can be deployed independently, or call each other as part of a [blended application](https://docs.fluent.xyz/developer-guides/building-a-blended-app/) that utilizes both types of contracts.
 
 > ⚠️ **Caution**  
 >
