@@ -39,6 +39,7 @@ module.exports = {
           // "sidebarCollapsible: false" forces all sidebars to be open at all times.
           // sidebarCollapsible: true,
           // "sidebarCollapsed: false" sets all sidebars to open by default. Might be over written in CSS.
+          sidebarCollapsed: false,
           
           // "Edit this page" will redirect to this defined full GitHub repository with the branch defined as well.
           editUrl: "https://github.com/fluentlabs-xyz/docs-docusaurus/blob/main/",
