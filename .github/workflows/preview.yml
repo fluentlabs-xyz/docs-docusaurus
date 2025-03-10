@@ -56,25 +56,27 @@ jobs:
               return;
             }
 
-            // Save PR info for later steps
+            // Save PR info for later steps, including the commit SHA
+            const commit_sha = pull.data.head.sha;
             core.setOutput("pr_number", issue_number);
-            core.setOutput("pr_sha", pull.data.head.sha);
+            core.setOutput("pr_sha", commit_sha);
+            core.setOutput("short_sha", commit_sha.substring(0, 7));
 
             // Comment that deployment is starting
             await github.rest.issues.createComment({
               owner,
               repo,
               issue_number,
-              body: `🔄 @${commenter} triggered a preview deployment. Deployment starting...`
+              body: `🔄 @${commenter} triggered a preview deployment for commit ${commit_sha.substring(0, 7)}. Deployment starting...`
             });
 
             return "Deployment authorized";
 
-      # Download the build artifact from the PR build workflow - UPDATED to v4
+      # Download the specific build artifact that includes the commit SHA
       - name: Download build artifact
-        uses: actions/download-artifact@v4 # Changed from v3 to v4
+        uses: actions/download-artifact@v4
         with:
-          name: pr-${{ steps.check-permissions.outputs.pr_number }}-build
+          name: pr-${{ steps.check-permissions.outputs.pr_number }}-${{ steps.check-permissions.outputs.pr_sha }}-build
           path: build
 
       # Setup Node.js for the deployment tools
@@ -96,7 +98,12 @@ jobs:
         run: |
           echo "Starting Cloudflare Pages preview deployment..."
           PR_NUMBER="${{ steps.check-permissions.outputs.pr_number }}"
-          npx wrangler pages deploy . --project-name=docs-docusaurus --commit-dirty=true --branch="pr-${PR_NUMBER}" 2>&1 | tee deploy.log
+          SHORT_SHA="${{ steps.check-permissions.outputs.short_sha }}"
+
+          # Include commit SHA in branch name for traceability
+          BRANCH_NAME="pr-${PR_NUMBER}-${SHORT_SHA}"
+
+          npx wrangler pages deploy . --project-name=docs-docusaurus --commit-dirty=true --branch="${BRANCH_NAME}" 2>&1 | tee deploy.log
 
           # Check for errors in the log
           if grep -q "Error:" deploy.log; then
@@ -126,12 +133,13 @@ jobs:
         with:
           script: |
             const url = '${{ steps.deploy.outputs.DEPLOY_URL }}';
+            const sha = '${{ steps.check-permissions.outputs.short_sha }}';
 
             github.rest.issues.createComment({
               issue_number: ${{ steps.check-permissions.outputs.pr_number }},
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `🚀 **Preview deployed!**\n\n🔗 [View preview](${url})`
+              body: `🚀 **Preview for commit ${sha} deployed!**\n\n🔗 [View preview](${url})`
             });
 
       - name: Comment on deployment failure
@@ -139,9 +147,11 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
+            const sha = '${{ steps.check-permissions.outputs.short_sha }}';
+
             github.rest.issues.createComment({
               issue_number: ${{ steps.check-permissions.outputs.pr_number }},
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `❌ **Deployment failed!**\n\nPlease check the workflow logs for details.`
+              body: `❌ **Deployment failed for commit ${sha}!**\n\nPlease check the workflow logs for details.`
             });
