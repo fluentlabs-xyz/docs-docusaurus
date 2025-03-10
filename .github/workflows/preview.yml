@@ -1,44 +1,106 @@
-name: PR Preview Deployment
+name: Deploy Preview
 
 on:
-  pull_request_review:
-    types: [submitted]
+  issue_comment:
+    types: [created]
 
 jobs:
   deploy-preview:
     name: Deploy Preview
-    # Only run when PR is approved
-    if: github.event.review.state == 'approved'
     runs-on: ubuntu-latest
-    steps:
-      - name: Get PR information
-        id: pr-info
-        run: |
-          PR_NUMBER="${{ github.event.pull_request.number }}"
-          # Simple validation that this is a number
-          if ! [[ "$PR_NUMBER" =~ ^[0-9]+$ ]]; then
-            echo "::error::Invalid PR number: $PR_NUMBER"
-            exit 1
-          fi
-          echo "PR_NUMBER=${PR_NUMBER}" >> $GITHUB_OUTPUT
-          echo "Using PR #${PR_NUMBER}"
 
-      - uses: actions/checkout@v4
+    steps:
+      - name: Log event payload
+        run: echo '${{ toJson(github.event) }}'
+
+      - name: Debug event info
+        run: |
+          echo "🔍 Triggering event: ${{ github.event_name }}"
+          echo "💬 Comment body: ${{ github.event.comment.body }}"
+          echo "🔢 Issue number: ${{ github.event.issue.number }}"
+
+      - name: Check if comment is in PR
+        if: github.event.issue.pull_request
+        run: echo "✅ This is a PR, proceeding..."
+
+      - name: Check commenter permissions
+        id: check-permissions
+        uses: actions/github-script@v6
         with:
-          # Use the exact commit SHA instead of the merge reference for security and accuracy
-          ref: ${{ github.event.pull_request.head.sha }}
-          fetch-depth: 0
+          script: |
+            const { owner, repo } = context.repo;
+            const commenter = context.payload.comment.user.login;
+            const issue_number = context.payload.issue.number;
+
+            console.log("🔎 Checking if issue is a PR...");
+            let pull;
+            try {
+              pull = await github.rest.pulls.get({ owner, repo, pull_number: issue_number });
+              console.log("✅ Issue is a PR:", pull.data.html_url);
+            } catch (error) {
+              console.log("❌ This is not a PR:", issue_number);
+              core.setFailed("This is not a pull request");
+              return;
+            }
+
+            console.log("🔎 Checking commenter permissions...");
+            try {
+              const { data: permission } = await github.rest.repos.getCollaboratorPermissionLevel({
+                owner,
+                repo,
+                username: commenter
+              });
+
+              console.log(`👤 User @${commenter} has permission: ${permission.permission}`);
+              
+              if (!['admin', 'write'].includes(permission.permission)) {
+                await github.rest.issues.createComment({
+                  owner,
+                  repo,
+                  issue_number,
+                  body: `@${commenter} does not have sufficient permissions to trigger deployments.`
+                });
+                core.setFailed("❌ Insufficient permissions");
+                return;
+              }
+            } catch (error) {
+              console.log("❌ Error checking permissions:", error.message);
+              core.setFailed(`Error checking permissions: ${error.message}`);
+              return;
+            }
+
+            const commit_sha = pull.data.head.sha;
+            console.log("✅ PR SHA:", commit_sha);
+            core.setOutput("pr_number", issue_number);
+            core.setOutput("pr_sha", commit_sha);
+            core.setOutput("short_sha", commit_sha.substring(0, 7));
+
+            await github.rest.issues.createComment({
+              owner,
+              repo,
+              issue_number,
+              body: `🔄 @${commenter} triggered a preview deployment for commit ${commit_sha.substring(0, 7)}. Deployment starting...`
+            });
+
+            return "Deployment authorized";
+
+      - name: Log PR and SHA values
+        run: |
+          echo "📌 PR Number: ${{ steps.check-permissions.outputs.pr_number }}"
+          echo "📌 Commit SHA: ${{ steps.check-permissions.outputs.pr_sha }}"
+
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: pr-${{ steps.check-permissions.outputs.pr_number }}-${{ steps.check-permissions.outputs.pr_sha }}-build
+          path: build
+
+      - name: List downloaded files
+        run: ls -lR build
 
       - uses: actions/setup-node@v4
         with:
           node-version: 18
-          cache: npm
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build website
-        run: npm run build
 
       - name: Prepare deployment
         run: |
@@ -48,37 +110,31 @@ jobs:
           echo '{"name":"deploy","version":"1.0.0","private":true}' > package.json
           npm install wrangler@3 --save-dev
 
-      - name: Verify Cloudflare credentials
-        run: |
-          if [ -z "${{ secrets.CLOUDFLARE_API_TOKEN }}" ] || [ -z "${{ secrets.CLOUDFLARE_ACCOUNT_ID }}" ]; then
-            echo "::error::Cloudflare credentials are not properly set!"
-            exit 1
-          fi
-          echo "Cloudflare credentials verified."
-
       - name: Deploy to Cloudflare Pages
         id: deploy
         working-directory: ./deploy
         run: |
-          echo "Starting Cloudflare Pages preview deployment..."
-          PR_NUMBER="${{ steps.pr-info.outputs.PR_NUMBER }}"
-          npx wrangler pages deploy . --project-name=docs-docusaurus --commit-dirty=true --branch="pr-${PR_NUMBER}" 2>&1 | tee deploy.log
+          echo "🚀 Starting Cloudflare Pages preview deployment..."
+          PR_NUMBER="${{ steps.check-permissions.outputs.pr_number }}"
+          SHORT_SHA="${{ steps.check-permissions.outputs.short_sha }}"
+          BRANCH_NAME="pr-${PR_NUMBER}-${SHORT_SHA}"
 
-          # Check for errors in the deployment log
+          echo "🔗 Deploying branch: ${BRANCH_NAME}"
+          npx wrangler pages deploy . --project-name=docs-docusaurus --commit-dirty=true --branch="${BRANCH_NAME}" 2>&1 | tee deploy.log
+
           if grep -q "Error:" deploy.log; then
-            echo "::error::Deployment failed. See logs for details."
+            echo "::error::❌ Deployment failed. Check logs below:"
             cat deploy.log
             exit 1
           fi
 
-          # Extract the deployment URL
           DEPLOY_URL=$(grep -o 'https://[^ ]*\.pages\.dev' deploy.log | head -n 1)
-
           if [ -n "$DEPLOY_URL" ]; then
+            echo "✅ Deployment successful!"
             echo "DEPLOY_URL=$DEPLOY_URL" >> $GITHUB_OUTPUT
-            echo "Deploy URL: $DEPLOY_URL"
+            echo "::notice::Deploy URL: $DEPLOY_URL"
           else
-            echo "::error::Failed to extract deploy URL."
+            echo "::error::❌ Failed to extract deploy URL."
             cat deploy.log
             exit 1
           fi
@@ -86,9 +142,31 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
-      - name: Comment on PR with Preview URL
-        uses: thollander/actions-comment-pull-request@v2
+      - name: Comment on PR with preview URL
+        if: success()
+        uses: actions/github-script@v6
         with:
-          message: "🚀 **Preview deployed!**\n🔗 [View preview](${{ steps.deploy.outputs.DEPLOY_URL }})"
-          comment_tag: preview-url
-          pr_number: ${{ steps.pr-info.outputs.PR_NUMBER }}
+          script: |
+            const url = '${{ steps.deploy.outputs.DEPLOY_URL }}';
+            const sha = '${{ steps.check-permissions.outputs.short_sha }}';
+
+            github.rest.issues.createComment({
+              issue_number: ${{ steps.check-permissions.outputs.pr_number }},
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `🚀 **Preview for commit ${sha} deployed!**\n\n🔗 [View preview](${url})`
+            });
+
+      - name: Comment on deployment failure
+        if: failure()
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const sha = '${{ steps.check-permissions.outputs.short_sha }}';
+
+            github.rest.issues.createComment({
+              issue_number: ${{ steps.check-permissions.outputs.pr_number }},
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `❌ **Deployment failed for commit ${sha}!**\n\nPlease check the workflow logs for details.`
+            });
