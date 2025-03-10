@@ -15,12 +15,18 @@ jobs:
         id: pr-info
         run: |
           PR_NUMBER="${{ github.event.pull_request.number }}"
+          # Simple validation that this is a number
+          if ! [[ "$PR_NUMBER" =~ ^[0-9]+$ ]]; then
+            echo "::error::Invalid PR number: $PR_NUMBER"
+            exit 1
+          fi
           echo "PR_NUMBER=${PR_NUMBER}" >> $GITHUB_OUTPUT
           echo "Using PR #${PR_NUMBER}"
 
       - uses: actions/checkout@v4
         with:
-          ref: refs/pull/${{ steps.pr-info.outputs.PR_NUMBER }}/merge
+          # Use the exact commit SHA instead of the merge reference for security and accuracy
+          ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
 
       - uses: actions/setup-node@v4
@@ -45,7 +51,7 @@ jobs:
       - name: Verify Cloudflare credentials
         run: |
           if [ -z "${{ secrets.CLOUDFLARE_API_TOKEN }}" ] || [ -z "${{ secrets.CLOUDFLARE_ACCOUNT_ID }}" ]; then
-            echo "Cloudflare credentials are not properly set!"
+            echo "::error::Cloudflare credentials are not properly set!"
             exit 1
           fi
           echo "Cloudflare credentials verified."
@@ -58,14 +64,22 @@ jobs:
           PR_NUMBER="${{ steps.pr-info.outputs.PR_NUMBER }}"
           npx wrangler pages deploy . --project-name=docs-docusaurus --commit-dirty=true --branch="pr-${PR_NUMBER}" 2>&1 | tee deploy.log
 
-          # More robust URL extraction
+          # Check for errors in the deployment log
+          if grep -q "Error:" deploy.log; then
+            echo "::error::Deployment failed. See logs for details."
+            cat deploy.log
+            exit 1
+          fi
+
+          # Extract the deployment URL
           DEPLOY_URL=$(grep -o 'https://[^ ]*\.pages\.dev' deploy.log | head -n 1)
 
           if [ -n "$DEPLOY_URL" ]; then
             echo "DEPLOY_URL=$DEPLOY_URL" >> $GITHUB_OUTPUT
             echo "Deploy URL: $DEPLOY_URL"
           else
-            echo "Failed to extract deploy URL."
+            echo "::error::Failed to extract deploy URL."
+            cat deploy.log
             exit 1
           fi
         env:
