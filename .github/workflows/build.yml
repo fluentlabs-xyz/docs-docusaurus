@@ -30,4 +30,4 @@ jobs:
         with:
           name: pr-${{ github.event.pull_request.number }}-${{ github.event.pull_request.head.sha }}-build
           path: build/
-          retention-days: 1
+          retention-days: 7
