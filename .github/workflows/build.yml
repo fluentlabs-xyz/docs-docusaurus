@@ -1,0 +1,53 @@
+name: PR Build
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build website
+        run: npm run build
+
+      # Upload the build as an artifact that can be used later
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: pr-${{ github.event.pull_request.number }}-build
+          path: build/
+          retention-days: 1
+
+      - name: Comment about deployment
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const msg = `
+            ✅ **Build successful!**
+
+            A maintainer can now deploy a preview by commenting:
+            \`\`\`
+            /deploy-preview
+            \`\`\`
+            `;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: msg
+            });
