@@ -134,3 +134,18 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: Comment on PR with preview URL
+        if: success()
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const deployUrl = process.env.DEPLOY_URL;
+            const prNumber = ${{ steps.check-permissions.outputs.pr_number }};
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+              body: `🚀 **Preview deployed successfully!**
+              🔗 [View Preview](${deployUrl})`
+            });
