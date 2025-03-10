@@ -31,6 +31,8 @@ jobs:
             const { owner, repo } = context.repo;
             const commenter = context.payload.comment.user.login;
             const issue_number = context.payload.issue.number;
+            const run_id = context.runId;
+            const actions_url = `https://github.com/${owner}/${repo}/actions/runs/${run_id}`;
 
             console.log("🔎 Checking if issue is a PR...");
             let pull;
@@ -70,16 +72,22 @@ jobs:
             }
 
             const commit_sha = pull.data.head.sha;
+            const short_sha = commit_sha.substring(0, 7);
+            const pr_url = pull.data.html_url;
+
             console.log("✅ PR SHA:", commit_sha);
             core.setOutput("pr_number", issue_number);
             core.setOutput("pr_sha", commit_sha);
-            core.setOutput("short_sha", commit_sha.substring(0, 7));
+            core.setOutput("short_sha", short_sha);
 
             await github.rest.issues.createComment({
               owner,
               repo,
               issue_number,
-              body: `🔄 @${commenter} triggered a preview deployment for commit ${commit_sha.substring(0, 7)}. Deployment starting...`
+              body: `🔄 @${commenter} triggered a **preview deployment** for [PR #${issue_number}](${pr_url}) at commit \`${short_sha}\`.
+
+            🚀 Deployment starting...  
+            🔗 [Check deployment status](${actions_url})`
             });
 
             return "Deployment authorized";
@@ -140,8 +148,8 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const deployUrl = ${{ steps.deploy.outputs.deploy_url }};
-            const prNumber = ${{ steps.check-permissions.outputs.pr_number }};
+            const deployUrl = "${{ steps.deploy.outputs.deploy_url }}";
+            const prNumber = "${{ steps.check-permissions.outputs.pr_number }}";
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
