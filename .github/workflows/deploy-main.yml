@@ -1,16 +1,13 @@
-name: Deploy to CF
+name: Deploy to Production
 
 on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
 
 jobs:
-  deploy:
-    name: Deploy Docusaurus
+  deploy-production:
+    name: Deploy Docusaurus to Production
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -39,24 +36,8 @@ jobs:
       - name: Deploy to Cloudflare Pages
         working-directory: ./deploy
         run: |
-          echo "Starting Cloudflare Pages deployment..."
-          npx wrangler pages deploy . --project-name=docs-docusaurus --commit-dirty=true 2>&1 | tee deploy.log
-
-          DEPLOY_URL=$(grep -o 'https://.*\.pages\.dev' deploy.log | head -n 1)
-
-          if [ -n "$DEPLOY_URL" ]; then
-            echo "DEPLOY_URL=$DEPLOY_URL" >> $GITHUB_ENV
-          else
-            echo "Failed to extract deploy URL."
-            exit 1
-          fi
+          echo "Starting Cloudflare Pages production deployment..."
+          npx wrangler pages deploy . --project-name=docs-docusaurus --commit-dirty=true --branch=main
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-
-      - name: Comment on PR with Preview URL
-        if: github.event_name == 'pull_request'
-        uses: thollander/actions-comment-pull-request@v2
-        with:
-          message: "🚀 **Preview deployed!**\n🔗 [View preview](${{ env.DEPLOY_URL }})"
-          comment_tag: preview-url

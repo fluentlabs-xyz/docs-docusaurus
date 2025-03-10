@@ -1,0 +1,80 @@
+name: PR Preview Deployment
+
+on:
+  pull_request_review:
+    types: [submitted]
+
+jobs:
+  deploy-preview:
+    name: Deploy Preview
+    # Only run when PR is approved
+    if: github.event.review.state == 'approved'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get PR information
+        id: pr-info
+        run: |
+          PR_NUMBER="${{ github.event.pull_request.number }}"
+          echo "PR_NUMBER=${PR_NUMBER}" >> $GITHUB_OUTPUT
+          echo "Using PR #${PR_NUMBER}"
+
+      - uses: actions/checkout@v4
+        with:
+          ref: refs/pull/${{ steps.pr-info.outputs.PR_NUMBER }}/merge
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build website
+        run: npm run build
+
+      - name: Prepare deployment
+        run: |
+          mkdir -p ./deploy
+          cp -r build/* ./deploy/
+          cd ./deploy
+          echo '{"name":"deploy","version":"1.0.0","private":true}' > package.json
+          npm install wrangler@3 --save-dev
+
+      - name: Verify Cloudflare credentials
+        run: |
+          if [ -z "${{ secrets.CLOUDFLARE_API_TOKEN }}" ] || [ -z "${{ secrets.CLOUDFLARE_ACCOUNT_ID }}" ]; then
+            echo "Cloudflare credentials are not properly set!"
+            exit 1
+          fi
+          echo "Cloudflare credentials verified."
+
+      - name: Deploy to Cloudflare Pages
+        id: deploy
+        working-directory: ./deploy
+        run: |
+          echo "Starting Cloudflare Pages preview deployment..."
+          PR_NUMBER="${{ steps.pr-info.outputs.PR_NUMBER }}"
+          npx wrangler pages deploy . --project-name=docs-docusaurus --commit-dirty=true --branch="pr-${PR_NUMBER}" 2>&1 | tee deploy.log
+
+          # More robust URL extraction
+          DEPLOY_URL=$(grep -o 'https://[^ ]*\.pages\.dev' deploy.log | head -n 1)
+
+          if [ -n "$DEPLOY_URL" ]; then
+            echo "DEPLOY_URL=$DEPLOY_URL" >> $GITHUB_OUTPUT
+            echo "Deploy URL: $DEPLOY_URL"
+          else
+            echo "Failed to extract deploy URL."
+            exit 1
+          fi
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: Comment on PR with Preview URL
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          message: "🚀 **Preview deployed!**\n🔗 [View preview](${{ steps.deploy.outputs.DEPLOY_URL }})"
+          comment_tag: preview-url
+          pr_number: ${{ steps.pr-info.outputs.PR_NUMBER }}
