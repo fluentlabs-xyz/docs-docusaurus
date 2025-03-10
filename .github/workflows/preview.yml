@@ -124,7 +124,7 @@ jobs:
           DEPLOY_URL=$(grep -o 'https://[^ ]*\.pages\.dev' deploy.log | head -n 1)
           if [ -n "$DEPLOY_URL" ]; then
             echo "✅ Deployment successful!"
-            echo "DEPLOY_URL=$DEPLOY_URL" >> $GITHUB_OUTPUT
+            echo "deploy_url=$DEPLOY_URL" >> $GITHUB_OUTPUT
             echo "::notice::Deploy URL: $DEPLOY_URL"
           else
             echo "::error::❌ Failed to extract deploy URL."
@@ -140,7 +140,7 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const deployUrl = process.env.DEPLOY_URL;
+            const deployUrl = ${{ steps.deploy.outputs.deploy_url }};
             const prNumber = ${{ steps.check-permissions.outputs.pr_number }};
             await github.rest.issues.createComment({
               owner: context.repo.owner,
