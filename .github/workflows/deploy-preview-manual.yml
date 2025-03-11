@@ -93,7 +93,7 @@ jobs:
             return "Deployment authorized";
 
       - name: Download build artifact
-        uses: dawidd6/action-download-artifact@v3
+        uses: dawidd6/action-download-artifact@v6
         with:
           name: pr-${{ steps.check-permissions.outputs.pr_number }}-${{ steps.check-permissions.outputs.pr_sha }}-build
           path: build
