@@ -1,6 +1,6 @@
----
+<!-- ---
 title: Go
-sidebar_position: 3
+sidebar_position: 4
 ---
 
 # Go Developer Guide
@@ -66,4 +66,4 @@ This `decrypt()` function will be included in the WASM output due to the `//expo
 
 ### Reference
 
-https://github.com/fluentlabs-xyz/fluentbase/tree/devel/examples/fairblock
+https://github.com/fluentlabs-xyz/fluentbase/tree/devel/examples/fairblock -->

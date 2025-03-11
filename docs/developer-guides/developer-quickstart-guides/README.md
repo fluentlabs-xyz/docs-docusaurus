@@ -54,12 +54,12 @@ Select the option that aligns with your preferred programming language for smart
                     <strong>Rust</strong>
                 </a>
             </td>
-            <td>
+            <!-- <td>
                 <a href="go">
                     <span>Smart Contracts on</span> 
                     <strong>Go</strong>
                 </a>
-            </td>
+            </td> -->
             <td>
                 <a href="vyper">
                     <span>Smart Contracts on</span> 
@@ -78,10 +78,10 @@ Select the option that aligns with your preferred programming language for smart
         <span>Smart Contracts on</span> 
         <strong>Rust</strong>
     </a>
-    <a href="go">
+    <!-- <a href="go">
         <span>Smart Contracts on</span> 
         <strong>Go</strong>
-    </a>
+    </a> -->
     <a href="vyper">
         <span>Smart Contracts on</span> 
         <strong>Vyper</strong>
