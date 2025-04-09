@@ -2,10 +2,6 @@
 title: Building a Blended App
 ---
 
-## Quickstart Template
-
-https://github.com/fluentlabs-xyz/blended-template
-
 ## Introduction
 
 This guide provides detailed instructions on how to build a blended application on Fluent. 
@@ -17,3 +13,9 @@ This setup demonstrates:
 * and interoperability between different virtual machine targets (EVM and Wasm)
 
 within a single execution environment.
+
+## Prerequisites
+
+* Rust and Cargo
+* Metamask for Remix IDE
+* Node.js and npm 
