@@ -18,13 +18,21 @@ This is the second devnet version of the Fluent L2, explicitly designed for depl
 
 ## Network Parameters
 
-<table><tbody><tr><td><strong class="row-name">Network Name:</strong></td><td>Fluent Developer Preview</td></tr><tr><td><strong class="row-name">RPC URL:</strong></td><td><a href="https://rpc.dev.gblend.xyz/">https://rpc.dev.gblend.xyz/</a></td></tr><tr><td><strong class="row-name">Chain ID:</strong></td><td>20993</td></tr><tr><td><strong class="row-name">Symbol:</strong></td><td>ETH</td></tr></tbody></table>
+<table><tbody><tr><td><strong class="row-name">Network Name:</strong></td><td>Fluent Developer Preview</td></tr>
+<tr><td><strong class="row-name">HTTPS RPC URL:</strong></td><td>https://rpc.dev.gblend.xyz</td></tr>
+<tr><td><strong class="row-name">Websocket RPC URL:</strong></td><td>wss://rpc.dev.gblend.xyz/ws</td></tr>
+<tr><td><strong class="row-name">Chain ID:</strong></td><td>20993</td></tr>
+<tr><td><strong class="row-name">Symbol:</strong></td><td>ETH</td></tr></tbody></table>
 
 To quickly integrate Fluent with MetaMask, visit our [Dev Homepage](https://dev.gblend.xyz/)
 
 ## Fluent Developer Preview Resources
 
-<table><tbody><tr><td><strong class="row-name">Faucet:</strong></td><td><a href="https://faucet.dev.gblend.xyz/">https://faucet.dev.gblend.xyz/</a></td></tr><tr><td><strong class="row-name">RPC:</strong></td><td><a href="https://rpc.dev.gblend.xyz/">https://textrpc.dev.gblend.xyz/</a></td></tr><tr><td><strong class="row-name">Explorer:</strong></td><td><a href="https://blockscout.dev.gblend.xyz/">https://blockscout.dev.gblend.xyz/</a></td></tr></tbody></table>
+<table>
+<tbody><tr><td><strong class="row-name">Faucet:</strong></td><td><a href="https://faucet.dev.gblend.xyz/">https://faucet.dev.gblend.xyz/</a>
+</td></tr><tr><td><strong class="row-name">RPC:</strong></td><td><a href="https://rpc.dev.gblend.xyz/">https://textrpc.dev.gblend.xyz/</a></td></tr>
+<tr><td><strong class="row-name">Explorer:</strong></td><td><a href="https://blockscout.dev.gblend.xyz/">https://blockscout.dev.gblend.xyz/</a></td></tr></tbody>
+</table>
 
 ## Supported Languages
 
