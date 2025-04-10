@@ -32,18 +32,13 @@ const provider = new ethers.providers.JsonRpcProvider(rpcURL)
 const contractAddress = "<INPUT_CONTRACT_ADDRESS_HERE>"
 const contractABI = [{"inputs":[{"internalType":"address","name":"FluentRustAddress","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"fluentRust","outputs":[{"internalType":"contractIFluentRust","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getRustAddress","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getRustBool","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getRustBytes","outputs":[{"internalType":"bytes","name":"","type":"bytes"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getRustBytes32","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getRustInt256","outputs":[{"internalType":"int256","name":"","type":"int256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getRustString","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getRustUint256","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"}]
 
-const contractDeployed = new ethers.Contract(contractAddress, contractABI);
+const contractDeployed = new ethers.Contract(contractAddress, contractABI, provider);
 
 let fluent_sepolia_chain_id = 20993;
 
-createAndSendTx()
+getStoredValues()
 
-async function getStoredData() {  
-  const storedData = await contractDeployed.getRustUint256()
-  console.log("getRustUint256: "+ storedData)
-}
-
-async function createAndSendTx() {
+async function getStoredValues() {
 
   const connectedNetworkObject = await provider.getNetwork();
   const chainIdConnected = connectedNetworkObject.chainId;
@@ -55,7 +50,29 @@ async function createAndSendTx() {
     return;
   }
 
-  await getStoredData();
+  const fluentRustContractAddress = await contractDeployed.fluentRust()
+  console.log("fluentRustContractAddress: "+ fluentRustContractAddress)
+
+  const rustString = await contractDeployed.getRustString()
+  console.log("rustString: "+ rustString)
+
+  const rustUint256 = await contractDeployed.getRustUint256()
+  console.log("rustUint256: "+ rustUint256)
+
+  const rustInt256 = await contractDeployed.getRustInt256()
+  console.log("rustInt256: "+ rustInt256)
+
+  const rustAddress = await contractDeployed.getRustAddress()
+  console.log("rustAddress: "+ rustAddress)
+
+  const rustBytes = await contractDeployed.getRustBytes()
+  console.log("rustBytes: "+ rustBytes)
+
+  const rustBytes32 = await contractDeployed.getRustBytes32()
+  console.log("rustBytes32: "+ rustBytes32)
+
+  const rustBool = await contractDeployed.getRustBool()
+  console.log("rustBool: "+ rustBool)
 
 }
 ```
