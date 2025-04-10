@@ -13,7 +13,7 @@ This allows for atomically composable apps using distinct programming language(s
 
 ## The Fluent L2
 
-The Fluent L2 is an Ethereum-centric zk-rollup for Wasm, EVM, and SVM based apps. It supports real-time composability between apps targeting different VMs, and “blended” apps composed of smart contracts mixed and matched between them. Interaction between the different types of contracts on the L2 happens under the hood and is both atomic and happens in real-time.
+The Fluent L2 is an Ethereum-centric zk-rollup for Wasm, EVM, and SVM based apps. It supports real-time composability between apps targeting different VMs, and "blended" apps composed of smart contracts mixed and matched between them. Interaction between the different types of contracts on the L2 happens under the hood and is both atomic and happens in real-time.
 
 ## The Fluentbase Framework
 
