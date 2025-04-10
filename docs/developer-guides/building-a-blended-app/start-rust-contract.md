@@ -250,8 +250,20 @@ std = [
 
 ### 1.4 Build the Wasm Project
 
-Run:
+Generate the WASM binary file with:
 
 ```bash
 gblend build rust -r
 ```
+
+We will deploy the compiled Rust contract with the WASM binary file later in this guide.
+
+:::warning
+
+Note: to update Rust crate `fluentbase-sdk` if there are issues:
+
+```shell
+cargo clean
+cargo update -p fluentbase-sdk
+```
+:::

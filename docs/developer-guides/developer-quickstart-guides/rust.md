@@ -96,6 +96,16 @@ gblend build rust -r
 
 Executing this command compiles the code and generates a file named `lib.wasm` in the `bin` directory.
 
+:::warning
+
+Note: to update Rust crate `fluentbase-sdk` if there are issues:
+
+```shell
+cargo clean
+cargo update -p fluentbase-sdk
+```
+:::
+
 ### **Deploying the Contract**
 
 To deploy contract, use gblend cli:
