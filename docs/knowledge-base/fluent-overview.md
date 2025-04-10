@@ -14,7 +14,7 @@ Fluent’s unique value proposition lies in its ability to:
 * and written in various programming languages (e.g., Solidity, Rust, and more),&#x20;
 * on a shared state execution environment.
 
-Fluent supports atomic composability between apps targeting different VMs, and “blended” apps composed of smart contracts mixed and matched between them. Interaction between the different types of contracts the network supports happens under the hood and is both atomic and happens in real-time.&#x20;
+Fluent supports atomic composability between apps targeting different VMs, and "blended" apps composed of smart contracts mixed and matched between them. Interaction between the different types of contracts the network supports happens under the hood and is both atomic and happens in real-time.&#x20;
 
 <table data-column-title-hidden data-view="cards">
     <tbody>
