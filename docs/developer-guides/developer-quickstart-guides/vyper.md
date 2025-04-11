@@ -83,9 +83,11 @@ require("@nomiclabs/hardhat-vyper");
 
 Within the `networks` object, you can see the `fluent_devnet1` configuration. This specifies the URL to connect to the Fluent Devnet, along with the chain ID and the accounts available for transactions.
 
-> ℹ️ **Note**  
->
-> Use [Fluent Faucet](https://faucet.dev.gblend.xyz/) to request test tokens.
+:::info
+
+Use [Fluent Faucet](https://faucet.dev.gblend.xyz/) to request test tokens.
+
+:::
 
 Next, let's explore how you can compile and deploy your first smart contract to the Fluent Devnet.
 
