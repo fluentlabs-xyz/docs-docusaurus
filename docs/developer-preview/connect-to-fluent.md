@@ -1,37 +1,47 @@
 ---
-title: Connect to the Fluent Devnet
+title: Connect to Fluent 
 sidebar_position: 1
 ---
 
-# Connect to the Fluent Devnet
-
+# Connect to Fluent 
 
 Fluent Public Devnet
 ---
 
 This is the second devnet version of the Fluent L2, explicitly designed for deploying and interacting with EVM and Rust-based smart contracts. Solidity and Rust contracts can be deployed independently, or call each other as part of a [blended application](https://docs.fluent.xyz/developer-guides/building-a-blended-app/) that utilizes both types of contracts.
 
-> ⚠️ **Caution**  
->
-> Due to possible issues in devnet implementations, 
-> we can reset the network at any time to upgrade it to a more stable version.
+:::warning
 
-## Network Parameters
+Due to possible issues in devnet implementations, 
+we can reset the network at any time to upgrade it to a more stable version.
+
+:::
+
+## Quickstart Metamask Connect
+
+To quickly integrate Fluent with MetaMask, use Chainlist:
+
+https://chainlist.org/?testnets=true&search=fluent
+
+or visit our Dev Homepage: 
+
+https://dev.gblend.xyz/
+
+## Fluent Devnet
+
+### Metamask Network Parameters
 
 <table><tbody><tr><td><strong class="row-name">Network Name:</strong></td><td>Fluent Developer Preview</td></tr>
 <tr><td><strong class="row-name">HTTPS RPC URL:</strong></td><td>https://rpc.dev.gblend.xyz</td></tr>
-<tr><td><strong class="row-name">Websocket RPC URL:</strong></td><td>wss://rpc.dev.gblend.xyz/ws</td></tr>
 <tr><td><strong class="row-name">Chain ID:</strong></td><td>20993</td></tr>
-<tr><td><strong class="row-name">Symbol:</strong></td><td>ETH</td></tr></tbody></table>
+<tr><td><strong class="row-name">Symbol:</strong></td><td>ETH</td></tr>
+<tr><td><strong class="row-name">Explorer:</strong></td><td><a href="https://blockscout.dev.gblend.xyz/">https://blockscout.dev.gblend.xyz/</a></td></tr></tbody></table>
 
-To quickly integrate Fluent with MetaMask, visit our [Dev Homepage](https://dev.gblend.xyz/)
-
-## Fluent Developer Preview Resources
+### Network Resources
 
 <table>
-<tbody><tr><td><strong class="row-name">Faucet:</strong></td><td><a href="https://faucet.dev.gblend.xyz/">https://faucet.dev.gblend.xyz/</a>
-</td></tr><tr><td><strong class="row-name">RPC:</strong></td><td><a href="https://rpc.dev.gblend.xyz/">https://textrpc.dev.gblend.xyz/</a></td></tr>
-<tr><td><strong class="row-name">Explorer:</strong></td><td><a href="https://blockscout.dev.gblend.xyz/">https://blockscout.dev.gblend.xyz/</a></td></tr></tbody>
+<tbody><tr><td><strong class="row-name">Faucet:</strong></td><td><a href="https://faucet.dev.gblend.xyz/">https://faucet.dev.gblend.xyz/</a></td></tr>
+<tr><td><strong class="row-name">Websocket RPC URL:</strong></td><td>wss://rpc.dev.gblend.xyz/ws</td></tr></tbody>
 </table>
 
 ## Supported Languages
