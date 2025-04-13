@@ -5,7 +5,7 @@ sidebar_position: 4
 
 # The Fluentbase Framework
 
-The Fluentbase framework is used to deploy smart contracts on the Fluent L2 as well as blockchains and verifiable compute environments that compile to rWasm. It introduces an SDK and a proving system for the Fluent state transition function (STF). It is the basis for the Fluent L2 and can used to build:
+The Fluentbase framework is used to deploy smart contracts on the Fluent L2 as well as blockchains and verifiable compute environments that compile to rWasm. It introduces an SDK and a proving system for the Fluent state transition function (STF). It is the basis for the Fluent L2 and can be used to build:
 
 * **Blended apps:** Smart contracts on the Fluent L2 written in the various programming languages that the network supports.
 * **Blended execution networks:** blockchain-based networks (L2s, L3s, etc.) which simulates multiple VM targets on a shared execution layer.
