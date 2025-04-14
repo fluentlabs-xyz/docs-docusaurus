@@ -160,6 +160,12 @@ In this context, a Solidity interface is used to call an external Rust contract 
 
 `contracts/FluentSdkRustTypesTest.sol`
 
+### 2.2 Remix IDE Link to Deploy Contract
+
+https://remix.ethereum.org/fluentlabs-xyz/blended-sdk/blob/main/solidity/src/FluentSdkRustTypesTest.sol
+
+Solidity contract:
+
 ```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.28;
