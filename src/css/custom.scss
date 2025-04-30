@@ -106,11 +106,12 @@ html[data-theme='dark'] { /* Overriding root Infima variables */
   // --ifm-background-color: #49EDED;
   // --ifm-background-surface-color: #49EDED;
 
-  // Custom color testing
+  // Primary title text color
   --ifm-color-primary: #00bbff;
-  --ifm-background-color: #260079;
-  --ifm-background-surface-color: #260079;
-  
+  // Background color based on operating system theme
+  --ifm-background-color: #0d0d0d;
+  --ifm-background-surface-color: #191919;
+
   /* Force light text */
   --ifm-font-color-base: #ffffff; /* Base text color */
   --ifm-color-content: #ffffff; /* Content text color */
