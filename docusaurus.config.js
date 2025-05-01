@@ -104,7 +104,7 @@ module.exports = {
             // className: 'navbar_item_button',
           },
           {
-            href: "https://faucet.dev.gblend.xyz/",
+            href: "https://dev.gblend.xyz/faucet/",
             label: "Faucet",
             position: "left",
             // className: 'navbar_item_button',

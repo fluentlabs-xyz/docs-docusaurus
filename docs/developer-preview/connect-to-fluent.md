@@ -40,7 +40,7 @@ https://dev.gblend.xyz/
 ### Network Resources
 
 <table>
-<tbody><tr><td><strong class="row-name">Faucet:</strong></td><td><a href="https://faucet.dev.gblend.xyz/">https://faucet.dev.gblend.xyz/</a></td></tr>
+<tbody><tr><td><strong class="row-name">Faucet:</strong></td><td><a href="https://dev.gblend.xyz/faucet/">https://dev.gblend.xyz/faucet/</a></td></tr>
 <tr><td><strong class="row-name">Websocket RPC URL:</strong></td><td>wss://rpc.dev.gblend.xyz/ws</td></tr></tbody>
 </table>
 
