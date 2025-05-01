@@ -183,7 +183,7 @@ Within the `networks` object, you can see the **`fluent_devnet1`** configuration
 
 > ℹ️ **Note**  
 >
-> Use [Fluent Faucet](https://faucet.dev.gblend.xyz/) to request test tokens.
+> Use [Fluent Faucet](https://dev.gblend.xyz/faucet/) to request test tokens.
 
 Next, let's explore how you can compile and deploy your first smart contract to the Fluent Devnet.
 
