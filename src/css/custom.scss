@@ -119,6 +119,16 @@ html[data-theme='dark'] { /* Overriding root Infima variables */
 
 }
 
+// Forces background (HTML object "docMainContainer_TBSr" or "docMainContainer") color for dark and light themes. 
+main[class^='docMainContainer'] {
+  background-color: #000000;
+}
+
+// Forces background (HTML object "docRoot" or "docRoot_UBD9") color for dark and light themes. 
+[class^='docRoot'] {
+  background-color: #000000;
+}
+
 body, html {
   padding: 0;
   margin: 0;
