@@ -32,10 +32,13 @@
   // Font test Bossa
   --ifm-font-family-base: 'Bossa-Medium', sans-serif;
 
-  // // Brand color testing pink
+  // Main text color.
+  --ifm-font-color-base: #ffffff;
+
+  // Primary brand text color for titles. 
   --ifm-color-primary: #FF8FDA;
 
-  // Brand color testing green
+  // Secondary brand color for other parts of the webpage. 
   --ifm-color-secondary: #32FE6B;
  
   // // GitBook color testing
@@ -57,13 +60,14 @@
 
   --ifm-border-color: rgba(255, 255, 255, 0.30)
 
-  --ifm-color-primary-dark: #707070;
-  --ifm-color-primary-darker: #606060;
-  --ifm-color-primary-darkest: #505050;
+  // --ifm-color-primary-dark: #707070;
+  // --ifm-color-primary-darker: #606060;
+  // --ifm-color-primary-darkest: #505050;
 
-  --ifm-color-primary-light: #909090;
-  --ifm-color-primary-lighter: #A0A0A0;
-  --ifm-color-primary-lightest: #B0B0B0;
+  // --ifm-color-primary-light: #909090;
+  // --ifm-color-primary-lighter: #A0A0A0;
+  // --ifm-color-primary-lightest: #B0B0B0;
+
   --ifm-menu-color: #8C8C8C;
 
   --ifm-blockquote-border-color: rgba(255, 255, 255, 0.30);
