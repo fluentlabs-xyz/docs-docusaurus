@@ -184,9 +184,16 @@ module.exports = {
         respectPrefersColorScheme: true,
       },
     }),
-  plugins: [
-    "docusaurus-plugin-sass",
-    "plugin-image-zoom",
-    "docusaurus-lunr-search", // Local backup search bar once website is deployed.
-  ],
-};
+    plugins: [
+      "docusaurus-plugin-sass",
+      "plugin-image-zoom",
+      [
+        'docusaurus-lunr-search',
+        {
+          indexDocs: true,
+          indexBlog: false,
+          language: 'en',
+        },
+      ],
+    ],
+  };
