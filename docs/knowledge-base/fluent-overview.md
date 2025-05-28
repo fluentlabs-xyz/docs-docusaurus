@@ -5,7 +5,11 @@ sidebar_position: 1
 
 # Fluent Overview
 
-Fluent is the first [blended execution network](https://app.gitbook.com/o/si7slqjslxF3aat1ikyi/s/FC1DMiUuayu0DbwfgkH0/\~/changes/142/introduction/the-fluent-vm). The project encompasses a [zero-knowledge virtual machine](https://app.gitbook.com/o/si7slqjslxF3aat1ikyi/s/FC1DMiUuayu0DbwfgkH0/\~/changes/142/introduction/the-fluent-vm) (zkVM), [Layer-2 network](https://app.gitbook.com/o/si7slqjslxF3aat1ikyi/s/FC1DMiUuayu0DbwfgkH0/\~/changes/142/introduction/the-fluent-l2-network), and [development framework](https://app.gitbook.com/o/si7slqjslxF3aat1ikyi/s/FC1DMiUuayu0DbwfgkH0/\~/changes/142/introduction/the-fluentbase-framework) for building diverse blockchain-based applications on Ethereum.&#x20;
+Fluent is the first blended execution network. The project encompasses a zero-knowledge virtual machine (zkVM), Layer-2 network, and development framework for building diverse blockchain-based applications on Ethereum.
+
+Fluent's zkEVM is written in SP1 as shown here: 
+
+https://github.com/fluentlabs-xyz/rwasm-zkvm
 
 Fluent’s unique value proposition lies in its ability to:
 
