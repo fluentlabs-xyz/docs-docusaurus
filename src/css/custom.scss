@@ -121,6 +121,12 @@ html[data-theme='dark'] { /* Overriding root Infima variables */
   // --ifm-color-content: #ffffff; /* Content text color */
   // --ifm-color-secondary: #e0e0e0; /* Secondary text color */
 
+  // Add styling for inline code blocks in light mode
+  .markdown p code, .markdown li code {
+    background-color: rgba(0, 0, 0, 0);
+    color: #FFFFFF;
+  }
+
 }
 
 // Forces background (HTML object "docMainContainer_TBSr" or "docMainContainer") color for dark and light themes. 
