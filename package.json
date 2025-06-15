@@ -31,7 +31,8 @@
     "sass": "^1.50.1",
     "styled-components": "^5.3.6",
     "swizzle": "^1.1.0",
-    "unix-timestamp": "^1.0.2"
+    "unix-timestamp": "^1.0.2",
+    "webpack-dev-server": "^5.2.1"
   },
   "browserslist": {
     "production": [
