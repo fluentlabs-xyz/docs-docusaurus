@@ -9,46 +9,32 @@ sidebar_position: 1
 
 Before getting started, make sure to install the following:
 
-*Foundry 
+* Foundry
 
 ## Install Foundry
 
-Install Foundry
+Install Foundry:
 ```shell
 curl -L https://foundry.paradigm.xyz | bash
 ```
-Update Foundry
+Update Foundry:
 ```shell
 foundryup
 ```
 
-reference:
-
-https://book.getfoundry.sh/getting-started/installation
+Reference: https://book.getfoundry.sh/getting-started/installation
 
 ## Start Foundry Project
 
-Generate Foundry file in your current directory
+Generate Foundry file in your current directory:
 
 ```shell
-forge init 
+forge init
 ```
 
 ## Start Solidity Contract
 
-In folder 
-
-```
-src
-```
-
-create a new file called
-
-```
-Contract.sol
-```
-
-and copy the contract below:
+In folder `src` create a new file called `Contract.sol` and copy the contract below:
 
 ```solidity
 // SPDX-License-Identifier: MIT
