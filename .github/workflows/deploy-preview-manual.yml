@@ -99,7 +99,8 @@ jobs:
           path: build
           workflow: build.yml
           repo: ${{ github.repository }}
-          branch: ${{ github.event.issue.pull_request.head.ref }}
+          commit: ${{ steps.check-permissions.outputs.pr_sha }}
+          allow_forks: true
           check_artifacts: true
 
       - name: List downloaded files
