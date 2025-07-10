@@ -2,7 +2,7 @@
 title: Goldsky
 ---
 
-# Indexing Fluent with Goldsky
+## Indexing Fluent with Goldsky
 
 Goldsky is Web3’s realtime data platform, giving developers access to world-class data infrastructure to power their onchain applications.
 
@@ -42,4 +42,4 @@ Seamlessly access the data you need with lightning-fast indexing, resilient subg
 
 ## Getting Started
 
-For more details, check out the [Goldsky Documentation](https://docs.goldsky.com/introduction](https://docs.goldsky.com/chains/fluent/?utm_source=fluent&utm_medium=docs)). Start building smarter, faster, and focus on what really matters: delivering a great experience to your users.
+For more details, check out the [Goldsky Documentation](https://docs.goldsky.com/chains/fluent/?utm_source=fluent&utm_medium=docs). Start building smarter, faster, and focus on what really matters: delivering a great experience to your users.
