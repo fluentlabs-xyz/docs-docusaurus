@@ -181,7 +181,7 @@ module.exports = {
         defaultMode: "dark",
         // Turn light and dark mode theme button on (false) or off (true).
         disableSwitch: true,
-        respectPrefersColorScheme: true,
+        respectPrefersColorScheme: false,
       },
     }),
   plugins: [
