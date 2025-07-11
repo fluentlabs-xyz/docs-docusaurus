@@ -112,9 +112,11 @@ To deploy contract, use gblend cli:
 
 ```shell
 gblend deploy \
---private-key <PRIVATE_KEY> \
---dev lib.wasm \
---gas-limit 300000
+--chain-id 20993 \
+--rpc https://rpc.dev.gblend.xyz \
+--private-key $devTestnetPrivateKey \
+--gas-limit 3000000 \
+lib.wasm
 ```
 
 Upon successful deployment, the receipt of your deployment transaction will be displayed, confirming the smart contract deployment on Fluent using the Fluent SDK.
