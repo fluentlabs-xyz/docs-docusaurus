@@ -2,10 +2,7 @@
 title: Connect to Fluent 
 sidebar_position: 1
 ---
-
-# Connect to Fluent 
-
-Fluent Public Devnet
+Connect to Fluent
 ---
 
 This is the second devnet version of the Fluent L2, explicitly designed for deploying and interacting with EVM and Rust-based smart contracts. Solidity and Rust contracts can be deployed independently, or call each other as part of a [blended application](https://docs.fluent.xyz/developer-guides/building-a-blended-app/) that utilizes both types of contracts.
@@ -27,9 +24,26 @@ or visit our Dev Homepage:
 
 https://dev.gblend.xyz/
 
+## Fluent Testnet
+
+### Network Parameters
+
+<table><tbody><tr><td><strong class="row-name">Network Name:</strong></td><td>Fluent Testnet</td></tr>
+<tr><td><strong class="row-name">HTTPS RPC URL:</strong></td><td>https://rpc.testnet.fluent.xyz/</td></tr>
+<tr><td><strong class="row-name">Chain ID:</strong></td><td>20994</td></tr>
+<tr><td><strong class="row-name">Symbol:</strong></td><td>ETH</td></tr>
+<tr><td><strong class="row-name">Explorer:</strong></td><td><a href="https://testnet.fluentscan.xyz/">https://testnet.fluentscan.xyz/</a></td></tr></tbody></table>
+
+### Network Resources
+
+<table>
+<tbody><tr><td><strong class="row-name">Faucet:</strong></td><td><a href=" https://faucet.testnet.fluent.xyz/"> https://faucet.testnet.fluent.xyz/</a></td></tr>
+<tr><td><strong class="row-name">Websocket RPC URL:</strong></td><td>wss://rpc.testnet.fluent.xyz/ws</td></tr></tbody>
+</table>
+
 ## Fluent Devnet
 
-### Metamask Network Parameters
+### Network Parameters
 
 <table><tbody><tr><td><strong class="row-name">Network Name:</strong></td><td>Fluent Developer Preview</td></tr>
 <tr><td><strong class="row-name">HTTPS RPC URL:</strong></td><td>https://rpc.dev.gblend.xyz</td></tr>
