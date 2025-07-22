@@ -14,15 +14,38 @@ we can reset the network at any time to upgrade it to a more stable version.
 
 :::
 
-## Quickstart Metamask Connect
+## Quickstart Wallet Connect
 
-To quickly integrate Fluent with MetaMask, use Chainlist:
+To quickly integrate Fluent with your wallet, use one of these 1-click options:
 
-https://chainlist.org/?testnets=true&search=fluent
-
-or visit our Dev Homepage: 
-
-https://dev.gblend.xyz/
+<table data-column-title-hidden data-view="cards">
+    <tbody>
+        <tr>
+            <td>
+                <a href="https://chainlist.org/?testnets=true&search=fluent">
+                    <strong>Chainlist</strong> 
+                    <span>Add network info to your wallet directlyfrom Chainlist.</span>
+                </a>
+            </td>
+            <td>
+                <a href="https://dev.gblend.xyz">
+                    <strong>Fluent Dev Portal</strong>
+                    <span>Add network info to your wallet from Fluent dev portal.</span>
+                </a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div data-view="cards">
+        <a href="https://chainlist.org/?testnets=true&search=fluent">
+            <strong>Chainlist</strong> 
+            <span>Add network info to your wallet directly from Chainlist.</span>
+        </a>
+        <a href="https://dev.gblend.xyz">
+            <strong>Fluent Dev Portal</strong>
+            <span>Add network info to your wallet from Fluent dev portal.</span>
+        </a>
+</div>
 
 ## Fluent Testnet
 
