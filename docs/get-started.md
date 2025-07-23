@@ -6,6 +6,8 @@ slug: /
 The Era of Expressivity is Here
 ---
 
+![Fluent Banner](../static/img/fluent-banner.png)
+
 Fluent is the first [blended execution network](https://www.fluent.xyz/blended-101) where EVM, WASM, and SVM (soon) contracts talk to each other like they're written in the same language. No bridges. No friction. Just pure _expressivity_.
 
 :::tip The Fluent Advantage
