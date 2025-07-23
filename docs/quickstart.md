@@ -3,48 +3,87 @@ title: Quickstart
 sidebar_position: 1
 slug: /
 ---
+The Era of Expressivity is Here
+---
 
-# Fluent - The First Blended Execution Network
+Fluent is the first [blended execution network](https://www.fluent.xyz/blended-101) where EVM, WASM, and SVM (soon) contracts talk to each other like they're written in the same language. No bridges. No friction. Just pure _expressivity_.
 
-Fluent is the first [blended execution network](https://www.fluent.xyz/blended-101) - an Ethereum L2 and framework that blends Wasm, EVM and (soon) SVM-based smart contracts into a unified execution environment.
+:::tip The Fluent Advantage
 
-Smart contracts from different VM targets can directly call each other on Fluent. Fluent is in public devnet and currently supports apps composed of Solidity, Vyper, and Rust contracts.
+EVM, SVM and Wasm blended into one chain. Build 10x apps with a 10x toolkit.
+
+:::
+
+### Target Audience
+
+The main audience for this documentation are smart contract developers deploying on Fluent, using the `gblend` CLI tool and Fluentbase SDK. To a lesser extent, the documentation also serves infra operators and protocol engineers.
+
+**Choose your adventure and start blending!**
 
 <table data-column-title-hidden data-view="cards">
     <tbody>
         <tr>
             <td>
-                <a href="developer-preview/connect-to-fluent">
-                    <strong>Get Started</strong> 
-                    <span>Connect to the Fluent Devnet</span>
+                <a href="./connect-to-fluent">
+                    <strong>Connect to Fluent</strong>
+                    <span>You know what to do? Connect to Fluent and blend it.</span>
                 </a>
             </td>
             <td>
-                <a href="developer-guides/developer-quickstart-guides">
-                    <strong>Developers </strong>
-                    <span>Explore developer documentation</span>
+                <a href="developer-guides/building-a-blended-app/">
+                    <strong>Developer Guides</strong> 
+                    <span>Deploy blended apps in minutes. Rust ↔ Solidity made simple.</span>
                 </a>
             </td>
             <td>
                 <a href="knowledge-base/fluent-overview">
-                    <strong>Technology </strong>
-                    <span>Explore Fluent’s architecture</span>
+                    <strong>Study the Tech</strong> 
+                    <span>Dive deep into rWasm and blended execution architecture.</span>
                 </a>
             </td>
         </tr>
     </tbody>
 </table>
 <div data-view="cards">
-        <a href="developer-preview/connect-to-fluent">
-            <strong>Get Started</strong> 
-            <span>Connect to the Fluent Devnet</span>
-        </a>
-        <a href="developer-guides/developer-quickstart-guides">
-            <strong>Developers </strong>
-            <span>Explore developer documentation</span>
-        </a>
-        <a href="knowledge-base/fluent-overview">
-            <strong>Technology </strong>
-            <span>Explore Fluent’s architecture</span>
-        </a>
+    <a href="./connect-to-fluent">
+        <strong>Connect to Fluent</strong>
+        <span>You know what to do? Connect to Fluent and blend it.</span>
+    </a>
+    <a href="developer-guides/building-a-blended-app/">
+        <strong>Developer Guides</strong> 
+        <span>Deploy blended apps in minutes. Rust ↔ Solidity made simple.</span>
+    </a>
+    <a href="knowledge-base/fluent-overview">
+        <strong>Study the Tech</strong> 
+        <span>Dive deep into rWasm and blended execution architecture.</span>
+    </a>
 </div>
+
+## `gblend`: Your New Best Friend
+
+If you're an application developer on Fluent, not matter your language of choice, the `gblend` CLI tool handles everything from project scaffolding to deployment. Get started in seconds:
+
+```bash
+cargo install gblend
+gblend init
+```
+
+Running the `gblend init` command sets up your entire project structure. No configuration headaches, no complex build setups—just pure development focus.
+
+## Why Developers Choose Fluent
+
+**🚀 Write in Your Favorite Language**  
+Build with Solidity's ecosystem maturity, Rust's performance, or just blend it all in one app.
+
+**⚡ True Cross-VM Composability**  
+Your Rust contract calls your Solidity contract directly. No complex bridging or state synchronization.
+
+**🔧 Ethereum L2 Benefits**  
+Same security guarantees, familiar tooling, existing wallet support—but with ~~multi-VM~~ _blended VM_ superpowers.
+
+
+:::note
+
+Currently in public testnet with Solidity, Vyper, and Rust support. More languages coming soon.
+
+:::
