@@ -61,7 +61,7 @@ The main audience for this documentation are smart contract developers deploying
 
 ## `gblend`: Your New Best Friend
 
-If you're an application developer on Fluent, not matter your language of choice, the `gblend` CLI tool handles everything from project scaffolding to deployment. Get started in seconds:
+If you're an application developer on Fluent, no matter your language of choice, the `gblend` CLI tool handles everything from project scaffolding to deployment. Get started in seconds:
 
 ```bash
 cargo install gblend
