@@ -23,13 +23,17 @@ The SDK provides a unified development environment that bridges multiple executi
 
 The Fluentbase SDK currently supports writing [smart contracts](../developer-guides/smart-contracts/README.md) in:
 
-* [Rust](../developer-guides/smart-contracts/rust.md) - Full featured support with derive macros and storage optimization
-* [Solidity](../developer-guides/smart-contracts/solidity.md) - EVM-compatible contracts with seamless interoperability
-* [Vyper](../developer-guides/smart-contracts/vyper.md) - Alternative Python-like syntax for EVM contracts
+* **[Rust](../developer-guides/smart-contracts/rust.md)** - Full featured support with derive macros and storage optimization
+* **[Solidity](../developer-guides/smart-contracts/solidity.md)** - EVM-compatible contracts with seamless interoperability
+* **[Vyper](../developer-guides/smart-contracts/vyper.md)** - Alternative Python-like syntax for EVM contracts
 
 :::
 
 Future iterations will introduce more language support.
+
+### Supported Types
+
+Fluentbase supports automatic conversion between Solidity and Rust types. For a complete mapping reference, see the [Type Conversion Guide](https://github.com/fluentlabs-xyz/fluentbase/blob/v0.3.6-dev/crates/sdk-derive/docs/type_conversion.md).
 
 ## Modules
 

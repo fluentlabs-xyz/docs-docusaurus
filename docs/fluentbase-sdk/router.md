@@ -5,7 +5,7 @@ sidebar_position: 2
 Dispatch Methods with the Router
 ---
 
-The router macro provides a robust method dispatch system for Fluentbase smart contracts. It automatically transforms function calls with Solidity-compatible selectors into appropriate Rust function calls, handling parameter decoding and result encoding. 
+The router macro provides a robust method dispatch system for Fluentbase smart contracts. It automatically transforms function calls with Solidity-compatible selectors into appropriate Rust function calls, handling parameter decoding and result encoding.
 
 :::tip
 The router macro serves as the foundation for building interoperable smart contracts and ultimately blended applications, that can be called from EVM-compatible environments.
@@ -14,6 +14,7 @@ The router macro serves as the foundation for building interoperable smart contr
 ## Overview
 
 The router system works by generating a `main()` method that:
+
 1. Reads the first 4 bytes of input data as a function selector
 2. Matches the selector against available methods
 3. Decodes parameters based on the method signature

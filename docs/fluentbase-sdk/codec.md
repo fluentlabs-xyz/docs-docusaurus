@@ -2,7 +2,7 @@
 title: Codec
 sidebar_position: 4
 ---
-(Advanced): Codec
+Codec (Advanced)
 ---
 
 The Fluentbase codec system handles encoding and decoding of smart contract data automatically.
