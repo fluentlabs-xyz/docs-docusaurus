@@ -1,6 +1,6 @@
 ---
 title: Connect to Fluent 
-sidebar_position: 1
+sidebar_position: 2
 ---
 Connect to Fluent
 ---
