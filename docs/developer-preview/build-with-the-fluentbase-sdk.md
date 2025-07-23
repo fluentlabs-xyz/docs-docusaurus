@@ -2,31 +2,17 @@
 title: Build with the Fluentbase SDK
 sidebar_position: 2
 ---
-Build with the Fluentbase SDK
+
+# Build with the Fluentbase SDK
+
+Deploy on the Fluent Public Devnet
 ---
-[Fluentbase](https://github.com/fluentlabs-xyz/fluentbase/) is a framework that introduces an SDK and a proving system for Fluent State Transition Functions (STF). The framework can be used by developers to create shared applications (aka smart contracts), dedicated applications, system precompile contracts or just for custom STFs.
 
-Fluent and the Fluentbase SDK are explicitly designed for deploying and interacting with EVM and Rust-based smart contracts. Solidity and Rust contracts can be deployed independently, or call each other as part of a [blended application](https://docs.fluent.xyz/developer-guides/building-a-blended-app/) that utilizes both types of contracts.
-
-:::info Supported Languages
-
-The Fluentbase SDK currently supports writing [smart contracts](../developer-guides/smart-contracts/README.md) in:
-
-* [Rust](../developer-guides/smart-contracts/rust.md)
-* [Solidity](../developer-guides/smart-contracts/solidity.md)
-* [Vyper](../developer-guides/smart-contracts/vyper.md)
-
-:::
-
-Future iterations will introduce more language support.
-
-:::warning
-
-The Fluentbase SDK is in experimental development and is still a work in progress.
-
-All bindings, methods, and naming conventions within the codebase are not standardized and may change significantly. Additionally, the codebase has not been audited or fully tested, which could lead to potential vulnerabilities or crashes.
-
-:::
+> ⚠️ **Caution**  
+>
+> The Fluentbase SDK is in experimental development and is still a work in progress.
+>
+> All bindings, methods, and naming conventions within the codebase are not standardized and may change significantly. Additionally, the codebase has not been audited or fully tested, which could lead to potential vulnerabilities or crashes.
 
 ## Modules
 
@@ -43,6 +29,15 @@ Contains all [Fluentbase modules](https://github.com/fluentlabs-xyz/fluentbase/t
 3. ### `e2e` (partially outdated)
 
 A [set of e2e tests](https://github.com/fluentlabs-xyz/fluentbase/tree/devel/e2e) for testing EVM transition and other Wasm features.
+
+
+## Supported Languages&#x20;
+
+The Fluentbase SDK currently supports writing smart contracts in:
+
+* Rust&#x20;
+* Solidity&#x20;
+* Vyper
 
 
 ## Example Code
