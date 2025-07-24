@@ -1,6 +1,6 @@
 ---
 title: Contribute
-sidebar_position: 4
+sidebar_position: 8
 ---
  
 To contribute to the Fluent documentation written in Docusaurus, fork the following GitHub repo:
