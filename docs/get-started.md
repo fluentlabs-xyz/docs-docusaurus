@@ -74,6 +74,12 @@ Running the `gblend init` command sets up your entire project structure. No conf
 
 ## Why Developers Choose Fluent
 
+<!-- Responsive YouTube embed -->
+<div class="video-responsive">
+  <iframe src="https://www.youtube.com/embed/WkDafMeCABg" title="The benefits of blended execution, explained in just 15 minutes." frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</div>
+<br />
+
 **🚀 Write in Your Favorite Language**  
 Build with Solidity's ecosystem maturity, Rust's performance, or just blend it all in one app.
 
@@ -82,7 +88,6 @@ Your Rust contract calls your Solidity contract directly. No complex bridging or
 
 **🔧 Ethereum L2 Benefits**  
 Same security guarantees, familiar tooling, existing wallet support—but with ~~multi-VM~~ _blended VM_ superpowers.
-
 
 :::note
 
