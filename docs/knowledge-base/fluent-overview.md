@@ -9,12 +9,14 @@ Fluent is the first [blended execution](blended-101.md) network. The project enc
 
 Fluent's zkVM is written in SP1 as shown in the [rwasm-zkvm repo](https://github.com/fluentlabs-xyz/rwasm-zkvm).
 
-Fluent’s unique value proposition lies in its ability to:
+:::tip Fluent’s unique value proposition lies in its ability to:
 
 * simulate the execution environment (EE) of multiple virtual machines (VMs),
 * enabling real-time composability of smart contracts pertaining to different VMs (the EVM, the SVM, Wasm, etc.),
 * and written in various programming languages (e.g., Solidity, Rust, and more),
 * on a shared state execution environment.
+
+:::
 
 Fluent supports atomic composability between apps targeting different VMs, and _blended_ apps composed of smart contracts mixed and matched between them. Interaction between the different types of contracts the network supports happens under the hood and is both atomic and happens in real-time.
 
