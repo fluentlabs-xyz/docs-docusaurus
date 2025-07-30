@@ -19,7 +19,7 @@ To quickly integrate Fluent with your wallet, use one of these 1-click options:
             <td>
                 <a href="https://chainlist.org/?testnets=true&search=fluent">
                     <strong>Chainlist</strong> 
-                    <span>Add network info to your wallet directlyfrom Chainlist.</span>
+                    <span>Add network info to your wallet directly from Chainlist.</span>
                 </a>
             </td>
             <td>
