@@ -101,7 +101,7 @@ pub trait RouterAPI {
 impl<SDK: SharedAPI> RouterAPI for ROUTER<SDK> {
 
     // ERC-20 with Fluent SDK example:
-    // https://github.com/fluentlabs-xyz/fluentbase/blob/devel/examples/erc20/lib.rs
+    // https://github.com/fluentlabs-xyz/fluentbase/blob/devel/contracts/examples/erc20/lib.rs
 
     #[function_id("rustString()")]
     fn rust_string(&self) -> String {
