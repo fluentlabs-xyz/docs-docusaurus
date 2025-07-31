@@ -7,6 +7,10 @@ Client Generation
 
 The client generation system creates type-safe client code for interacting with Fluentbase smart contracts. It automatically generates client structs and methods from trait definitions, handling parameter encoding, contract calls, and result decoding. This enables seamless interaction with deployed contracts while maintaining type safety and consistency with the contract interface.
 
+:::info Prerequisites
+This documentation assumes you've already built contracts using the [Router System](./router.md). Clients are generated from trait definitions that match your contract's router interface.
+:::
+
 ## Overview
 
 Client generation bridges the gap between contract interfaces and contract usage. When you have a contract deployed on the network, you need a way to call its methods from other contracts or external applications. The client system:
@@ -155,7 +159,7 @@ impl<SDK: SharedAPI> TokenInterfaceClient<SDK> {
 
 ### Complex Data Types
 
-The client system handles complex types automatically when they implement the `Codec` trait:
+The client system handles complex types automatically when they implement the `Codec` trait (see [Codec documentation](./codec.md#when-you-need-custom-types)):
 
 ```rust
 use fluentbase_sdk::codec::Codec;
@@ -334,7 +338,7 @@ impl<SDK: SharedAPI> DeFiAggregator<SDK> {
 
 ### Solidity Mode (Default)
 
-Full EVM compatibility with standard ABI encoding:
+Full EVM compatibility with standard ABI encoding, matching the encoding used in [router Solidity mode](./router.md#solidity-mode-default):
 
 ```rust
 #[client(mode = "solidity")]
@@ -481,3 +485,10 @@ The client generation system provides:
 - **Direct Solidity integration** for easy migration and interoperability
 
 Use clients to build sophisticated DeFi protocols, governance systems, and multi-contract applications while maintaining type safety and code clarity.
+
+### See Also
+
+- **[Router System](./router.md)**: Understand how to build contracts that clients can interact with
+- **[Storage System](./storage.md)**: Learn about accessing storage from client calls
+- **[Codec System](./codec.md)**: Deep dive into encoding/decoding mechanisms
+- **[Overview](./build-w-fluentbase-sdk.md)**: Return to the main SDK documentation
