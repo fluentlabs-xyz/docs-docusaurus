@@ -183,7 +183,7 @@ Used for types ≤ 32 bytes:
 - Boolean values
 - Addresses
 - Fixed-size byte arrays up to 32 bytes
-- FixedBytes<N> where N ≤ 32
+- `FixedBytes<N>` where N ≤ 32
 
 **Benefits:**
 - No encoding/decoding overhead
@@ -193,7 +193,7 @@ Used for types ≤ 32 bytes:
 ### StorageValueSolidity
 Used for complex types:
 - Structs (with `#[derive(Codec)]`)
-- Dynamic arrays (Vec<T>, Bytes)
+- Dynamic arrays `(Vec<T>, Bytes)`
 - Strings
 - Large fixed arrays (> 32 bytes)
 
