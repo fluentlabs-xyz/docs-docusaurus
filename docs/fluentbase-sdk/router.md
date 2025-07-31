@@ -136,6 +136,8 @@ basic_entrypoint!(SimpleStorage);
 
 ## Function Selectors
 
+Function selectors are 4-byte identifiers that uniquely identify functions in smart contracts. They are typically the first 4 bytes of the keccak256 hash of the function signature (function name and parameter types), but can also be customized to use different values. Function selectors are used in Ethereum and other EVM-compatible blockchains to determine which function to call when a transaction is sent to a contract.
+
 ### Automatic Selector Generation
 
 By default, function selectors are calculated from the method signature using keccak256:
