@@ -7,6 +7,10 @@ Solidity Compatible Storage
 
 The Fluentbase storage system implements Solidity-compatible storage in Rust contracts, following [Solidity's storage layout specification](https://docs.soliditylang.org/en/latest/internals/layout_in_storage.html). It provides significant code size reduction through direct storage access for primitive types while maintaining full compatibility with EVM storage patterns.
 
+:::info Prerequisites
+This documentation assumes familiarity with the [Router System](./router.md) for building contracts. Storage is typically used within router-enabled contracts to manage persistent state.
+:::
+
 ## Overview
 
 The `solidity_storage!` macro automatically generates type-safe storage access methods that:
@@ -139,7 +143,7 @@ impl<SDK: SharedAPI> ArrayContract<SDK> {
 
 ### 4. Complex Types (Structs)
 
-Custom types that implement the `Codec` trait can be stored:
+Custom types that implement the `Codec` trait can be stored. See the [Codec documentation](./codec.md#when-you-need-custom-types) for details on making types codec-compatible:
 
 ```rust
 use fluentbase_sdk::{codec::Codec, derive::solidity_storage};
@@ -316,8 +320,14 @@ mod tests {
 
 The storage system integrates seamlessly with:
 
-- **Router System**: Access storage in routed methods
+- **[Router System](./router.md)**: Access storage in routed methods
 - **Event System**: Emit events when storage changes
-- **Client System**: Read storage from other contracts
+- **[Client System](./client.md)**: Read storage from other contracts
 
 This provides a complete framework for building complex smart contracts with persistent state management.
+
+### See Also
+
+- **[Overview](./build-w-fluentbase-sdk.md)**: Return to the main SDK documentation
+- **[Solidity Storage Layout](https://docs.soliditylang.org/en/latest/internals/layout_in_storage.html)**: Official Solidity documentation
+- **[Type Conversions](https://github.com/fluentlabs-xyz/fluentbase/blob/v0.3.6-dev/crates/sdk-derive/docs/type_conversion.md)**: Solidity to Rust type mappings
