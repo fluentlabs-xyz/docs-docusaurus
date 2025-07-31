@@ -109,6 +109,7 @@ impl<SDK: SharedAPI> TokenContract<SDK> {
 ```
 
 **Storage key calculation:**
+
 - Simple mapping: `key = keccak256(h(k) . p)` where `h(k)` is the padded key and `p` is the slot
 - Nested mapping: `key = keccak256(h(k2) . keccak256(h(k1) . p))`
 
@@ -177,8 +178,10 @@ impl<SDK: SharedAPI> ProfileContract<SDK> {
 
 The macro automatically selects the most efficient storage method:
 
-### Direct Storage
+### Direct Storage`
+
 Used for types ≤ 32 bytes:
+
 - All integer types (u8, u16, u32, u64, u128, U256, I256)
 - Boolean values
 - Addresses
@@ -186,18 +189,22 @@ Used for types ≤ 32 bytes:
 - `FixedBytes<N>` where N ≤ 32
 
 **Benefits:**
+
 - No encoding/decoding overhead
 - Minimal gas consumption
 - Reduced contract size
 
 ### StorageValueSolidity
+
 Used for complex types:
+
 - Structs (with `#[derive(Codec)]`)
 - Dynamic arrays `(Vec<T>, Bytes)`
 - Strings
 - Large fixed arrays (> 32 bytes)
 
 **Features:**
+
 - Automatic serialization/deserialization
 - Support for nested structures
 - Compatibility with Solidity ABI encoding
@@ -281,7 +288,7 @@ Use the generated methods for all storage access:
 let balance = Balance::get(&self.sdk, user);
 
 // Not possible - storage is only accessible through generated methods
-// let balance = self.balance[user];  // This won't compile
+let balance = self.balance[user];  // This won't compile
 ```
 
 ## Testing Storage
