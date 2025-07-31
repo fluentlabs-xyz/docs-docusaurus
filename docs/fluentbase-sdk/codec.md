@@ -39,7 +39,7 @@ For most smart contract development, the codec "just works" through the higher-l
 
 ### 1. Router Integration (Automatic)
 
-When you use the `#[router]` macro, codec handling is completely automatic:
+When you use the `#[router]` macro (see [Router documentation](./router.md)), codec handling is completely automatic:
 
 ```rust
 #[router(mode = "solidity")]
@@ -64,7 +64,7 @@ impl<SDK: SharedAPI> MyContract<SDK> {
 
 ### 2. Storage Integration (Automatic)
 
-The storage system automatically chooses the best encoding strategy:
+The storage system (see [Storage documentation](./storage.md)) automatically chooses the best encoding strategy:
 
 ```rust
 solidity_storage! {
@@ -95,7 +95,7 @@ impl<SDK: SharedAPI> MyContract<SDK> {
 
 ### 3. Client Integration (Automatic)
 
-Generated clients handle all encoding/decoding automatically:
+Generated clients (see [Client documentation](./client.md)) handle all encoding/decoding automatically:
 
 ```rust
 #[client(mode = "solidity")]
@@ -237,7 +237,6 @@ Based on the codec README, here are the technical details for advanced users:
 ### Type System
 
 #### Primitive Types (Zero-cost encoding)
-
 - Integer types: `u8`, `i8`, `u16`, `i16`, `u32`, `i32`, `u64`, `i64`
 - Boolean type: `bool`
 - Unit type: `()`
@@ -247,7 +246,6 @@ Based on the codec README, here are the technical details for advanced users:
 - Large integers: `U128`, `U256`, `I128`, `I256`
 
 #### Non-Primitive Types (Require metadata)
-
 - `Vec<T>`: Dynamic array with offset and length information
 - `HashMap<K,V>`: Separate metadata for keys and values
 - `HashSet<T>`: Hash set with metadata
@@ -256,7 +254,6 @@ Based on the codec README, here are the technical details for advanced users:
 ### Encoding Format
 
 **CompactABI Mode:**
-
 ```
 Header:
   - length (u32): number of elements
@@ -267,7 +264,6 @@ Body:
 ```
 
 **SolidityABI Mode:**
-
 ```
 Header:
   - offset (u32): position in the structure
@@ -319,11 +315,9 @@ Body:
 ## Important Notes
 
 ### Determinism
-
 The encoded binary is not deterministic and should only be used for parameter passing. The encoding order of non-primitive fields affects the data layout after the header, though decoding will produce the same result regardless of encoding order.
 
 ### Order Sensitivity
-
 The order of encoding operations is significant, especially for non-primitive types, as it affects the final binary layout.
 
 ## Summary
@@ -336,3 +330,11 @@ The order of encoding operations is significant, especially for non-primitive ty
 - Let the router, storage, and client systems handle encoding automatically
 
 **The codec system is designed to be invisible** - it handles the complex work of serialization so you can focus on business logic.
+
+### See Also
+
+- **[Router System](./router.md)**: See how codec is used for parameter handling
+- **[Storage System](./storage.md)**: Understand codec's role in storage serialization
+- **[Client Generation](./client.md)**: Learn how clients use codec for cross-contract calls
+- **[Overview](./build-w-fluentbase-sdk.md)**: Return to the main SDK documentation
+- **Technical Details**: View the [codec implementation](https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/codec) in the repository
