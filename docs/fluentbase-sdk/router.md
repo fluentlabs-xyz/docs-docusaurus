@@ -504,7 +504,6 @@ This makes the router the central dispatch mechanism in a comprehensive smart co
 - **[Overview](./build-w-fluentbase-sdk.md):** Return to the main SDK documentation
 - **[Codec System](./codec.md):** Understand how parameters are encoded/decoded
 - **[Storage Patterns](./storage.md):** Learn about state management
-- **Examples:** View the [router examples](https://github.com/fluentlabs-xyz/fluentbase/tree/devel/examples/router-solidity) in the repository
 
 ## Performance Considerations
 
