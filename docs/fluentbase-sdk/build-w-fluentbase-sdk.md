@@ -250,9 +250,15 @@ basic_entrypoint!(ERC20);
 
 This overview provides the foundation for building with the Fluentbase SDK. For detailed information on specific features:
 
-- **Router System**: Learn about automatic method dispatch and function selectors
-- **Storage Management**: Understand Solidity-compatible storage patterns
-- **Codec System**: Explore encoding/decoding for complex data types
-- **Client Generation**: Build contract interaction clients
+- **[Router System](./router.md)**: Learn about automatic method dispatch and function selectors
+- **[Storage Management](./storage.md)**: Understand Solidity-compatible storage patterns
+- **[Codec System](./codec.md)**: Explore encoding/decoding for complex data types
+- **[Client Generation](./client.md)**: Build contract interaction clients
 
 Each of these topics is covered in dedicated documentation sections with comprehensive examples and best practices.
+
+### Related Resources
+
+- **Source Code**: [GitHub Repository](https://github.com/fluentlabs-xyz/fluentbase)
+- **Type Conversions**: [Solidity to Rust Type Mapping](https://github.com/fluentlabs-xyz/fluentbase/blob/v0.3.6-dev/crates/sdk-derive/docs/type_conversion.md)
+- **Examples**: [Contract Examples Directory](https://github.com/fluentlabs-xyz/examples)
