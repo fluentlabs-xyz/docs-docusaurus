@@ -53,7 +53,7 @@ The Fluent L2 will support two types of apps: shared and dedicated.
 
 ## The Fluentbase Framework
 
-The [Fluentbase framework](../developer-preview/build-with-the-fluentbase-sdk.md) is used to deploy smart contracts on the Fluent L2 as well as blockchains and verifiable compute environments that compile to rWasm. It introduces an SDK and a proving system for the Fluent state transition function (STF). It is the basis for the Fluent L2 and can be used to build:
+The [Fluentbase framework](../fluentbase-sdk/build-w-fluentbase-sdk.md) is used to deploy smart contracts on the Fluent L2 as well as blockchains and verifiable compute environments that compile to rWasm. It introduces an SDK and a proving system for the Fluent state transition function (STF). It is the basis for the Fluent L2 and can be used to build:
 
 * **Blended apps:** Smart contracts on the Fluent L2 written in the various programming languages that the network supports.
 * **Blended execution networks:** blockchain-based networks (L2s, L3s, etc.) which simulates multiple VM targets on a shared execution layer.
