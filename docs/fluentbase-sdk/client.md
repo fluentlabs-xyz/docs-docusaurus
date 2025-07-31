@@ -122,7 +122,16 @@ basic_entrypoint!(DeFiContract);
 
 ## Generated Client Methods
 
-For each trait method, the client generates a corresponding method with this signature:
+For each trait method, the client generates a corresponding method. All generated client methods follow a consistent signature pattern:
+
+1. **Contract Address** (`Address`): The target contract to call
+2. **ETH Value** (`U256`): How much ETH to send with the call (usually `U256::zero()` for view methods)
+3. **Gas Limit** (`u64`): Maximum gas to use for the call
+4. **Original Parameters**: The actual function parameters from your trait definition
+
+This pattern ensures that every client call includes the necessary metadata for contract interaction while maintaining the original function signature for the actual parameters.
+
+For the example above:
 
 ```rust
 impl<SDK: SharedAPI> TokenInterfaceClient<SDK> {
