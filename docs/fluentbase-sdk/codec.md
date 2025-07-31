@@ -7,11 +7,11 @@ Codec (Advanced)
 
 The Fluentbase codec system handles encoding and decoding of smart contract data automatically.
 
-:::tip Expand your knowledge, but generally abstracted away
+:::tip The codec system is designed to be invisible...
 
 **In normal usage, developers don't interact with the codec directly** - it's used internally by the router, storage, and client systems to handle parameter passing, storage serialization, and contract interactions.
-
-When you don't require advanced codec usage, you can skim this page and move on to the next one.
+<br></br>
+When you don't require advanced codec usage, you can skim this page, review the [summary](#summary) and move on to the next one.
 
 :::
 
@@ -230,48 +230,6 @@ fn encoding_comparison() {
 }
 ```
 
-## Codec Implementation Details
-
-Based on the codec README, here are the technical details for advanced users:
-
-### Type System
-
-#### Primitive Types (Zero-cost encoding)
-- Integer types: `u8`, `i8`, `u16`, `i16`, `u32`, `i32`, `u64`, `i64`
-- Boolean type: `bool`
-- Unit type: `()`
-- Static arrays: `[T; N]`
-- Tuples: `(T,)`, `(T1, T2)`, etc.
-- Option type: `Option<T>`
-- Large integers: `U128`, `U256`, `I128`, `I256`
-
-#### Non-Primitive Types (Require metadata)
-- `Vec<T>`: Dynamic array with offset and length information
-- `HashMap<K,V>`: Separate metadata for keys and values
-- `HashSet<T>`: Hash set with metadata
-- `String` and `Bytes`: Dynamic byte sequences
-
-### Encoding Format
-
-**CompactABI Mode:**
-```
-Header:
-  - length (u32): number of elements
-  - offset (u32): position in the buffer
-  - size (u32): total number of encoded bytes
-Body:
-  - encoded elements
-```
-
-**SolidityABI Mode:**
-```
-Header:
-  - offset (u32): position in the structure
-Body:
-  - length (u32): number of elements
-  - encoded elements
-```
-
 ## Troubleshooting
 
 ### Common Issues
@@ -329,7 +287,9 @@ The order of encoding operations is significant, especially for non-primitive ty
 - Choose `mode = "fluent"` for pure Rust optimization
 - Let the router, storage, and client systems handle encoding automatically
 
-**The codec system is designed to be invisible** - it handles the complex work of serialization so you can focus on business logic.
+:::tip The codec system is designed to be invisible...
+... it handles the complex work of serialization so you can focus on business logic.
+:::
 
 ### See Also
 
