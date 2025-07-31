@@ -8,7 +8,7 @@ Dispatch Methods with the Router
 The router macro provides a robust method dispatch system for Fluentbase smart contracts. It automatically transforms function calls with Solidity-compatible selectors into appropriate Rust function calls, handling parameter decoding and result encoding.
 
 :::tip
-The router macro serves as the foundation for building interoperable smart contracts and ultimately blended applications, that can be called from EVM-compatible environments.
+The router macro serves as the foundation for building interoperable smart contracts and ultimately blended applications, that can be called from EVM-compatible environments. It works hand-in-hand with the [client generation system](./client.md) to enable cross-contract interactions.
 :::
 
 ## Overview
@@ -196,7 +196,6 @@ impl<SDK: SharedAPI> MyContract<SDK> {
 ```
 
 **When to use validation:**
-
 - During development to catch type mismatches
 - When maintaining compatibility with existing contracts
 - During refactoring to prevent accidental selector changes
@@ -221,11 +220,12 @@ impl<SDK: SharedAPI> MyContract<SDK> {
 ```
 
 **Characteristics:**
-
 - Big-endian byte order
 - 32-byte alignment
 - Compatible with `web3.js`, `ethers.js`, and other EVM tools
 - Larger payload size
+
+This mode uses the same encoding as described in the [Codec System documentation](./codec.md#solidity-mode-default).
 
 ### Fluent Mode
 
@@ -243,7 +243,6 @@ impl<SDK: SharedAPI> MyContract<SDK> {
 ```
 
 **Characteristics:**
-
 - Little-endian byte order
 - 4-byte alignment
 - Smaller payload size
@@ -268,7 +267,6 @@ impl<SDK: SharedAPI> MyContract<SDK> {
 ```
 
 **Key points:**
-
 - Always excluded from function selector routing
 - Called automatically during contract deployment
 - Should contain initialization logic
@@ -295,7 +293,6 @@ impl<SDK: SharedAPI> MyContract<SDK> {
 ```
 
 **Behavior:**
-
 - Called for any unrecognized function selector
 - Must have signature `fn fallback(&self)` with no parameters or return value
 - If no fallback is defined, unmatched selectors cause a panic
@@ -424,7 +421,6 @@ basic_entrypoint!(RobustContract);
 ### Common Compilation Errors
 
 **Function Selector Collisions:**
-
 ```rust
 // This will cause a compile-time error
 #[router(mode = "solidity")]
@@ -439,7 +435,6 @@ impl<SDK: SharedAPI> MyContract<SDK> {
 **Solution:** Use unique function signatures or custom selectors.
 
 **No Public Methods:**
-
 ```rust
 // This will cause a compile-time error in direct implementations
 #[router(mode = "solidity")]
@@ -497,12 +492,19 @@ mod tests {
 
 The router system integrates seamlessly with other Fluentbase SDK features:
 
-- **Storage System:** Use `solidity_storage!` for persistent state
+- **[Storage System](./storage.md):** Use `solidity_storage!` for persistent state
 - **Events:** Emit events using `sol!` macro and `emit_log`
-- **Client Generation:** Generate clients using the `client` macro
+- **[Client Generation](./client.md):** Generate clients using the `client` macro
 - **Cross-Contract Calls:** Call other contracts using generated clients
 
 This makes the router the central dispatch mechanism in a comprehensive smart contract development framework.
+
+### See Also
+
+- **[Overview](./build-w-fluentbase-sdk.md):** Return to the main SDK documentation
+- **[Codec System](./codec.md):** Understand how parameters are encoded/decoded
+- **[Storage Patterns](./storage.md):** Learn about state management
+- **Examples:** View the [router examples](https://github.com/fluentlabs-xyz/fluentbase/tree/devel/examples/router-solidity) in the repository
 
 ## Performance Considerations
 
