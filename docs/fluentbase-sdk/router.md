@@ -198,6 +198,7 @@ impl<SDK: SharedAPI> MyContract<SDK> {
 ```
 
 **When to use validation:**
+
 - During development to catch type mismatches
 - When maintaining compatibility with existing contracts
 - During refactoring to prevent accidental selector changes
@@ -222,6 +223,7 @@ impl<SDK: SharedAPI> MyContract<SDK> {
 ```
 
 **Characteristics:**
+
 - Big-endian byte order
 - 32-byte alignment
 - Compatible with `web3.js`, `ethers.js`, and other EVM tools
@@ -245,6 +247,7 @@ impl<SDK: SharedAPI> MyContract<SDK> {
 ```
 
 **Characteristics:**
+
 - Little-endian byte order
 - 4-byte alignment
 - Smaller payload size
@@ -269,6 +272,7 @@ impl<SDK: SharedAPI> MyContract<SDK> {
 ```
 
 **Key points:**
+
 - Always excluded from function selector routing
 - Called automatically during contract deployment
 - Should contain initialization logic
@@ -295,6 +299,7 @@ impl<SDK: SharedAPI> MyContract<SDK> {
 ```
 
 **Behavior:**
+
 - Called for any unrecognized function selector
 - Must have signature `fn fallback(&self)` with no parameters or return value
 - If no fallback is defined, unmatched selectors cause a panic
@@ -423,6 +428,7 @@ basic_entrypoint!(RobustContract);
 ### Common Compilation Errors
 
 **Function Selector Collisions:**
+
 ```rust
 // This will cause a compile-time error
 #[router(mode = "solidity")]
@@ -437,6 +443,7 @@ impl<SDK: SharedAPI> MyContract<SDK> {
 **Solution:** Use unique function signatures or custom selectors.
 
 **No Public Methods:**
+
 ```rust
 // This will cause a compile-time error in direct implementations
 #[router(mode = "solidity")]
