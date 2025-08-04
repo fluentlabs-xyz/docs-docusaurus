@@ -2,299 +2,174 @@
 title: Codec
 sidebar_position: 4
 ---
-Codec (Advanced)
+
+Codec
 ---
 
-The Fluentbase codec system handles encoding and decoding of smart contract data automatically.
+The Fluentbase codec system manages encoding and decoding of smart contract data.
 
-:::tip The codec system is designed to be invisible...
-
-**In normal usage, developers don't interact with the codec directly** - it's used internally by the router, storage, and client systems to handle parameter passing, storage serialization, and contract interactions.
-<br></br>
-When you don't require advanced codec usage, you can skim this page, review the [summary](#summary) and move on to the next one.
-
-:::
+\:::tip How to Use the Codec
+The Fluentbase SDK largely automates serialization. Your primary interaction with the codec is through the `#[derive(Codec)]` macro. Applying this to custom structs automatically integrates them into the SDK.
+\:::
 
 ## Overview
 
-The codec system works behind the scenes to provide:
+The codec system is designed for flexibility and performance:
 
-- **Automatic parameter encoding/decoding** in router methods
-- **Efficient storage serialization** for complex types
-- **Cross-contract call handling** in client-generated code
-- **EVM compatibility** when using Solidity mode
+* **`no_std` Compatible**: Suitable for constrained environments without the standard library.
+* **Multiple Encoding Modes**: Supports both EVM-compatible (`SolidityABI`) and WASM-optimized (`CompactABI`) formats.
+* **Automatic Implementation**: Automatically implements serialization logic with `#[derive(Codec)]`.
+* **Rich Type Support**: Handles primitives, collections (`Vec`, `HashMap`), tuples, and nested structs.
+* **Partial Decoding**: Allows accessing specific parts of serialized data without fully decoding the entire stream, enhancing efficiency.
 
-:::warning You only need to understand the codec system if you're:
+## Enabling Custom Types with `#[derive(Codec)]`
 
-- Building advanced framework features
-- Creating custom storage optimizations  
-- Debugging encoding issues
-- Working on cross-VM interoperability
-
-:::
-
-For most smart contract development, the codec "just works" through the higher-level macros.
-
-## How Codec Works Behind the Scenes
-
-### 1. Router Integration (Automatic)
-
-When you use the `#[router]` macro (see [Router documentation](./router.md)), codec handling is completely automatic:
+To integrate custom structs with Fluentbase serialization, derive the `Codec` trait:
 
 ```rust
-#[router(mode = "solidity")]
-impl<SDK: SharedAPI> MyContract<SDK> {
-    // The router automatically:
-    // 1. Decodes input parameters from bytes
-    // 2. Calls your method with typed parameters  
-    // 3. Encodes return values back to bytes
-    pub fn transfer(&mut self, to: Address, amount: U256) -> bool {
-        // You work with typed values - no codec code needed!
-        true
-    }
+use fluentbase_sdk::Codec;
+
+// Adding `#[derive(Codec)]` makes this struct usable
+// in function parameters, return values, and storage.
+#[derive(Codec, Debug, Default, Clone, PartialEq)]
+pub struct UserProfile {
+    pub name: String,
+    pub level: u64,
+    pub is_active: bool,
 }
 ```
 
-**What happens internally:**
+Deriving `Codec` generates implementations of the core `Encoder` trait, making your structs recognizable across Fluentbase SDK components such as `#[router]` and `solidity_storage!` macros.
 
-- Router generates `TransferCall` and `TransferReturn` structs
-- Input bytes are automatically decoded to `(Address, U256)`
-- Your return `bool` is automatically encoded for output
-- Function selectors are calculated and matched
+## Automatic Argument Encoding and Decoding
 
-### 2. Storage Integration (Automatic)
+With SDK macros (`#[router]`, `#[client]`, solidity_storage!, etc), encoding and decoding of arguments and return values occur transparently. Once you've added `#[derive(Codec)]` to your custom types, you can work with function arguments and returns as regular Rust types, without explicit encoding or decoding logic.
 
-The storage system (see [Storage documentation](./storage.md)) automatically chooses the best encoding strategy:
+### Example of Manual Encoding and Decoding
 
-```rust
-solidity_storage! {
-    // DirectStorage - no encoding needed
-    Address Owner;           // Stored directly in 32-byte slot
-    U256 Balance;           // Stored directly in 32-byte slot
-    
-    // Codec encoding - handled automatically
-    Vec<Address> Users;     // Automatically serialized
-    MyStruct Config;        // Automatically serialized  
-}
-
-// Usage is the same regardless of encoding method
-impl<SDK: SharedAPI> MyContract<SDK> {
-    pub fn add_user(&mut self, user: Address) {
-        let mut users = Users::get(&self.sdk);  // Auto-decoded
-        users.push(user);
-        Users::set(&mut self.sdk, users);       // Auto-encoded
-    }
-}
-```
-
-**What happens internally:**
-
-- Simple types (≤32 bytes) use `DirectStorage` - no encoding
-- Complex types use `StorageValueSolidity` - automatic codec serialization
-- You don't need to think about which method is used
-
-### 3. Client Integration (Automatic)
-
-Generated clients (see [Client documentation](./client.md)) handle all encoding/decoding automatically:
+Here's an explicit example of how encoding and decoding works under the hood:
 
 ```rust
-#[client(mode = "solidity")]
-trait TokenInterface {
-    fn balance_of(&self, owner: Address) -> U256;
-    fn transfer(&mut self, to: Address, amount: U256) -> bool;
-}
+use fluentbase_sdk::codec::SolidityABI;
+use bytes::BytesMut;
 
-// Using the generated client - no codec knowledge required
-impl<SDK: SharedAPI> MyContract<SDK> {
-    pub fn check_balance(&self, token: Address, user: Address) -> U256 {
-        let mut client = TokenInterfaceClient::new(self.sdk.clone());
-        
-        // Client automatically:
-        // 1. Encodes parameters (owner: Address) -> bytes
-        // 2. Makes the contract call  
-        // 3. Decodes response bytes -> U256
-        client.balance_of(token, U256::zero(), 50000, user)
-    }
-}
+let data = UserProfile {
+    name: "Alice".into(),
+    level: 42,
+    is_active: true,
+};
+
+let mut buf = BytesMut::new();
+SolidityABI::encode(&data, &mut buf, 0).unwrap();
+
+let decoded: UserProfile = SolidityABI::decode(&buf, 0).unwrap();
+assert_eq!(data, decoded);
 ```
 
-## When You Need Custom Types
+## Encoding Modes
 
-The only time you might interact with codec directly is when defining custom types for storage or parameters:
+The codec provides multiple encoding strategies ("modes") tailored to specific use cases. SDK macros (`#[router]`, `#[client]`) automatically select the appropriate mode based on their configuration.
 
-```rust
-use fluentbase_sdk::codec::Codec;
+### SolidityABI (Default for EVM)
 
-// Add #[derive(Codec)] for custom types
-#[derive(Codec, Debug, Clone, PartialEq)]
-struct UserProfile {
-    pub username: String,
-    pub reputation: U256,
-    pub is_verified: bool,
-}
+Primary mode for compatibility with EVM, Solidity, Ethereum wallets, and tools like Ethers.js.
 
-// Then use normally - codec handles serialization automatically
-solidity_storage! {
-    mapping(Address => UserProfile) Profiles;  // Auto-encoded/decoded
-}
+* **Byte Order**: Big-endian
+* **Alignment**: 32-byte word alignment
+* **Dynamic Types**: Uses offsets for types like `String`, `Bytes`, and `Vec<T>`
 
-#[router(mode = "solidity")]  
-impl<SDK: SharedAPI> MyTrait for MyContract<SDK> {
-    fn update_profile(&mut self, profile: UserProfile) -> bool {
-        // Router auto-decodes UserProfile from input
-        // Router auto-encodes bool to output
-        true
-    }
-}
-```
+### CompactABI ("Fluent" Mode)
 
-## Advanced: Understanding Encoding Modes
+WASM-optimized format for performance and smaller payloads within Fluentbase.
 
-For framework developers and advanced users, the codec supports two encoding modes:
+* **Byte Order**: Little-endian
+* **Alignment**: 4-byte alignment
+* **Dynamic Types**: Compact headers for dynamic types
 
-### Solidity Mode (Default)
+### SolidityPackedABI
 
-- **When used**: `#[router(mode = "solidity")]`, `#[client(mode = "solidity")]`
-- **Characteristics**: EVM-compatible, 32-byte alignment, big-endian
-- **Best for**: Interoperability with Solidity contracts and EVM tools
+Mimics Solidity's `abi.encodePacked` for tightly packed data.
 
-### Fluent Mode (Optimized)  
+* **Purpose**: Typically used for creating unique hashes
+* **Rules**:
 
-- **When used**: `#[router(mode = "fluent")]`, `#[client(mode = "fluent")]`
-- **Characteristics**: WASM-optimized, 4-byte alignment, little-endian, smaller payloads
-- **Best for**: Pure Rust contract interactions, performance optimization
-
-```rust
-// EVM compatibility (default)
-#[router(mode = "solidity")]
-impl<SDK: SharedAPI> MyContract<SDK> {
-    // Works with web3.js, ethers.js, Solidity contracts
-}
-
-// WASM optimization 
-#[router(mode = "fluent")]
-impl<SDK: SharedAPI> MyContract<SDK> {
-    // Smaller payloads, faster processing
-}
-```
-
-## Advanced: Direct Codec Usage (Rare)
-
-**Most developers will never need this section.** These examples are for framework developers or those building custom SDK features.
-
-### Manual Encoding/Decoding
-
-```rust
-use fluentbase_sdk::codec::{encoder::SolidityABI, encoder::CompactABI, bytes::BytesMut, Codec};
-
-// Only needed for advanced framework development
-fn custom_serialization_example() {
-    #[derive(Codec, Debug, PartialEq)]
-    struct CustomData {
-        value: U256,
-        flag: bool,
-    }
-
-    let data = CustomData {
-        value: U256::from(42),
-        flag: true,
-    };
-
-    // Manual encoding (normally done automatically)
-    let mut buf = BytesMut::new();
-    SolidityABI::encode(&data, &mut buf, 0).unwrap();
-    
-    // Manual decoding (normally done automatically)
-    let decoded: CustomData = SolidityABI::decode(&buf, 0).unwrap();
-    assert_eq!(data, decoded);
-}
-```
-
-### Performance Analysis
-
-```rust
-// For performance-critical applications
-fn encoding_comparison() {
-    let data = vec![1u32, 2, 3, 4, 5];
-    
-    // Solidity mode: EVM compatible but larger
-    let mut solidity_buf = BytesMut::new();
-    SolidityABI::encode(&data, &mut solidity_buf, 0).unwrap();
-    
-    // Fluent mode: Smaller and faster
-    let mut fluent_buf = BytesMut::new();
-    CompactABI::encode(&data, &mut fluent_buf, 0).unwrap();
-    
-    println!("Solidity: {} bytes", solidity_buf.len());
-    println!("Fluent: {} bytes", fluent_buf.len());
-}
-```
+  * Sequential encoding without padding
+  * Supports only static-sized types
 
 ## Troubleshooting
 
 ### Common Issues
 
-1. **"Type doesn't implement Codec"**
+**"Type doesn't implement Codec"**
 
-   ```rust
-   // Add the derive macro to custom types
-   #[derive(Codec, Debug, Clone, PartialEq)]
-   struct MyType {
-       field: U256,
-   }
-   ```
+Ensure the macro is derived on custom types:
 
-2. **Mode mismatch between router and client**
+```rust
+#[derive(Codec, Debug, Clone, PartialEq)]
+struct MyType {
+    field: U256,
+}
+```
 
-   ```rust
-   // Make sure modes match
-   #[router(mode = "solidity")]     // Contract side
-   
-   #[client(mode = "solidity")]     // Client side
-   ```
+**Mode mismatch between router and client**
 
-3. **Large struct encoding failures**
+Ensure matching modes:
 
-   ```rust
-   // For very large types, consider breaking them down
-   #[derive(Codec)]
-   struct LargeType {
-       // Too many fields might cause issues
-   }
-   
-   // Better: Split into smaller types
-   #[derive(Codec)]
-   struct Part1 { /* fewer fields */ }
-   
-   #[derive(Codec)]
-   struct Part2 { /* fewer fields */ }
-   ```
+```rust
+#[router(mode = "solidity")]
+#[client(mode = "solidity")]
+```
+
+**Large struct encoding failures**
+
+For large types, consider splitting them into smaller structs:
+
+```rust
+// Too large
+#[derive(Codec)]
+struct LargeType { /* too many fields */ }
+
+// Better approach
+#[derive(Codec)]
+struct Part1 { /* fewer fields */ }
+
+#[derive(Codec)]
+struct Part2 { /* fewer fields */ }
+```
 
 ## Important Notes
 
 ### Determinism
-The encoded binary is not deterministic and should only be used for parameter passing. The encoding order of non-primitive fields affects the data layout after the header, though decoding will produce the same result regardless of encoding order.
+
+Encoded binaries are non-deterministic; intended only for parameter passing. Encoding order of non-primitive fields affects data layout, but decoding remains consistent.
 
 ### Order Sensitivity
-The order of encoding operations is significant, especially for non-primitive types, as it affects the final binary layout.
+
+The sequence of encoding operations matters, especially for non-primitive types, influencing the final binary layout.
+
+### Automation with SDK Macros
+
+The `#[router]` and `#[client]` macros automate codec interactions by generating helper structs for each function (`...Call`, `...Return`), responsible for:
+
+* Calculating the 4-byte function selector
+* Encoding arguments into a byte payload
+* Decoding payloads into Rust types
+
+This automation connects high-level Rust code seamlessly to low-level serialization processes.
 
 ## Summary
 
-**For 99% of smart contract development:**
+**For most smart contract development:**
 
-- Use `#[derive(Codec)]` on custom types
-- Choose `mode = "solidity"` for EVM compatibility  
-- Choose `mode = "fluent"` for pure Rust optimization
-- Let the router, storage, and client systems handle encoding automatically
+* Derive `Codec` on custom types.
+* Choose `mode = "solidity"` for EVM compatibility.
+* Choose `mode = "fluent"` for optimized Rust communication (non-EVM).
+* Let router, storage, and client macros manage encoding.
 
-:::tip The codec system is designed to be invisible...
-... it handles the complex work of serialization so you can focus on business logic.
-:::
+## See Also
 
-### See Also
-
-- **[Router System](./router.md)**: See how codec is used for parameter handling
-- **[Storage System](./storage.md)**: Understand codec's role in storage serialization
-- **[Client Generation](./client.md)**: Learn how clients use codec for cross-contract calls
-- **[Overview](./build-w-fluentbase-sdk.md)**: Return to the main SDK documentation
-- **Technical Details**: View the [codec implementation](https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/codec) in the repository
+* [Router System](./router.md): Parameter handling with codec
+* [Storage System](./storage.md): Codec's role in storage
+* [Client Generation](./client.md): Codec for cross-contract calls
+* [SDK Overview](./build-w-fluentbase-sdk.md): Main SDK documentation
+* [Codec Implementation](https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/codec): Technical details
