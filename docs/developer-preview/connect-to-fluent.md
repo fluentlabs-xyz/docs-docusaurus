@@ -23,7 +23,7 @@ To quickly integrate Fluent with your wallet, use one of these 1-click options:
                 </a>
             </td>
             <td>
-                <a href="https://dev.gblend.xyz">
+                <a href="https://testnet.gblend.xyz/">
                     <strong>Fluent Dev Portal</strong>
                     <span>Add network info to your wallet from Fluent dev portal.</span>
                 </a>
@@ -36,7 +36,7 @@ To quickly integrate Fluent with your wallet, use one of these 1-click options:
             <strong>Chainlist</strong> 
             <span>Add network info to your wallet directly from Chainlist.</span>
         </a>
-        <a href="https://dev.gblend.xyz">
+        <a href="https://testnet.gblend.xyz/">
             <strong>Fluent Dev Portal</strong>
             <span>Add network info to your wallet from Fluent dev portal.</span>
         </a>
@@ -61,7 +61,7 @@ The Fluent Testnet is more stable than Devnet, but it is still under active deve
 ### Network Resources
 
 <table>
-<tbody><tr><td><strong class="row-name">Faucet:</strong></td><td><a href=" https://faucet.testnet.fluent.xyz/"> https://faucet.testnet.fluent.xyz/</a></td></tr>
+<tbody><tr><td><strong class="row-name">Faucet:</strong></td><td><a href="https://testnet.gblend.xyz/"> https://testnet.gblend.xyz/</a></td></tr>
 <tr><td><strong class="row-name">Websocket RPC URL:</strong></td><td>wss://rpc.testnet.fluent.xyz/ws</td></tr></tbody>
 </table>
 
@@ -84,12 +84,12 @@ The Fluent Devnet is experimental and may be reset at any time to apply upgrades
 ### Network Resources
 
 <table>
-<tbody><tr><td><strong class="row-name">Faucet:</strong></td><td><a href="https://dev.gblend.xyz/faucet/">https://dev.gblend.xyz/faucet/</a></td></tr>
+<tbody><tr><td><strong class="row-name">Faucet:</strong></td><td><a href="https://dev.gblend.xyz/">https://dev.gblend.xyz/</a></td></tr>
 <tr><td><strong class="row-name">Websocket RPC URL:</strong></td><td>wss://rpc.dev.gblend.xyz/ws</td></tr></tbody>
 </table>
 
 ### Current Features and Limitations (Devnet)
 
-In this version, the offering includes a basic Reth implementation, where the execution environment is substituted with Fluent's VM, rWasm. Rollup and zk functionalities are not available at this stage.&#x20;
+In this version, the offering includes a basic Reth implementation, where the execution environment is substituted with Fluent's VM, rWasm. Rollup and zk functionalities are not available at this stage.
 
 It's essential to note that significant changes might occur in the VM structure, host SDK, and execution layer in subsequent releases.
