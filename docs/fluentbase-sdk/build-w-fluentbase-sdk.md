@@ -231,11 +231,28 @@ basic_entrypoint!(ERC20);
 
 ## Development Workflow
 
-1. **Setup**: Use the Fluent scaffold CLI tool (`gblend`) to create new projects
-2. **Development**: Write contracts using the patterns above
-3. **Testing**: Use the built-in testing framework with `HostTestingContext`
-4. **Building**: Compile to WASM using `gblend build rust -r`
-5. **Deployment**: Deploy the resulting WASM binary to the Fluent network
+Fluent development typically follows this workflow:
+
+1. **Project Setup**
+   Begin by initializing a new project using [gblend](https://github.com/fluentlabs-xyz/gblend) — a CLI tool built on top of Foundry and tailored for the Fluent Network. It supports both Solidity and Rust-based contracts.
+
+2. **Contract Development**
+   You can extend existing Solidity contracts with additional functionality written in Rust. This enables more expressive and flexible logic than Solidity alone allows. Or create standalone Rust contract.
+
+3. **Testing**
+   Write unit tests directly in Rust using `HostTestingContext`. This allows you to validate contract logic before deploying it on-chain. Use [gblend](https://github.com/fluentlabs-xyz/gblend) to test interoperability.
+
+4. **Build**
+   Use Gblend to compile your Rust contracts to WASM artifacts compatible with the Fluent runtime.
+
+5. **Deployment**
+   Use Gblend to deploy the generated WASM binaries to the Fluent Network. Verification and scripting flows are also supported.
+
+For more detailed instructions, see:
+
+* [Gblend Guide](../gblend/overview.md) — CLI usage and project templates
+* [Fluent Development Guide](../developer-guides/building-a-blended-app/quickstart.md) — best practices, patterns, and architecture
+
 
 ## Current Features and Limitations
 
