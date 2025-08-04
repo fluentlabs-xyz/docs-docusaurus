@@ -8,9 +8,9 @@ Codec
 
 The Fluentbase codec system manages encoding and decoding of smart contract data.
 
-\:::tip How to Use the Codec
+:::tip How to Use the Codec
 The Fluentbase SDK largely automates serialization. Your primary interaction with the codec is through the `#[derive(Codec)]` macro. Applying this to custom structs automatically integrates them into the SDK.
-\:::
+:::
 
 ## Overview
 
@@ -43,7 +43,7 @@ Deriving `Codec` generates implementations of the core `Encoder` trait, making y
 
 ## Automatic Argument Encoding and Decoding
 
-With SDK macros (`#[router]`, `#[client]`, solidity_storage!, etc), encoding and decoding of arguments and return values occur transparently. Once you've added `#[derive(Codec)]` to your custom types, you can work with function arguments and returns as regular Rust types, without explicit encoding or decoding logic.
+With SDK macros (`#[router]`, `#[client]`, `solidity_storage!`, etc), encoding and decoding of arguments and return values occur transparently. Once you've added `#[derive(Codec)]` to your custom types, you can work with function arguments and returns as regular Rust types, without explicit encoding or decoding logic.
 
 ### Example of Manual Encoding and Decoding
 
