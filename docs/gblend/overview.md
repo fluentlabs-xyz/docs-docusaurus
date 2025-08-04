@@ -19,4 +19,8 @@ A [Foundry Forge](https://github.com/fluentlabs-xyz/gblend) wrapper optimized fo
 
 The CLI usage is nearly identical to standard Forge, with a few Fluent-specific extensions. For example, to verify WASM contracts, you must pass the `--wasm` flag.
 
-> ⚠️ This page is a work in progress. More details will be added soon.
+:::warning
+
+This page is a work in progress. More details will be added soon.
+
+:::
