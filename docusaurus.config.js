@@ -188,4 +188,12 @@ module.exports = {
     "plugin-image-zoom",
     "docusaurus-lunr-search", // Local backup search bar once website is deployed.
   ],
+
+  // Add custom scripts
+  scripts: [
+    {
+      src: "/js/sidebar-highlight.js",
+      async: true,
+    },
+  ],
 };

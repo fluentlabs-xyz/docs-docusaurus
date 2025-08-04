@@ -215,13 +215,13 @@ color: white;
 }
 
 .breadcrumbs > .breadcrumbs__item:nth-child(3) > .breadcrumbs__link:hover {
-  color: #FF7B69;
-  background: rgba(203, 64, 46, 0.2);
+  color: rgba(50, 254, 107, 0.8);
+  background: rgba(50, 254, 107, 0.1);
 }
 
 .breadcrumbs__item--active > .breadcrumbs__link {
-  color: #FF7B69;
-  background: rgba(203, 64, 46, 0.2);
+  color: rgba(50, 254, 107, 0.8);
+  background: rgba(50, 254, 107, 0.1);
 }
 
 
@@ -245,7 +245,7 @@ color: white;
 
 .theme-doc-sidebar-item-link-level-2 > .menu__link--active,
 .theme-doc-sidebar-item-link-level-2 > .menu__list-item--active {
-  color: #FF7B69;
+  color: rgba(50, 254, 107, 0.8);
   background: none;
 }
 
@@ -256,7 +256,7 @@ color: white;
 
 .theme-doc-sidebar-item-link-level-3 > .menu__link--active,
 .theme-doc-sidebar-item-link-level-3 > .menu__list-item--active {
-  color: #FF7B69;
+  color: rgba(50, 254, 107, 0.8);
   background: none;
 }
 
@@ -1032,4 +1032,47 @@ a.theme-edit-this-page:hover {
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
+}
+
+// Developer Guides CTA Highlighting - Target ONLY the specific class added by JavaScript
+
+// Target ONLY the specific class added by JavaScript
+.developer-guides-cta {
+  background: linear-gradient(135deg, #FF8FDA, #32FE6B) !important;
+  color: #000000 !important;
+  font-weight: bold !important;
+  border-radius: 8px !important;
+  margin: 8px 0 !important;
+  padding: 12px 16px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  box-shadow: 0 4px 12px rgba(255, 141, 218, 0.3) !important;
+  transition: all 0.3s ease !important;
+  
+  &:hover {
+    background: linear-gradient(135deg, #32FE6B, #FF8FDA) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 16px rgba(50, 254, 107, 0.4) !important;
+    color: #000000 !important;
+  }
+  
+  &::after {
+    display: none !important;
+  }
+}
+
+// Override Docusaurus's background: none rule for our specific element
+.menu__list-item-collapsible .developer-guides-cta:hover {
+  background: linear-gradient(135deg, #32FE6B, #FF8FDA) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 16px rgba(50, 254, 107, 0.4) !important;
+  color: #000000 !important;
+}
+
+// Override active state to maintain gradient when child page is open
+.menu__list-item-collapsible .developer-guides-cta.menu__link--active {
+  background: linear-gradient(135deg, #32FE6B, #FF8FDA) !important;
+  color: #000000 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 16px rgba(50, 254, 107, 0.4) !important;
 }
