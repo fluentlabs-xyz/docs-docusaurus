@@ -76,13 +76,13 @@ use fluentbase_sdk::{
 
 solidity_storage! {
     // Simple mapping
-    mapping(Address => U256) Balance;                     // Slot 2
+    mapping(Address => U256) Balance;                   
     
     // Nested mapping
-    mapping(Address => mapping(Address => U256)) Allowance;  // Slot 3
-    
+    mapping(Address => mapping(Address => U256)) Allowance;
+
     // Mapping to complex type
-    mapping(U256 => Bytes) Metadata;                      // Slot 4
+    mapping(U256 => Bytes) Metadata;                      
 }
 
 impl<SDK: SharedAPI> TokenContract<SDK> {
@@ -119,8 +119,8 @@ Arrays with dynamic size are supported with element access by index:
 
 ```rust
 solidity_storage! {
-    U256[] Values;              // Slot 4
-    Address[][][] NestedArr;    // Slot 5
+    U256[] Values;             
+    Address[][][] NestedArr;   
 }
 
 impl<SDK: SharedAPI> ArrayContract<SDK> {
@@ -158,8 +158,8 @@ pub struct UserProfile {
 }
 
 solidity_storage! {
-    UserProfile CurrentUser;                    // Slot 6
-    mapping(Address => UserProfile) Profiles;   // Slot 7
+    UserProfile CurrentUser;                    
+    mapping(Address => UserProfile) Profiles;   
 }
 
 impl<SDK: SharedAPI> ProfileContract<SDK> {
@@ -337,4 +337,4 @@ This provides a complete framework for building complex smart contracts with per
 
 - **[Overview](./build-w-fluentbase-sdk.md)**: Return to the main SDK documentation
 - **[Solidity Storage Layout](https://docs.soliditylang.org/en/latest/internals/layout_in_storage.html)**: Official Solidity documentation
-- **[Type Conversions](https://github.com/fluentlabs-xyz/fluentbase/blob/v0.3.6-dev/crates/sdk-derive/docs/type_conversion.md)**: Solidity to Rust type mappings
+- **[Type Conversions](https://github.com/fluentlabs-xyz/fluentbase/blob/devel/crates/sdk-derive/docs/type_conversion.md)**: Solidity to Rust type mappings
