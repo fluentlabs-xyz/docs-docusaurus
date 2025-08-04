@@ -215,13 +215,13 @@ color: white;
 }
 
 .breadcrumbs > .breadcrumbs__item:nth-child(3) > .breadcrumbs__link:hover {
-  color: rgba(50, 254, 107, 0.8);
-  background: rgba(50, 254, 107, 0.1);
+  color: #FF7B69;
+  background: rgba(203, 64, 46, 0.2);
 }
 
 .breadcrumbs__item--active > .breadcrumbs__link {
-  color: rgba(50, 254, 107, 0.8);
-  background: rgba(50, 254, 107, 0.1);
+  color: #FF7B69;
+  background: rgba(203, 64, 46, 0.2);
 }
 
 
@@ -245,7 +245,7 @@ color: white;
 
 .theme-doc-sidebar-item-link-level-2 > .menu__link--active,
 .theme-doc-sidebar-item-link-level-2 > .menu__list-item--active {
-  color: rgba(50, 254, 107, 0.8);
+  color: #FF7B69;
   background: none;
 }
 
@@ -256,7 +256,7 @@ color: white;
 
 .theme-doc-sidebar-item-link-level-3 > .menu__link--active,
 .theme-doc-sidebar-item-link-level-3 > .menu__list-item--active {
-  color: rgba(50, 254, 107, 0.8);
+  color: #FF7B69;
   background: none;
 }
 
@@ -1060,7 +1060,7 @@ a.theme-edit-this-page:hover {
     bottom: 0;
     border-radius: 8px;
     padding: 2px;
-    background: linear-gradient(135deg, #FF8FDA, #32FE6B);
+    background: linear-gradient(135deg, #FF8FDA, #FF7B69);
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
@@ -1072,7 +1072,7 @@ a.theme-edit-this-page:hover {
     transform: translateY(-1px) !important;
     
     &::before {
-      background: linear-gradient(135deg, #32FE6B, #FF8FDA);
+      background: linear-gradient(135deg, #FF7B69, #FF8FDA);
     }
   }
 }
@@ -1084,13 +1084,13 @@ a.theme-edit-this-page:hover {
   transform: translateY(-1px) !important;
 }
 
-// Show pink when a child page is active
+// Show primary color when a child page is active
 .menu__list-item-collapsible--active .developer-guides-cta,
 .menu__list-item-collapsible:has(.menu__link--active) .developer-guides-cta {
   color: var(--ifm-color-primary) !important;
 }
 
-// Keep pink on hover when active
+// Keep primary color on hover when active
 .menu__list-item-collapsible--active .developer-guides-cta:hover,
 .menu__list-item-collapsible:has(.menu__link--active) .developer-guides-cta:hover {
   color: var(--ifm-color-primary) !important;
