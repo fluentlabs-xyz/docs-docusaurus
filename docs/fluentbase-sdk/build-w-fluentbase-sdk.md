@@ -2,6 +2,7 @@
 title: Build with the Fluentbase SDK
 sidebar_position: 1
 ---
+
 Build with the Fluentbase SDK
 ---
 
@@ -9,22 +10,29 @@ Build with the Fluentbase SDK
 
 The Fluentbase SDK is in experimental development and is still a work in progress.
 
-All bindings, methods, and naming conventions within the codebase are not standardized and may change significantly. Additionally, the codebase has not been audited or fully tested, which could lead to potential vulnerabilities or crashes.
+All bindings, methods, and naming conventions within the codebase are not standardized and may change significantly.
+Additionally, the codebase has not been audited or fully tested, which could lead to potential vulnerabilities or
+crashes.
 
 :::
 
 ## Architecture Overview
 
-Fluentbase operates using Fluent's **rWasm VM** (reduced WebAssembly), which employs a 100% compatible WebAssembly binary representation optimized for zero-knowledge operations. The instruction set is reduced, and sections are embedded inside the binary to simplify the proving process.
+Fluentbase operates using Fluent's **rWasm VM** (reduced WebAssembly), which employs a 100% compatible WebAssembly
+binary representation optimized for zero-knowledge operations. The instruction set is reduced, and sections are embedded
+inside the binary to simplify the proving process.
 
-The SDK provides a unified development environment that bridges multiple execution environments, enabling developers to write smart contracts that can interact seamlessly across different virtual machines.
+The SDK provides a unified development environment that bridges multiple execution environments, enabling developers to
+write smart contracts that can interact seamlessly across different virtual machines.
 
 :::info Supported Languages
 
 The Fluentbase SDK currently supports writing [smart contracts](../developer-guides/smart-contracts/README.md) in:
 
-* **[Rust](../developer-guides/smart-contracts/rust.md)** - Full featured support with derive macros and storage optimization
-* **[Solidity](../developer-guides/smart-contracts/solidity.md)** - EVM-compatible contracts with seamless interoperability
+* **[Rust](../developer-guides/smart-contracts/rust.md)** - Full featured support with derive macros and storage
+  optimization
+* **[Solidity](../developer-guides/smart-contracts/solidity.md)** - EVM-compatible contracts with seamless
+  interoperability
 * **[Vyper](../developer-guides/smart-contracts/vyper.md)** - Alternative Python-like syntax for EVM contracts
 
 :::
@@ -33,25 +41,25 @@ Future iterations will introduce more language support.
 
 ### Supported Types
 
-Fluentbase supports automatic conversion between Solidity and Rust types. For a complete mapping reference, see the [Type Conversion Guide](https://github.com/fluentlabs-xyz/fluentbase/blob/v0.3.6-dev/crates/sdk-derive/docs/type_conversion.md).
+Fluentbase supports automatic conversion between Solidity and Rust types. For a complete mapping reference, see
+the [Type Conversion Guide](https://github.com/fluentlabs-xyz/fluentbase/blob/devel/crates/sdk-derive/docs/type_conversion.md).
 
 ## Modules
 
-The Fluentbase framework consists of several core modules that work together to provide a complete development framework:
+The Fluentbase framework consists of several core modules that work together to provide a complete development
+framework:
 
-### 1. `bin`
+### 1. `crates`
 
-A [crate](https://github.com/fluentlabs-xyz/fluentbase/tree/devel/bin) with a binary application that is used for translating Wasm apps to the Fluent rWasm VM. It's required only for creating system precompile contracts where direct translation from Wasm to rWasm is needed.
+Contains all [Fluentbase modules](https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates) that form the core SDK
+functionality:
 
-### 2. `crates`
+<table><tbody><tr><td><h4><a href="https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/build"><code>build</code></a></h4></td><td>Helper functions and CLI for compiling Fluentbase smart contracts. Supports deterministic Docker builds, custom Rust toolchains, and multiple output formats (WAT, rWASM, ABI, Solidity interface files, and metadata). Powers the build scripts for precompiled contracts.</td></tr><tr><td><h4><a href="https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/codec"><code>codec</code></a></h4></td><td>A lightweight, no-std compatible codec library optimized for random reads. While similar to Solidity ABI encoding, it introduces optimizations for efficient data access and nested structures. Supports two encoding modes: CompactABI (little-endian, 4-byte alignment) and SolidityABI (big-endian, 32-byte alignment for Ethereum compatibility).</td></tr><tr><td><h4><a href="https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/codec-derive"><code>codec-derive</code></a></h4></td><td>Procedural macros for deriving the Codec trait from the fluentbase-codec crate. Generates efficient encoding and decoding implementations that integrate with both CompactABI and SolidityABI modes.</td></tr><tr><td><h4><a href="https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/contracts"><code>contracts</code></a></h4></td><td>System precompiled contracts bundled with Fluentbase runtimes. Includes EVM and SVM compatibility layers, cryptographic primitives (SHA256, Blake2, etc.), and the reference ERC20 implementation. Compiles each contract to rWASM and embeds binaries for genesis file inclusion.</td></tr><tr><td><h4><a href="https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/erc20"><code>erc20</code></a></h4></td><td>Reference implementation of the ERC20 token standard built using the Fluentbase SDK. Demonstrates recommended project layout and SDK entrypoint macros usage. Implements standard transfer, approve, and transfer_from methods with Fluentbase key-value storage.</td></tr><tr><td><h4><a href="https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/evm"><code>evm</code></a></h4></td><td>Execution engine implementing Ethereum Virtual Machine semantics on top of Fluentbase types. Provides a minimal EVM for compatibility tests and running Solidity contracts compiled to rWASM. Includes opcode interpreter, gas accounting, memory model, and stack implementation matching Ethereum specification.</td></tr><tr><td><h4><a href="https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/genesis"><code>genesis</code></a></h4></td><td>Utilities for creating and manipulating genesis files that bundle Fluentbase precompiled contracts. Produces JSON genesis files compatible with Reth or other clients for starting local development networks with correct rWASM binaries embedded.</td></tr><tr><td><h4><a href="https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/runtime"><code>runtime</code></a></h4></td><td>The execution environment for rWASM contracts. Provides host functions exposed to smart contracts and manages context such as storage, account data, and precompiled contract calls. Executes rWASM bytecode with deterministic gas accounting and supports both EVM and SVM compatibility layers.</td></tr><tr><td><h4><a href="https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/sdk"><code>sdk</code></a></h4></td><td>Main library for developing contracts that run on the Fluentbase runtime. Provides the core SharedAPI trait, entrypoint macros, and a collection of types used by contracts. Includes basic_entrypoint! macro, SharedAPI trait for storage and context access, and re-exports common primitive types.</td></tr><tr><td><h4><a href="https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/sdk-derive"><code>sdk-derive</code></a></h4></td><td>Procedural macros for Fluentbase smart contract development. Generates boilerplate code and provides Solidity compatibility through Contract derivation, router method dispatch, client generation, EVM-compatible storage layout, and Solidity interface conversions.</td></tr><tr><td><h4><a href="https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/svm"><code>svm</code></a></h4></td><td>Implementation of the Solana Virtual Machine adapted for Fluentbase. Provides an alternative execution environment alongside the EVM for running Solana-style programs. Includes instruction processors, loader logic, and account handling compatible with the Solana model.</td></tr><tr><td><h4><a href="https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/svm-shared"><code>svm-shared</code></a></h4></td><td>Common types and utilities used across the Fluentbase SVM crates. Provides shared logic between the SVM runtime and Solana compatibility precompiles, including bincode helpers and test structures to avoid code duplication.</td></tr><tr><td><h4><a href="https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/testing"><code>testing</code></a></h4></td><td>Testing utilities for Fluentbase contracts. Embeds the runtime and provides helpers for executing rWASM modules in unit tests. Includes the include_this_wasm! macro for contracts to include their own WASM binary during tests, and EVM test harness powered by forked revm.</td></tr><tr><td><h4><a href="https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/types"><code>types</code></a></h4></td><td>Primitive types and data structures shared across all Fluentbase crates. Exposes Address and Bytes types along with runtime context objects and helper enums for error handling and contract execution. Most types are no_std friendly and re-export rwasm core primitives.</td></tr></tbody></table>
 
-Contains all [Fluentbase modules](https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates) that form the core SDK functionality:
+### 3. `e2e`
 
-<table><tbody><tr><td><h4><a href="https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/build"><code>build</code></a></h4></td><td>Build system utilities for compiling Fluent smart contracts. Provides tools for converting Rust code to WASM and then to rWasm format, with support for Docker-based reproducible builds and artifact generation (ABI, metadata, Solidity interfaces).</td></tr><tr><td><h4><a href="https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/codec"><code>codec</code></a></h4></td><td>A lightweight, no-std compatible codec library optimized for random reads. While similar to Solidity ABI encoding, it introduces optimizations for efficient data access and nested structures. Supports two encoding modes: CompactABI (little-endian, 4-byte alignment) and SolidityABI (big-endian, 32-byte alignment for Ethereum compatibility).</td></tr><tr><td><h4><a href="https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/codec-derive"><code>codec-derive</code></a></h4></td><td>Derive macro for automatic codec implementation. Generates encoding and decoding methods for custom structs, supporting both Solidity and Compact ABI modes with configurable byte order and alignment.</td></tr><tr><td><h4><a href="https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/contracts"><code>contracts</code></a></h4></td><td>Build infrastructure for system precompiled contracts. Manages compilation and bundling of all system contracts including EVM, SVM, and Wasm compatibility layers, as well as cryptographic precompiles.</td></tr><tr><td><h4><a href="https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/erc20"><code>erc20</code></a></h4></td><td>ERC20 token implementation library with support for standard token operations, storage management, and optional features like minting and pausing. Used as a base for token contracts in the Fluent ecosystem.</td></tr><tr><td><h4><a href="https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/evm"><code>evm</code></a></h4></td><td>EVM compatibility layer providing Ethereum Virtual Machine functionality within the Fluent ecosystem. Includes utilities for EVM bytecode handling and execution.</td></tr><tr><td><h4><a href="https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/genesis"><code>genesis</code></a></h4></td><td>Genesis file generation for the Fluent L2 network. Creates reth/geth compatible genesis files with precompiled system contracts and compatibility layers embedded as rWasm bytecode.</td></tr><tr><td><h4><a href="https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/runtime"><code>runtime</code></a></h4></td><td>Basic execution runtime for rWasm that provides Fluentbase's host functions. Includes cryptographic primitives, storage access, and system call implementations for smart contract execution.</td></tr><tr><td><h4><a href="https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/sdk"><code>sdk</code></a></h4></td><td>Core SDK for developers building on Fluent. Provides all essential types, traits, and methods for smart contract development, including entrypoint definitions, memory allocation, and system interfaces.</td></tr><tr><td><h4><a href="https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/sdk-derive"><code>sdk-derive</code></a></h4></td><td>Procedural macros for the Fluentbase SDK. Generates boilerplate for router dispatch, storage management, client interfaces, and contract traits, significantly reducing code complexity for developers.</td></tr><tr><td><h4><a href="https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/shared"><code>shared</code></a></h4></td><td>Shared utilities and common functionality used across multiple crates in the Fluentbase ecosystem. Provides consistent interfaces and helper functions.</td></tr><tr><td><h4><a href="https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/testing"><code>testing</code></a></h4></td><td>Testing framework for Fluentbase smart contracts. Provides mock environments, test contexts, and utilities for unit and integration testing of contracts without deployment.</td></tr><tr><td><h4><a href="https://github.com/fluentlabs-xyz/fluentbase/tree/devel/crates/types"><code>types</code></a></h4></td><td>Fundamental primitive types for the entire Fluentbase ecosystem. Includes address types, numeric types, context structures, and core interfaces used throughout all crates.</td></tr></tbody></table>
-
-### 3. `e2e` (partially outdated)
-
-A [set of e2e tests](https://github.com/fluentlabs-xyz/fluentbase/tree/devel/e2e) for testing EVM transition and other Wasm features.
+A [set of e2e tests](https://github.com/fluentlabs-xyz/fluentbase/tree/devel/e2e) for testing EVM transition and other
+Wasm features.
 
 ## Contract Development Patterns
 
@@ -207,10 +215,10 @@ impl<SDK: SharedAPI> ERC20API for ERC20<SDK> {
         let from = self.sdk.msg_sender();
         let from_balance = Balance::get(&self.sdk, from);
         assert!(from_balance >= value, "insufficient balance");
-        
+
         Balance::set(&mut self.sdk, from, from_balance - value);
         Balance::set(&mut self.sdk, to, Balance::get(&self.sdk, to) + value);
-        
+
         Transfer { from, to, value }.emit(&mut self.sdk);
         U256::from(1) // Return true as U256
     }
@@ -233,32 +241,36 @@ basic_entrypoint!(ERC20);
 
 ### Features
 
-- Full EVM compatibility through ABI encoding
-- Solidity-compatible storage layout
-- Automatic function routing and parameter decoding
-- Event emission and logging
-- Cross-contract calls
-- Comprehensive testing framework
+* Full EVM compatibility through ABI encoding
+* Solidity-compatible storage layout
+* Automatic function routing and parameter decoding
+* Event emission and logging
+* Cross-contract calls
+* Comprehensive testing framework
 
 ### Limitations
 
-- No floating-point operations support (planned for future releases)
-- `no_std` environment requires careful crate selection
-- Limited to WASM-compatible libraries
+* No floating-point operations support (planned for future releases)
+* `no_std` environment requires careful crate selection
+* Limited to WASM-compatible libraries
 
 ## Next Steps
 
-This overview provides the foundation for building with the Fluentbase SDK. For detailed information on specific features:
+This overview provides the foundation for building with the Fluentbase SDK. For detailed information on specific
+features:
 
-- **[Router System](./router.md)**: Learn about automatic method dispatch and function selectors
-- **[Storage Management](./storage.md)**: Understand Solidity-compatible storage patterns
-- **[Codec System](./codec.md)**: Explore encoding/decoding for complex data types
-- **[Client Generation](./client.md)**: Build contract interaction clients
+* **[Router System](./router.md)**: Learn about automatic method dispatch and function selectors
+* **[Storage Management](./storage.md)**: Understand Solidity-compatible storage patterns
+* **[Codec System](./codec.md)**: Explore encoding/decoding for complex data types
+* **[Client Generation](./client.md)**: Build contract interaction clients
 
 Each of these topics is covered in dedicated documentation sections with comprehensive examples and best practices.
 
 ### Related Resources
 
-- **Source Code**: [GitHub Repository](https://github.com/fluentlabs-xyz/fluentbase)
-- **Type Conversions**: [Solidity to Rust Type Mapping](https://github.com/fluentlabs-xyz/fluentbase/blob/v0.3.6-dev/crates/sdk-derive/docs/type_conversion.md)
-- **Examples**: [Contract Examples Directory](https://github.com/fluentlabs-xyz/examples)
+* **Source Code**: [GitHub Repository](https://github.com/fluentlabs-xyz/fluentbase)
+* **Type Conversions
+  **: [Solidity to Rust Type Mapping](https://github.com/fluentlabs-xyz/fluentbase/blob/v0.3.6-dev/crates/sdk-derive/docs/type_conversion.md)
+* **Examples**: [Contract Examples Directory](https://github.com/fluentlabs-xyz/examples)
+
+****
