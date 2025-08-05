@@ -7,11 +7,11 @@ Client Generation
 
 The client generation system creates type-safe client code for interacting with Fluentbase smart contracts. It automatically generates client structs and methods from trait definitions, handling parameter encoding, contract calls, and result decoding. This enables seamless interaction with deployed contracts while maintaining type safety and consistency with the contract interface.
 
-:::info Prerequisites
+:::prequisite
 This documentation assumes you've already built contracts using the [Router System](./router.md). Clients are generated from trait definitions that match your contract's router interface.
 :::
 
-## Overview
+:::summary
 
 Client generation bridges the gap between contract interfaces and contract usage. When you have a contract deployed on the network, you need a way to call its methods from other contracts or external applications. The client system:
 
@@ -20,6 +20,8 @@ Client generation bridges the gap between contract interfaces and contract usage
 3. **Handles all encoding/decoding** automatically
 4. **Provides type-safe contract calls** with proper parameter validation
 5. **Manages gas, value, and addressing** transparently
+
+:::
 
 ## Basic Usage
 
@@ -368,7 +370,7 @@ trait OptimizedInterface {
 }
 ```
 
-## Best Practices
+:::best-practice
 
 1. **Match Interface Exactly**: Ensure your trait matches the target contract's interface precisely
 2. **Use Appropriate Gas Limits**: Different operations require different amounts of gas
@@ -376,6 +378,8 @@ trait OptimizedInterface {
 4. **Reuse Clients**: Create once and reuse for multiple calls to the same contract type
 5. **Type Safety**: Leverage Rust's type system - incorrect parameters won't compile
 6. **Documentation**: Document expected behavior and gas requirements
+
+:::
 
 ### Error Handling
 
@@ -483,7 +487,7 @@ mod tests {
 }
 ```
 
-## Summary
+:::summary
 
 The client generation system provides:
 
@@ -494,6 +498,8 @@ The client generation system provides:
 - **Direct Solidity integration** for easy migration and interoperability
 
 Use clients to build sophisticated DeFi protocols, governance systems, and multi-contract applications while maintaining type safety and code clarity.
+
+:::
 
 ### See Also
 

@@ -7,7 +7,7 @@ Solidity Compatible Storage
 
 The Fluentbase storage system implements Solidity-compatible storage in Rust contracts, following [Solidity's storage layout specification](https://docs.soliditylang.org/en/latest/internals/layout_in_storage.html). It provides significant code size reduction through direct storage access for primitive types while maintaining full compatibility with EVM storage patterns.
 
-:::info Prerequisites
+:::prerequisite
 This documentation assumes familiarity with the [Router System](./router.md) for building contracts. Storage is typically used within router-enabled contracts to manage persistent state.
 :::
 
@@ -251,7 +251,7 @@ impl Balance {
 }
 ```
 
-## Best Practices
+:::best-practice
 
 ### 1. Storage Packing
 
@@ -290,6 +290,8 @@ let balance = Balance::get(&self.sdk, user);
 // Not possible - storage is only accessible through generated methods
 let balance = self.balance[user];  // This won't compile
 ```
+
+:::
 
 ## Testing Storage
 

@@ -89,7 +89,7 @@ Your Rust contract calls your Solidity contract directly. No complex bridging or
 **🔧 Ethereum L2 Benefits**  
 Same security guarantees, familiar tooling, existing wallet support—but with ~~multi-VM~~ _blended VM_ superpowers.
 
-:::note
+:::info
 
 Currently in public testnet with Solidity, Vyper, and Rust support. More languages coming soon.
 

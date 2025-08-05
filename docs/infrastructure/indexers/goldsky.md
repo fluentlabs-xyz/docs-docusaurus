@@ -8,12 +8,13 @@ Goldsky is Web3’s realtime data platform, giving developers access to world-cl
 
 Seamlessly access the data you need with lightning-fast indexing, resilient subgraphs, and flexible data streaming pipelines. Spend less time on the complexities of infra maintenance and more time building incredible user experiences.
 
-## Why Goldsky?
+:::tip[Why Goldsky?]
 
 - **Scalable Infrastructure**: Scalable and resilient infrastructure, handling data challenges as your application grows.
 - **Developer-Friendly Tools**: Easily integrate and iterate without being slowed down by complex data engineering.
 - **Enterprise Support**: The Goldsky team is available 24/7 to help if things go wrong.
 
+:::
 ---
 
 # Goldsky Products

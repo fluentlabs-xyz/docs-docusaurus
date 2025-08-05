@@ -9,7 +9,7 @@ Fluent is the first [blended execution](blended-101.md) network. The project enc
 
 Fluent's zkVM is written in SP1 as shown in the [rwasm-zkvm repo](https://github.com/fluentlabs-xyz/rwasm-zkvm).
 
-:::tip Fluent’s unique value proposition lies in its ability to:
+:::tip Fluent’s unique value proposition
 
 * simulate the execution environment (EE) of multiple virtual machines (VMs),
 * enabling real-time composability of smart contracts pertaining to different VMs (the EVM, the SVM, Wasm, etc.),
@@ -59,7 +59,7 @@ The [Fluentbase framework](../fluentbase-sdk/build-w-fluentbase-sdk.md) is used 
 * **Blended execution networks:** blockchain-based networks (L2s, L3s, etc.) which simulates multiple VM targets on a shared execution layer.
 * **Arbitrary compute environments:** off-chain dedicated compute environments with arbitrary logic.
 
-:::tip 
+:::info
 
 Fluentbase supports integrations to build modular blockchains including DA layers (Celestia, Avail, etc.), shared sequencers (Espresso, Nodekit), and more.
 
