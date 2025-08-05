@@ -64,7 +64,7 @@ export default function Admonition(props) {
         "--admonition-color-secondary": config.secondaryColor,
       }}
     >
-      <div className={styles.admonitionHeader}>
+      <div className={styles.admonitionHeader} data-type={type}>
         <span className={styles.admonitionIcon}>{displayIcon}</span>
         <span className={styles.admonitionTitle}>{displayTitle}</span>
       </div>

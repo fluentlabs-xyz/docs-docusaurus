@@ -65,6 +65,11 @@
   flex: 1;
 }
 
+// Make info header text brighter for better legibility
+.admonitionHeader[data-type="info"] .admonitionTitle {
+  color: #49EDED;
+}
+
 .admonitionContent {
   padding: 16px 20px 20px 20px;
   position: relative;
