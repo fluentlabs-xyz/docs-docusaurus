@@ -2,6 +2,8 @@
 
 This website is built using Docusaurus 3.7.0, a modern static website generator.
 
+> **Want to contribute?** Check out our [Contributing Guidelines](CONTRIBUTING.md) to get started! 🚀
+
 ### Cloudflare Pages Hosted Website
 
 https://docs.fluent.xyz/
