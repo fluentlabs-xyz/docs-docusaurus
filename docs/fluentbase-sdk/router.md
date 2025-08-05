@@ -454,7 +454,7 @@ impl<SDK: SharedAPI> MyContract<SDK> {
 
 **Solution:** Mark methods as `pub` or use trait implementations.
 
-### Best Practices
+:::best-practice
 
 1. **Use Trait Implementations:** They provide better organization and interface clarity
 2. **Enable Validation During Development:** Catch selector mismatches early
@@ -463,6 +463,8 @@ impl<SDK: SharedAPI> MyContract<SDK> {
 5. **Test Selector Generation:** Verify your selectors match expected values
 6. **Use Meaningful Names:** Function names should reflect their Solidity equivalents
 7. **Document Custom Selectors:** Explain why custom selectors are used
+
+:::
 
 ### Testing Router Functions
 
@@ -514,12 +516,14 @@ This makes the router the central dispatch mechanism in a comprehensive smart co
 - **[Codec System](./codec.md):** Understand how parameters are encoded/decoded
 - **[Storage Patterns](./storage.md):** Learn about state management
 
-## Performance Considerations
+:::warning[Performance Considerations]
 
 - **Solidity Mode:** Larger payloads but full EVM compatibility
 - **Fluent Mode:** Smaller payloads and faster processing but limited compatibility
 - **Function Count:** Large numbers of functions increase dispatch time linearly
 - **Parameter Complexity:** Complex types require more encoding/decoding overhead
 - **Validation:** Minimal runtime impact, mostly compile-time checking
+
+:::
 
 The router system provides an efficient and type-safe way to build interoperable smart contracts that can seamlessly interact with EVM-compatible environments while maintaining the performance benefits of Rust and WASM execution.

@@ -12,7 +12,7 @@ The Fluentbase codec system manages encoding and decoding of smart contract data
 The Fluentbase SDK largely automates serialization. Your primary interaction with the codec is through the `#[derive(Codec)]` macro. Applying this to custom structs automatically integrates them into the SDK.
 :::
 
-## Overview
+:::summary
 
 The codec system is designed for flexibility and performance:
 
@@ -21,6 +21,8 @@ The codec system is designed for flexibility and performance:
 * **Automatic Implementation**: Automatically implements serialization logic with `#[derive(Codec)]`.
 * **Rich Type Support**: Handles primitives, collections (`Vec`, `HashMap`), tuples, and nested structs.
 * **Partial Decoding**: Allows accessing specific parts of serialized data without fully decoding the entire stream, enhancing efficiency.
+
+:::
 
 ## Enabling Custom Types with `#[derive(Codec)]`
 
@@ -137,7 +139,7 @@ struct Part1 { /* fewer fields */ }
 struct Part2 { /* fewer fields */ }
 ```
 
-## Important Notes
+:::warning[Important Notes]
 
 ### Determinism
 
@@ -157,7 +159,9 @@ The `#[router]` and `#[client]` macros automate codec interactions by generating
 
 This automation connects high-level Rust code seamlessly to low-level serialization processes.
 
-## Summary
+:::
+
+:::summary
 
 **For most smart contract development:**
 
@@ -165,6 +169,8 @@ This automation connects high-level Rust code seamlessly to low-level serializat
 * Choose `mode = "solidity"` for EVM compatibility.
 * Choose `mode = "fluent"` for optimized Rust communication (non-EVM).
 * Let router, storage, and client macros manage encoding.
+
+:::
 
 ## See Also
 

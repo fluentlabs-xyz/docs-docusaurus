@@ -139,6 +139,9 @@ main[class^='docMainContainer'] {
   background-color: #000000;
 }
 
+// Note: Admonition styling is handled in src/theme/Admonition/styles.module.scss
+// This keeps the styling modular and avoids conflicts with Docusaurus defaults
+
 body, html {
   padding: 0;
   margin: 0;
