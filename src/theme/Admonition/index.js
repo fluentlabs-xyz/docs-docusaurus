@@ -32,8 +32,8 @@ export default function Admonition(props) {
       },
       danger: {
         icon: "🚨",
-        secondaryColor: "#8D0042",
-        color: "#FF8FDA",
+        color: "#8D0042",
+        secondaryColor: "#FF8FDA",
         defaultTitle: "Danger",
       },
       "best-practice": {
