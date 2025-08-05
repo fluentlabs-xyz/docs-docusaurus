@@ -23,3 +23,9 @@ Although `gblend` is forked from Foundry's forge and works really well within th
 Please refer to the [Foundry documentation on integrating Hardhat and Foundry](https://getfoundry.sh/config/hardhat#adding-foundry-to-a-hardhat-project) and use the same strategy when using Fluent's `gblend`.
 
 :::
+
+## Next up
+
+* **[Installation](installation.md)**: Installation instructions for `gblend`.
+* **[Using `gblend`](usage.md)**: Learn the basic commands to start building with `gblend`.
+* **[Developer guides](../developer-guides/building-a-blended-app/README.md)**: Find out further how to use `gblend` by following along with the developer guides.
