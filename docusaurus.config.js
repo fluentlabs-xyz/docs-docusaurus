@@ -188,7 +188,7 @@ module.exports = {
       },
       prism: {
         theme: darkCodeTheme,
-        additionalLanguages: ["solidity", "python", "rust"],
+        additionalLanguages: ["solidity", "python", "rust", "bash", "toml"],
       },
       colorMode: {
         defaultMode: "dark",
