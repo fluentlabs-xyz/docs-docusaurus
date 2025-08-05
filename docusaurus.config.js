@@ -103,7 +103,7 @@ module.exports = {
             // className: 'navbar_item_button',
           },
           {
-            href: "https://faucet.testnet.fluent.xyz/",
+            href: "https://testnet.gblend.xyz/",
             label: "Faucet",
             position: "left",
             // className: 'navbar_item_button',
@@ -187,5 +187,13 @@ module.exports = {
     "docusaurus-plugin-sass",
     "plugin-image-zoom",
     "docusaurus-lunr-search", // Local backup search bar once website is deployed.
+  ],
+
+  // Add custom scripts
+  scripts: [
+    {
+      src: "/js/sidebar-highlight.js",
+      async: true,
+    },
   ],
 };

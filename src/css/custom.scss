@@ -1033,3 +1033,65 @@ a.theme-edit-this-page:hover {
   display: inline-block;
   font-size: 16px;
 }
+
+// Developer Guides CTA Highlighting - Target ONLY the specific class added by JavaScript
+
+// Target ONLY the specific class added by JavaScript
+.developer-guides-cta {
+  background: transparent !important;
+  color: var(--ifm-font-color-base) !important;
+  font-weight: bold !important;
+  border-radius: 8px !important;
+  margin: 8px 0 !important;
+  padding: 12px 16px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  border: 2px solid transparent !important;
+  background-clip: padding-box !important;
+  position: relative !important;
+  transition: all 0.3s ease !important;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 8px;
+    padding: 2px;
+    background: linear-gradient(135deg, #FF8FDA, #FF7B69);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+  
+  &:hover {
+    color: var(--ifm-font-color-base) !important;
+    transform: translateY(-1px) !important;
+    
+    &::before {
+      background: linear-gradient(135deg, #FF7B69, #FF8FDA);
+    }
+  }
+}
+
+// Override Docusaurus's background: none rule for our specific element
+.menu__list-item-collapsible .developer-guides-cta:hover {
+  background: transparent !important;
+  color: var(--ifm-font-color-base) !important;
+  transform: translateY(-1px) !important;
+}
+
+// Show primary color when a child page is active
+.menu__list-item-collapsible--active .developer-guides-cta,
+.menu__list-item-collapsible:has(.menu__link--active) .developer-guides-cta {
+  color: var(--ifm-color-primary) !important;
+}
+
+// Keep primary color on hover when active
+.menu__list-item-collapsible--active .developer-guides-cta:hover,
+.menu__list-item-collapsible:has(.menu__link--active) .developer-guides-cta:hover {
+  color: var(--ifm-color-primary) !important;
+}
