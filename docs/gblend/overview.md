@@ -1,6 +1,6 @@
 ---
 title: GBlend Overview
-sidebar_position: 1
+sidebar_position: 3
 ---
 
 GBlend Overview

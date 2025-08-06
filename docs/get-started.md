@@ -63,14 +63,11 @@ The main audience for this documentation are smart contract developers deploying
 
 ## `gblend`: Your New Best Friend
 
-If you're an application developer on Fluent, no matter your language of choice, the `gblend` CLI tool handles everything from project scaffolding to deployment. Get started in seconds:
+If you're an application developer on Fluent, no matter your language of choice, the `gblend` CLI tool handles everything from project scaffolding to deployment. 
 
-```bash
-cargo install gblend
-gblend init
-```
-
-Running the `gblend init` command sets up your entire project structure. No configuration headaches, no complex build setups—just pure development focus.
+:::info[Start Blending]
+Get started in just a few commands with the [quick install](./gblend/installation.md#quick-install-recommended).
+:::
 
 ## Why Developers Choose Fluent
 
@@ -89,7 +86,7 @@ Your Rust contract calls your Solidity contract directly. No complex bridging or
 **🔧 Ethereum L2 Benefits**  
 Same security guarantees, familiar tooling, existing wallet support—but with ~~multi-VM~~ _blended VM_ superpowers.
 
-:::note
+:::info
 
 Currently in public testnet with Solidity, Vyper, and Rust support. More languages coming soon.
 

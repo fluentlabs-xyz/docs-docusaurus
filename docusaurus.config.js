@@ -43,6 +43,20 @@ module.exports = {
           // "Edit this page" will redirect to this defined full GitHub repository with the branch defined as well.
           editUrl:
             "https://github.com/fluentlabs-xyz/docs-docusaurus/blob/main/",
+
+          // Custom admonition types
+          admonitions: {
+            keywords: [
+              "tip",
+              "prerequisite",
+              "warning",
+              "info",
+              "danger",
+              "best-practice",
+              "summary",
+            ],
+            extendDefaults: true,
+          },
         },
         blog: false,
         theme: {
@@ -174,7 +188,7 @@ module.exports = {
       },
       prism: {
         theme: darkCodeTheme,
-        additionalLanguages: ["solidity", "python", "rust"],
+        additionalLanguages: ["solidity", "python", "rust", "bash", "toml"],
       },
       colorMode: {
         defaultMode: "dark",

@@ -250,7 +250,7 @@ Fluent development typically follows this workflow:
 
 For more detailed instructions, see:
 
-* [Gblend Guide](../gblend/overview.md) — CLI usage and project templates
+* [Gblend Guide](../gblend/usage.md) — CLI usage and project templates
 * [Fluent Development Guide](../developer-guides/building-a-blended-app/quickstart.md) — best practices, patterns, and architecture
 
 
@@ -286,8 +286,5 @@ Each of these topics is covered in dedicated documentation sections with compreh
 ### Related Resources
 
 * **Source Code**: [GitHub Repository](https://github.com/fluentlabs-xyz/fluentbase)
-* **Type Conversions
-  **: [Solidity to Rust Type Mapping](https://github.com/fluentlabs-xyz/fluentbase/blob/v0.3.6-dev/crates/sdk-derive/docs/type_conversion.md)
+* **Type Conversions**: [Solidity to Rust Type Mapping](https://github.com/fluentlabs-xyz/fluentbase/blob/v0.3.6-dev/crates/sdk-derive/docs/type_conversion.md)
 * **Examples**: [Contract Examples Directory](https://github.com/fluentlabs-xyz/examples)
-
-****
