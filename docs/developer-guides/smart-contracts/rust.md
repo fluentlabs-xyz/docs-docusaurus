@@ -20,18 +20,34 @@ Before getting started, ensure you have the following dependencies installed on 
 
 ***
 
-## Install Fluent Scaffold CLI tool
+## Install Fluent gblend tool
 
-To install the Fluent scaffold CLI tool, run the following command in your terminal:
+Fluent gblend tool:
 
-```bash
-cargo install gblend
+https://github.com/fluentlabs-xyz/gblend
+
+1. Install `gblendup`:
+
+```shell
+curl -sSL https://raw.githubusercontent.com/fluentlabs-xyz/gblend/refs/tags/latest/gblendup/install | bash
 ```
 
-To create a project, run the following in your terminal:
+2. Start a new terminal session or update source file
 
-```bash
-gblend init
+3. Install `gblend` using `gblendup`
+
+```shell
+gblendup
+```
+
+This will automatically download precompiled binaries for your platform or build from source if needed.
+
+### Verify Installation
+
+After installation, verify gblend is working:
+
+```shell
+gblend --version
 ```
 
 After installing the Fluent build tool, you can initialize a new project and choose the `Rust` option to bootstrap the starter project.

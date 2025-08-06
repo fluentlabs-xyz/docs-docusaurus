@@ -23,26 +23,32 @@ cd types_test
 >   gblend init
 >``` -->
 
-To install the Fluent scaffold CLI tool, run the following command in your terminal:
+Fluent gblend tool:
 
-```bash
-cargo install gblend
-```
+https://github.com/fluentlabs-xyz/gblend
 
-To create a project, run the following in your terminal:
+1. Install `gblendup`:
 
-```bash
-gblend init
+```shell
+curl -sSL https://raw.githubusercontent.com/fluentlabs-xyz/gblend/refs/tags/latest/gblendup/install | bash
 ```
 
-then use the arrow keys to get to option:
+2. Start a new terminal session or update source file
+
+3. Install `gblend` using `gblendup`
+
+```shell
+gblendup
 ```
-Rust
-```
-then press enter. This will generate the following files:
-```
->Cargo.toml (Rust dependencies)
->lib.rs (Rust contract)
+
+This will automatically download precompiled binaries for your platform or build from source if needed.
+
+### Verify Installation
+
+After installation, verify gblend is working:
+
+```shell
+gblend --version
 ```
 
 ### 1.2 Write the Rust Smart Contract with Fluentbase SDK
