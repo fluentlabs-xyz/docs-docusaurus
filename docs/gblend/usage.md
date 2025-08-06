@@ -30,7 +30,7 @@ gblend init my-project
 cd my-project
 ```
 
-When creating a new project without using any specific template, the CLI tool will scaffold the [counter + powercalculator](https://github.com/fluentlabs-xyz/examples/tree/main/counter) example. This is an extension to the default Forge counter example when using `forge init`, adding blended execution.
+When creating a new project without using any [custom template](#custom-templates), the CLI tool will scaffold the [counter + powercalculator](https://github.com/fluentlabs-xyz/examples/tree/main/counter) example. This is an extension to the default Forge counter example when using `forge init`, adding blended execution.
 
 ### 2. Project Structure
 
@@ -268,10 +268,27 @@ contract BlendedCounterTest is Test {
 
 ### Custom Templates
 
+As the Fluentbase ecosystem grows, we're building a collection of templates and examples in our [examples repository](https://github.com/fluentlabs-xyz/examples). These working implementations showcase various use cases and patterns for blended applications, from simple starters to complex DeFi protocols.
+
+#### Initialising with a Custom Template
+
 ```bash
-# Create a new project with a custom template for example if you want to add a specific WASM contract into existing gblend project
-cd src
+# Create a new project with a custom template 
 gblend init -t fluentlabs-xyz/power-calculator power-calculator
+```
+
+#### Adding a Custom Template to an Existing Project
+
+```bash
+# If you want to add a specific WASM contract into existing gblend project
+gblend init -t fluentlabs-xyz/power-calculator src/power-calculator
+```
+
+The above will create the new Contract package in the `/src` directory. If you want a custom path that is different, you can use:
+
+```bash
+# Add contract to <custom-path>
+gblend init -t fluentlabs-xyz/power-calculator <custom-path>/power-calculator
 ```
 
 ### Multi-Contract Deployment
