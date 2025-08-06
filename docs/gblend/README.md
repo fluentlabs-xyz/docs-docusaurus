@@ -5,14 +5,17 @@ title: gblend Overview
 gblend Overview
 ---
 
-The `gblend` CLI tool and development tooling is a [Foundry Forge](https://github.com/fluentlabs-xyz/gblend) wrapper optimized for Fluent Network and WASM smart contract development.
+`gblend` is a specialized Foundry forge wrapper designed for hybrid Solidity and WebAssembly (WASM) smart contract development on Fluent Network. It seamlessly integrates Rust-based WASM contracts with traditional Solidity development workflows.
 
-`gblend` wraps Foundry's Forge and integrates Fluent’s custom REVM, providing a seamless experience for building and deploying WASM-based smart contracts. It enables you to:
+:::summary[Key Features]
 
-- Compile Rust smart contracts for WASM execution
-- Deploy contracts to the Fluent Network
-- Verify WASM contracts on-chain
-- Scaffold new projects using templates from [fluentlabs-xyz/examples](https://github.com/fluentlabs-xyz/examples)
+- **Rust to WASM Compilation** - Compile Rust smart contracts to WebAssembly
+- **Hybrid Development** - Seamlessly work with both Solidity and WASM contracts
+- **Reproducible Builds** - Docker-based compilation ensures consistent WASM builds
+- **Full Verification Support** - Verify both Solidity and WASM contracts on-chain
+- **Foundry Compatible** - Maintains full compatibility with existing Foundry projects
+
+:::
 
 The CLI usage is nearly identical to standard Forge, with a few Fluent-specific extensions. For example, to verify WASM contracts, you must pass the `--wasm` flag.
 
@@ -23,6 +26,13 @@ Although `gblend` is forked from Foundry's forge and works really well within th
 Please refer to the [Foundry documentation on integrating Hardhat and Foundry](https://getfoundry.sh/config/hardhat#adding-foundry-to-a-hardhat-project) and use the same strategy when using Fluent's `gblend`.
 
 :::
+
+## Resources
+
+- [Fluent Network Documentation](https://docs.fluent.xyz)
+- [Foundry Book](https://book.getfoundry.sh)
+- [gblend Repository](https://github.com/fluentlabs-xyz/gblend)
+- [Example Projects](https://github.com/fluentlabs-xyz/examples)
 
 ## Next up
 

@@ -6,36 +6,58 @@ sidebar_position: 1
 `gblend` Installation
 ---
 
-## Quick Install (Recommended)
+:::prerequisite[Required dependencies]
 
-1. Install `gblendup`:
+**Docker** - Required for reproducible WASM builds
 
 ```bash
+# macOS
+brew install --cask docker
+
+# Linux
+sudo apt-get install docker.io
+
+# Verify installation
+docker --version
+```
+
+:::
+
+## Installation
+
+### Quick Install (Recommended)
+
+```bash
+# Install gblendup installer
 curl -sSL https://raw.githubusercontent.com/fluentlabs-xyz/gblend/refs/tags/latest/gblendup/install | bash
-```
 
-2. Start a new terminal session or update source file
+# Restart terminal or source your shell configuration
+source ~/.bashrc  # or ~/.zshrc
 
-3. Install `gblend` using `gblendup`
-
-```
+# Install gblend
 gblendup
-```
 
-This will automatically download precompiled binaries for your platform or build from source if needed.
-
-## Verify Installation
-
-After installation, verify gblend is working:
-
-```bash
+# Verify installation
 gblend --version
 ```
 
-## Updating
+:::warning[Important Migration Note]
 
-To update gblend to the latest version, simply run the installer again:
+If you have an older version of gblend installed via Cargo, you must uninstall it first:
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/fluentlabs-xyz/gblend/refs/tags/latest/gblendup/install | bash
+# Remove old Cargo-installed version
+cargo uninstall gblend
+```
+
+The new version is distributed via a shell installer script, not through Cargo.
+:::
+
+## Updating gblend
+
+To update gblend to the latest version:
+
+```bash
+# Simply run gblendup again
+gblendup
 ```
