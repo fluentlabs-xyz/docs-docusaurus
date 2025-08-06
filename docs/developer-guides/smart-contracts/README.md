@@ -2,42 +2,32 @@
 title: Building a Blended App
 ---
 
-# Developer Quickstart Guides
-
 Get started building on Fluent
 ---
 
-Fluent allows developers to write smart contracts in Rust, Solidity, or Vyper. Each language has its unique advantages and syntax, enabling developers to choose the best fit for their projects.&#x20;
+Fluent allows developers to write smart contracts in Rust (using [Fluentbase SDK](../../fluentbase-sdk/build-w-fluentbase-sdk.md) that compile down to WASM), Solidity, or Vyper. Each language has its unique advantages and syntax, enabling developers to choose the best fit for their projects.
 
 This guide will walk you through creating a `HelloWorld` contract in each of these three languages and deploying it to Fluent.
 
 ## Get Started
 
-To simplify the setup process, your project can be bootstrapped using Fluent’s scaffold CLI tool. This tool automates the creation of the project structure and necessary directories for smart contract development.
+To simplify the setup process, your project can be bootstrapped using Fluent’s scaffold tooling [`gblend`](../../gblend/README.md), which is a Foundry forge wrapper. This tool automates the creation of the project structure and necessary directories for smart contract development.
 
-### Install Fluent scaffold CLI tool
+:::info[Install gblend]
 
-To install the Fluent scaffold CLI tool, simply run the following command in your terminal:
-
-```bash
-cargo install gblend
-```
-
-To create a project, run the following in your terminal:
+Ensure you've got `gblend` installed by following the [installation instructions](../../gblend/installation.md). Check by running:
 
 ```bash
-gblend init
+gblend --version
 ```
 
-This will prompt you to choose from the available setup options:
+And see if you get an output.
 
-* Solidity Smart Contract
-* Vyper Smart Contract
-* Rust Smart Contract
-
-Select the option that aligns with your preferred programming language for smart contract development, and the CLI tool will set up the project structure accordingly.
+:::
 
 ## Smart Contracts on Fluent Guides
+
+Building on Fluent is supported in these languages as of today (or build [blended applications](../building-a-blended-app/README.md)):
 
 <table data-column-title-hidden data-view="cards" id="language-table">
     <tbody>
