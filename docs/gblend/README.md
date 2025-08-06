@@ -38,4 +38,5 @@ Please refer to the [Foundry documentation on integrating Hardhat and Foundry](h
 
 * **[Installation](installation.md)**: Installation instructions for `gblend`.
 * **[Using `gblend`](usage.md)**: Learn the basic commands to start building with `gblend`.
+* **[Troubleshooting](troubleshooting.md)**: Find the most common issues and best practices.
 * **[Developer guides](../developer-guides/building-a-blended-app/README.md)**: Find out further how to use `gblend` by following along with the developer guides.
