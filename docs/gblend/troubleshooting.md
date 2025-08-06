@@ -40,6 +40,7 @@ sudo systemctl start docker
 ### Error: "command not found: gblend"
 
 🚩 **Problem**: `gblend` command is not recognized after installation.
+
 ✅ **Solution**:
 
 1. Restart your terminal or run `source ~/.bashrc (or ~/.zshrc)`

@@ -34,6 +34,8 @@ When creating a new project without using any specific template, the CLI tool wi
 
 ### 2. Project Structure
 
+As in Foundry projects, the default source for Foundry to fetch your contracts is the `src` folder (unless otherwise specified in `foundry.toml`). Organise your contracts like so:
+
 ```
 my-project/
 ├── src/
@@ -46,6 +48,10 @@ my-project/
 ├── script/                        # Deployment scripts
 └── foundry.toml                   # Configuration
 ```
+
+:::best-practice[Best Practice: Bigger projects]
+When you're working on bigger projects with a large set of contracts, it is recommended to add more structure to your code base by using folders and nested structures to group related contracts. When building your contracts (refer to below in step 3), `gblend` will recursively look for contract source code within the `src` directory.
+:::
 
 ### 3. Build Contracts
 
@@ -77,9 +83,9 @@ gblend test --match-test testIncrementByPowerOfTwo --gas-report
 
 ## Configuration
 
-`gblend` uses the same configuration foundations as Foundry forge. Create (it should already be there if you used `gblend` or regular `forge` to create your project) or update a `foundry.toml` file in your project root:
-
 ### foundry.toml
+
+`gblend` uses the same configuration foundations as Foundry forge. Create (it should already be there if you used `gblend` or regular `forge` to create your project) or update a `foundry.toml` file in your project root:
 
 ```toml
 [profile.default]
@@ -94,6 +100,8 @@ fluent_testnet = "https://rpc.testnet.fluent.xyz"
 ```
 
 ### Rust Configuration (Cargo.toml)
+
+Every Fluentbase WASM contract will be its own package and have a `Cargo.toml` like so:
 
 ```toml
 [package]
@@ -164,6 +172,8 @@ The router macro provides a robust method dispatch system for Fluentbase smart c
 :::
 
 ## Deployment
+
+When your contracts successfully compile, you can deploy the contract to Fluent Network. You'll find the commands to deploy again very familiar to those of regular forge, with a few small edits.
 
 ### Deploy WASM Contract
 
