@@ -19,7 +19,8 @@ We strike a deliberate balance between flexibility and being opinionated. Every 
 
 Our testnet is supported by the following infrastructure partners:
 
-* **[QuickNode](https://www.quicknode.com/docs/welcome)**: RPC provider and faucet services for internal and ecosystem teams
+* **[QuickNode](https://www.quicknode.com/docs/welcome)**: RPC provider and faucet services for internal and ecosystem teams (reach out for more info)
+* **[Thirdweb](https://portal.thirdweb.com/)**: RPC provider and other services (soon to be integrated)
 * **[Goldsky](./goldsky)**: Blockchain indexing and data infrastructure
 * **[Biconomy](https://docs.biconomy.io/)**: Account abstraction and gasless/sponsored transactions
 * **[Para](https://docs.getpara.com/v2/introduction/welcome)**: Smart wallet with social login support
