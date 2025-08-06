@@ -24,6 +24,7 @@ Our testnet is supported by the following infrastructure partners:
 * **[Goldsky](./goldsky)**: Blockchain indexing and data infrastructure
 * **[Biconomy](https://docs.biconomy.io/)**: Account abstraction and gasless/sponsored transactions
 * **[Para](https://docs.getpara.com/v2/introduction/welcome)**: Smart wallet with social login support
+* **[Blockscout](https://docs.blockscout.com/)**: Open-source blockchain explorer for inspecting, analyzing, and interacting with blockchains
 
 :::info[Coming soon: dedicated developer guides]
 We're working on comprehensive developer guides for each infrastructure provider. These guides will include step-by-step tutorials, code examples, and best practices for integrating with Fluent's testnet. Stay tuned for detailed documentation on how to leverage each partner's services in your Fluent applications.
