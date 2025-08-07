@@ -97,16 +97,21 @@ async function testSolidityContractRead() {
 
 This script should return the expected values the Solidity contract gets from the Rust contract.
 
-### 4.4 Test ethers.js script to call Rust contract
+```shell
+# From project root:
+node js-client/solidity.js
+```
 
-Add the following script to the `js-client/solidity.js` file that was created in the step above. This script calls the Rust contract directly with the `IRustTypesTest` Solidity interface.
+## 4.3 Test ethers.js script to call Rust contract
+
+Add the following script to the `js-client/rust.js` file that was created in the step above. This script calls the Rust contract directly with the `IRustTypesTest` Solidity interface.
 
 Update string variable `contractAddress` with your deployed Rust contract address
 
 ```javascript
 const ethers = require("ethers") // npm i ethers@5.7.2 https://github.com/smartcontractkit/full-blockchain-solidity-course-js/discussions/5139#discussioncomment-5444517
 
-const rpcURL = "https://rpc.dev.gblend.xyz/" // Your RPC URL goes here
+const rpcURL = "https://rpc.testnet.fluent.xyz/" // Your RPC URL goes here
 
 const provider = new ethers.providers.JsonRpcProvider(rpcURL)
 
@@ -115,7 +120,7 @@ const contractABI = [{"inputs":[],"name":"rustAddress","outputs":[{"internalType
 
 const contractDeployed = new ethers.Contract(contractAddress, contractABI, provider);
 
-let fluent_sepolia_chain_id = 20993;
+let fluent_sepolia_chain_id = 20994;
 
 testRustContractRead()
 
@@ -157,6 +162,11 @@ async function testRustContractRead() {
 
 This script should return the expected values directly from the Rust contract.
 
+```shell
+# From project root:
+node js-client/rust.js
+```
+
 ## 🎉 Congratulations! 
 
 You've successfully built and deployed your first blended application to Fluent Testnet! 🚀
@@ -171,7 +181,7 @@ You've successfully built and deployed your first blended application to Fluent 
 
 :::
 
-### Next Steps:
+## Next Steps:
 
 Now that you have a working blended application, you can:
 
