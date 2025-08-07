@@ -3,180 +3,102 @@ title: Step 3 - Deploy Blended Contracts
 sidebar_position: 4
 ---
 
-<!-- # Step 3: Deploy Blended Contracts
+Step 3 - Deploy Blended Contracts
+---
 
-### 3.1 Create the Deployment Script
+This guide is based off of the template blended application in this [Github repo](https://github.com/fluentlabs-xyz/blended-template-foundry-cli).
 
-This deployment script is responsible for deploying both the Rust smart contract (compiled to Wasm) and the Solidity smart contract (`GreetingWithWorld`).
+:::prerequisite
 
-`deploy/01_deploy_contracts.ts`
+Make sure you've followed along [step 1](./start-rust-contract.md) and [step 2](start-solidity-contract.md).
 
-```typescript
-import { HardhatRuntimeEnvironment } from "hardhat/types";
-import { DeployFunction } from "hardhat-deploy/types";
-import { ethers } from "ethers";
-import fs from "fs";
-import crypto from "crypto";
-import path from "path";
-require("dotenv").config();
+:::
 
-const DEPLOYER_PRIVATE_KEY = process.env.DEPLOYER_PRIVATE_KEY || "ac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";
+Now that both Solidity and Rust contracts have been created and compiled, the next step is to deploy (and verify) them.
 
-const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
-  const { deployments, getNamedAccounts, ethers, config, network } = hre;
-  const { deploy, save, getOrNull } = deployments;
-  const { deployer: deployerAddress } = await getNamedAccounts();
+## 3.1 Deploy the Rust Contract with gblend
 
-  console.log("deployerAddress", deployerAddress);
-  // Deploy WASM Contract
-  console.log("Deploying WASM contract...");
-  const wasmBinaryPath = "./greeting/lib.wasm";
-
-  // @ts-ignore
-  const provider = new ethers.JsonRpcProvider(network.config.url);
-  const deployer = new ethers.Wallet(DEPLOYER_PRIVATE_KEY, provider);
-
-  const checkmateValidatorAddress = await deployWasmContract(wasmBinaryPath, deployer, provider, getOrNull, save);
-
-  //Deploy Solidity Contract
-  console.log("Deploying GreetingWithWorld contract...");
-  const fluentGreetingContractAddress = checkmateValidatorAddress;
-
-  const greetingWithWorld = await deploy("GreetingWithWorld", {
-    from: deployerAddress,
-    args: [fluentGreetingContractAddress],
-    log: true,
-  });
-
-  console.log(`GreetingWithWorld contract deployed at: ${greetingWithWorld.address}`);
-};
-
-async function deployWasmContract(
-  wasmBinaryPath: string,
-  deployer: ethers.Wallet,
-  provider: ethers.JsonRpcProvider,
-  getOrNull: any,
-  save: any
-) {
-  const wasmBinary = fs.readFileSync(wasmBinaryPath);
-  const wasmBinaryHash = crypto.createHash("sha256").update(wasmBinary).digest("hex");
-  const artifactName = path.basename(wasmBinaryPath, ".wasm");
-  const existingDeployment = await getOrNull(artifactName);
-
-  if (existingDeployment && existingDeployment.metadata === wasmBinaryHash) {
-    console.log(`WASM contract bytecode has not changed. Skipping deployment.`);
-    console.log(`Existing contract address: ${existingDeployment.address}`);
-    return existingDeployment.address;
-  }
-
-  const gasPrice = (await provider.getFeeData()).gasPrice;
-
-  const transaction = {
-    data: "0x" + wasmBinary.toString("hex"),
-    gasLimit: 300_000_000,
-    gasPrice: gasPrice,
-  };
-
-  const tx = await deployer.sendTransaction(transaction);
-  const receipt = await tx.wait();
-
-  if (receipt && receipt.contractAddress) {
-    console.log(`WASM contract deployed at: ${receipt.contractAddress}`);
-
-    const artifact = {
-      abi: [],
-      bytecode: "0x" + wasmBinary.toString("hex"),
-      deployedBytecode: "0x" + wasmBinary.toString("hex"),
-      metadata: wasmBinaryHash,
-    };
-
-    const deploymentData = {
-      address: receipt.contractAddress,
-      ...artifact,
-    };
-
-    await save(artifactName, deploymentData);
-  } else {
-    throw new Error("Failed to deploy WASM contract");
-  }
-
-  return receipt.contractAddress;
-}
-
-export default func;
-func.tags = ["all"];
-
-```
-
-### 3.2 Create the Hardhat Task
-
-`tasks/get-greeting.ts`
-
-```tsx
-import { task } from "hardhat/config";
-
-task("get-greeting", "Fetches the greeting from the deployed GreetingWithWorld contract")
-  .addParam("contract", "The address of the deployed GreetingWithWorld contract")
-  .setAction(async ({ contract }, hre) => {
-    const { ethers } = hre;
-    const GreetingWithWorld = await ethers.getContractAt("GreetingWithWorld", contract);
-    const greeting = await GreetingWithWorld.getGreeting();
-    console.log("Greeting:", greeting);
-  });
-
-```
-
-### 3.3 Compile and Deploy the Contracts
-
-Run the following commands to compile and deploy your contracts:
-
-```bash
-pnpm hardhat compile
-pnpm hardhat deploy
-pnpm hardhat get-greeting --contract <CONTRACT_ADDRESS>
-``` -->
-
-# Step 3: Deploy Blended Contracts
-
-### 3.1 Deploy the Rust Contract with gblend
+First you'll deploy the Rust contract (**the order matters!**):
 
 ```shell
-gblend deploy \
---chain-id 20993 \
---rpc https://rpc.dev.gblend.xyz \
---private-key $devTestnetPrivateKey \
---gas-limit 3000000 \
-lib.wasm
+gblend create RustTypesTest.wasm \
+    --rpc-url https://rpc.testnet.fluent.xyz \
+    --private-key $PRIVATE_KEY \
+    --broadcast \
+    --verify \
+    --wasm \
+    --verifier blockscout \
+    --verifier-url https://testnet.fluentscan.xyz/api/
 ```
 
-### 3.2 Deploy the Solidity Contract with Remix IDE
+Be sure to capture the address the contract is deployed to and save it somewhere.
 
-Copy and paste the Solidity contract above into Remix IDE.
-Select:
+Note that you'll need to add your private key as environment variable in a `.env` file and then run `source .env`.
+
+:::danger
+
+Never use private keys linked to accounts with real funds, always use development wallets!
+
+:::
+
+## 3.2 Deploy the Solidity Contract
+
+Now you can deploy the Solidity contract. As mentioned above, the order matters because you'll need the address of the deployed Rust contract (`RustTypesTest.wasm`).
+
+```bash
+gblend create src/FluentSolRustTypesTest.sol:FluentSolRustTypesTest \
+    --rpc-url https://rpc.testnet.fluent.xyz \
+    --private-key $PRIVATE_KEY \
+    --broadcast \
+    --constructor-args <RustTypesTestAddress> \
+    --verify \
+    --verifier blockscout \
+    --verifier-url https://testnet.fluentscan.xyz/api/
 ```
-Deploy & Run Transactions > Environment > Injected Provider - Metamask
+
+## 3.3 Check with Block Explorer
+
+Go to the [Fluent testnet block explorer](https://testnet.fluentscan.xyz) and look for the contract address the contracts wer deployed to.
+
+### Check Verification Status
+
+The above deployment commands `gblend create` included additional arguments to verify the contracts immediately on deployment. To check if the contracts did indeed get verified, find the contract at its address, and navigate to the _Contract_ tab. It should have a green checkmark next to its name if the verification was successful.
+
+![Verified Contract](../../../static/img/verified-contract.png)
+
+_Did the contract verification fail?_
+
+Try again with these commands:
+
+```bash
+# WASM contract verification
+gblend verify-contract <RustTypesTestAddress> RustTypesTest.wasm \
+    --wasm \
+    --verifier blockscout \
+    --verifier-url https://testnet.fluentscan.xyz/api/
 ```
-while connected to Fluent testnet, then deploy the contract with the deployed Rust contract address
-for the constructor input argument.
 
-### 3.3 Verify the Solidity Contract with Blockscout Frontend
-
-Go to the Fluent testnet Blockscout Explorer:
-
-https://blockscout.dev.gblend.xyz/
-
-Search for the contract address the Solidity contract was deployed to. 
-Go to:
+```bash
+# Solidity contract verification
+gblend verify-contract <FluentSolRustTypesTestAddress> FluentSolRustTypesTest \
+    --verifier blockscout \
+    --verifier-url https://testnet.fluentscan.xyz/api/ \
+    --constructor-args <RustTypesTestAddress>
 ```
-Contract > Verify & publish
-```
-then select the correct parameters to verify the contract.
 
-### 3.4 Read the Solidity function return values
+If this still does not solve the issue, check out the [troubleshooting guide](../../gblend/troubleshooting.md#wasm-contract-verification-fails).
+
+### Read the Solidity function return values
 
 With the Solidity contract verified on Blockscout, we are now able to test 
 the Solidity and Rust contract Blended App. With the verified Solidity contract on Blockscout, go to:
+
 ```
-Read/Write contract > Read
-``` 
-and click on the different function names. You should see values that match the correct type for that function name, confirming your Blended App is setup between Solidity and Rust.
+Contract > Read/Write contract > Read
+```
+
+and click on the different function names. You should see values that match the correct type for that function name, confirming your Blended App is setup between Solidity and Rust. 🎉
+
+## Next Up
+
+While Fluentscan's web interface is good for quick testing, you'll likely want to interact with your blended application from some client environment. The last step in this guide explains how to integrate it using libraries like ethers.js.
