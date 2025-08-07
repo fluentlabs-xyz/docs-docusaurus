@@ -62,9 +62,15 @@ Go to the [Fluent testnet block explorer](https://testnet.fluentscan.xyz) and lo
 
 ### Check Verification Status
 
-The above deployment commands `gblend create` included additional arguments to verify the contracts immediately on deployment. To check if the contracts did indeed get verified, find the contract at its address, and navigate to the _Contract_ tab. It should have a green checkmark next to its name if the verification was successful.
+The deployment commands up top, `gblend create`, included additional arguments to verify the contracts immediately on deployment. To check if the contracts did indeed get verified, find the contract at its address, and navigate to the _Contract_ tab. It should have a green checkmark next to its name if the verification was successful.
 
 ![Verified Contract](../../../static/img/verified-contract.png)
+
+:::info[Patience is a virtue]
+
+Note that it may take up to 3 minutes to verify the contract, this is not out of the ordinary so don't send new requests too frequently.
+
+:::
 
 _Did the contract verification fail?_
 
