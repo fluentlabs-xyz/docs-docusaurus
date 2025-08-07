@@ -27,9 +27,8 @@ Please refer to the [Foundry documentation on integrating Hardhat and Foundry](h
 
 :::
 
-## Resources
+## Additional Resources
 
-- [Fluent Network Documentation](https://docs.fluent.xyz)
 - [Foundry Book](https://book.getfoundry.sh)
 - [gblend Repository](https://github.com/fluentlabs-xyz/gblend)
 - [Example Projects](https://github.com/fluentlabs-xyz/examples)

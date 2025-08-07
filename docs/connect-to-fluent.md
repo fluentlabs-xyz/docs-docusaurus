@@ -5,13 +5,19 @@ sidebar_position: 2
 Connect to Fluent
 ---
 
-Fluent, the blended execution network, is now on testnet. Fluent and the Fluentbase SDK are explicitly designed for deploying and interacting with EVM and Rust-based smart contracts. Solidity and Rust contracts can be deployed independently, or call each other as part of a [blended application](https://docs.fluent.xyz/developer-guides/building-a-blended-app/) that utilizes both types of contracts.
+Fluent, the blended execution network, is now on testnet. Fluent and the Fluentbase SDK are explicitly designed for deploying and interacting with EVM and Rust-based smart contracts. Solidity and Rust contracts can be deployed independently, or call each other as part of a [blended application](./developer-guides/building-a-blended-app/README.md) that utilizes both types of contracts.
 
 Devnet (Fluent Developer Preview) will also remain available to developers with slightly different service levels (see the dedicated sections below for more info).
 
 ## Quickstart Wallet Connect
 
-To quickly integrate Fluent with your wallet, use one of these 1-click options:
+To quickly integrate Fluent with your wallet, visit the [Fluent Dev Portal](https://testnet.gblend.xyz) and add network info:
+
+![Connect your wallet](../static/img/add-wallet.png)
+
+Or add manually with the network info you find below.
+
+<!-- To quickly integrate Fluent with your wallet, use one of these 1-click options:
 
 <table data-column-title-hidden data-view="cards">
     <tbody>
@@ -40,7 +46,7 @@ To quickly integrate Fluent with your wallet, use one of these 1-click options:
             <strong>Fluent Dev Portal</strong>
             <span>Add network info to your wallet from Fluent dev portal.</span>
         </a>
-</div>
+</div> -->
 
 ## Fluent Testnet
 
