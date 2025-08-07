@@ -5,9 +5,9 @@ title: Building a Blended App
 Get started building on Fluent
 ---
 
-Fluent allows developers to write smart contracts in Rust (using [Fluentbase SDK](../../fluentbase-sdk/build-w-fluentbase-sdk.md) that compile down to WASM), Solidity, or Vyper. Each language has its unique advantages and syntax, enabling developers to choose the best fit for their projects.
+Fluent allows developers to write smart contracts in Rust (using [Fluentbase SDK](../../fluentbase-sdk/build-w-fluentbase-sdk.md) that compile down to WASM) or Solidity. Each language has its unique advantages and syntax, enabling developers to choose the best fit for their projects.
 
-This guide will walk you through creating a `HelloWorld` contract in each of these three languages and deploying it to Fluent.
+This guide will walk you through creating a `HelloWorld` contract in each of these languages and deploying it to Fluent.
 
 ## Get Started
 
@@ -50,12 +50,12 @@ Building on Fluent is supported in these languages as of today (or build [blende
                     <strong>Go</strong>
                 </a>
             </td> -->
-            <td>
+            <!-- <td>
                 <a href="vyper">
                     <span>Smart Contracts on</span> 
                     <strong>Vyper</strong>
                 </a>
-            </td>
+            </td> -->
         </tr>
     </tbody>
 </table>
@@ -72,9 +72,9 @@ Building on Fluent is supported in these languages as of today (or build [blende
         <span>Smart Contracts on</span> 
         <strong>Go</strong>
     </a> -->
-    <a href="vyper">
+    <!-- <a href="vyper">
         <span>Smart Contracts on</span> 
         <strong>Vyper</strong>
-    </a>
+    </a> -->
 </div>
 

@@ -33,7 +33,7 @@ The Fluentbase SDK currently supports writing [smart contracts](../developer-gui
   optimization
 * **[Solidity](../developer-guides/smart-contracts/solidity.mdx)** - EVM-compatible contracts with seamless
   interoperability
-* **[Vyper](../developer-guides/smart-contracts/vyper.md)** - Alternative Python-like syntax for EVM contracts
+<!-- * **[Vyper](../developer-guides/smart-contracts/vyper.md)** - Alternative Python-like syntax for EVM contracts -->
 
 :::
 

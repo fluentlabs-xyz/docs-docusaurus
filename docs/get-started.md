@@ -88,6 +88,6 @@ Same security guarantees, familiar tooling, existing wallet support—but with ~
 
 :::info
 
-Currently in public testnet with Solidity, Vyper, and Rust support. More languages coming soon.
+Currently in public testnet with Solidity and Rust support. More languages coming soon.
 
 :::
