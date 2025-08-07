@@ -3,174 +3,49 @@ title: Step 2 - Start Solidity Contract
 sidebar_position: 3
 ---
 
-<!-- # Step 2: Start Solidity Contract -->
+Step 2: Start Solidity Contract
+---
 
-<!-- ### 2.1 Create Your Project Directory
+This guide is based off of the template blended application in this [Github repo](https://github.com/fluentlabs-xyz/blended-template-foundry-cli).
 
-```bash
-mkdir typescript-wasm-project
-cd typescript-wasm-project
-npm init -y
+:::prerequisite
 
-``` -->
+Make sure you've followed along [step 1](./start-rust-contract.md).
 
-<!-- ### 2.2 Install Dependencies
+:::
 
-```bash
-npm install --save-dev typescript ts-node hardhat hardhat-deploy ethers dotenv @nomicfoundation/hardhat-toolbox @typechain/ethers-v6 @typechain/hardhat @types/node
-pnpm install
-npx hardhat
-# Follow the prompts to create a basic Hardhat project.
-```
-
-### 2.3 Configure TypeScript and Hardhat -->
-
-<!-- #### **2.3.1 Update Hardhat Configuration**
-
-`hardhat.config.ts`
-
-```typescript
-import { HardhatUserConfig } from "hardhat/types";
-import "hardhat-deploy";
-import "@nomicfoundation/hardhat-toolbox";
-import "./tasks/greeting"
-
-require("dotenv").config();
-
-const DEPLOYER_PRIVATE_KEY = process.env.DEPLOYER_PRIVATE_KEY || "";
-
-const config: HardhatUserConfig = {
-  defaultNetwork: "dev",
-  networks: {
-    dev: {
-      url: "https://rpc.dev.gblend.xyz/",
-      accounts: [DEPLOYER_PRIVATE_KEY],
-      chainId : 20993,
-    },
-  },
-  solidity: {
-    version: "0.8.24",
-    settings: {
-      optimizer: {
-        enabled: true,
-        runs: 200,
-      },
-    },
-  },
-  namedAccounts: {
-    deployer: {
-      default: 0,
-    },
-  },
-};
-
-export default config;
-``` -->
-
-<!-- #### **2.3.2 Update `package.json`**
-
-`package.json`
-
-```json
-{
-  "name": "blendedapp",
-  "version": "1.0.0",
-  "description": "Blended Hello, World",
-  "main": "index.js",
-  "scripts": {
-    "compile": "npx hardhat compile",
-    "deploy": "npx hardhat deploy"
-  }
-  ,
-  "devDependencies": {
-    "@nomicfoundation/hardhat-ethers": "^3.0.0",
-    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
-    "@nomicfoundation/hardhat-verify": "^2.0.0",
-    "@openzeppelin/contracts": "^5.0.2",
-    "@typechain/ethers-v6": "^0.5.0",
-    "@typechain/hardhat": "^9.0.0",
-    "@types/node": "^20.12.12",
-    "dotenv": "^16.4.5",
-    "hardhat": "^2.22.4",
-    "hardhat-deploy": "^0.12.4",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.4.5"
-  },
-  "dependencies": {
-    "ethers": "^6.12.2",
-    "fs": "^0.0.1-security"
-  }
-}
-``` -->
-
-<!-- ### 2.4 Set Up Environment Variables
-
-1. Create a `.env` file:
-
-```vbnet
-DEPLOYER_PRIVATE_KEY=your-private-key-here
-``` -->
-
-<!-- 2. Replace `your-private-key-here` with your actual private key.
-
-### 2.5 Write the Solidity Contracts
-
-> ℹ️ **Note**  
->
-> In this section, we'll create two Solidity smart contracts:   
->* `IFluentGreeting` 
->* `GreetingWithWorld` 
->
->The interface contract allows the Solidity contract to call the Rust function, demonstrating interoperability between Solidity and Rust within a single execution environment. 
-The final contract
->* `GreetingWithWorld`  
->
->provides a composable solution that combines the outputs of both the Rust and Solidity contracts.
-
-* Create a `contracts` directory and add the following: -->
-
-<!-- #### 2.5.1 Define the Interface -->
-
-<!-- <details> -->
-
-<!-- <summary>Detailed Code Explanation</summary> -->
-
-<!-- ## **Interface Definition**:&#x20; -->
-
-<!-- The `IFluentGreeting` interface declares a single function `greeting()` that is external and viewable, meaning it does not modify the state of the blockchain and returns a string. This function will be implemented by another contract and is used to interact with the Rust smart contract. -->
-
-<!-- ## Interaction with Rust Code: -->
-
-<!-- The `greeting` function defined in this interface matches the Rust function that returns a greeting message. The Solidity interface allows the Solidity contract to call the Rust smart contract's function. -->
-
-<!-- The functions defined in the Solidity interface match the Rust functions that return a certain value type. The Solidity interface allows the Solidity contract to call the Rust smart contract's function. -->
-
-<!-- </details> -->
-
-<!-- # Step 2: Start Solidity Contract -->
-
-### 2.1 Solidity Contract with Interface 
+## Solidity Contract with Interface 
 
 Solidity interfaces are useful for calling external contracts that might 
 have different compiler versions. 
 
 For example: new protocols might use more recent Solidity compiler versions for contracts while wanting to use [WETH9.sol](https://etherscan.io/address/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2#code). This can be done using an ERC-20 interface such as [IERC20.sol](https://github.com/openzeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/IERC20.sol) to avoid Solidity compiler errors from using incompatible Solidity compiler versions. 
 
-In this context, a Solidity interface is used to call an external Rust contract based on its method name and types. 
+In this context, a Solidity interface is used to call an external Rust contract based on its method name and types that were defined in step 1.
 
-`contracts/FluentSdkRustTypesTest.sol`
+### 2.1 Define the Interface
 
-### 2.2 Remix IDE Link to Deploy Contract
+First off, we need to define interface that corresponds to the `RouterAPI` trait that was defined in step 1 in the Rust contract.
 
-https://remix.ethereum.org/fluentlabs-xyz/blended-sdk/blob/main/solidity/src/FluentSdkRustTypesTest.sol
+For reference:
 
-Solidity contract:
+```rust
+pub trait RouterAPI {
+    // Make sure type interfaces are defined here or else there will be a compiler error.
+    fn rust_string(&self) -> String;
+    fn rust_uint256(&self) -> U256;
+    fn rust_int256(&self) -> I256;
+    fn rust_address(&self) -> Address;
+    fn rust_bytes(&self) -> Bytes;
+    fn rust_bytes32(&self) -> B256;
+    fn rust_bool(&self) -> bool;
+}
+```
+
+The Soldity interface then becomes:
 
 ```solidity
-// SPDX-License-Identifier: MIT
-pragma solidity 0.8.30;
-
-interface IFluentRust {
+interface IRustTypesTest {
     // Make sure type interfaces are defined here or else there will be a compiler error.
     function rustString() external view returns (string memory);
     function rustUint256() external view returns (uint256);    
@@ -181,84 +56,110 @@ interface IFluentRust {
     function rustBool() external view returns (bool);
 }
 
-contract FluentSdkRustTypesTest {
+```
+
+You could then add this interface to the Solidity file with the contract or import it from a separate file but ...
+
+:::tip[gblend is your friend]
+
+While manually defining and adding the imported interface works, `gblend` improves the developer's UX by making it readily available as a build artifact when running `gblend build` on the Rust contract that defines the trait.
+
+So one can just import the interface in a Solidity contract like so:
+
+```solidity
+// Import the generated interface
+import "../out/RustTypesTest.wasm/interface.sol";
+```
+
+:::
+
+### 2.2 Write the Solidity Contract
+
+All that you need to do now, is write the Solidity contract which:
+
+- Imports the auto-generated interface from the Rust contract
+- Calls each Rust function and returns the results
+- Handles different data types (string, uint256, int256, address, bytes, bytes32, bool)
+- Shows how Solidity can seamlessly interact with Rust/WASM contracts
+
+Create a new Solidity contract `FluentSolRustTypesTest.sol` in the `src/` folder:
+
+```shell
+touch src/FluentSolRustTypesTest.sol
+```
+
+And copy the following contract:
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.30;
+
+import "../out/RustTypesTest.wasm/interface.sol";
+
+contract FluentSolRustTypesTest {
     
-    IFluentRust public fluentRust;
+    IRustTypesTest public immutable rustTypesTest;
 
     constructor(address FluentRustAddress) {
-        fluentRust = IFluentRust(FluentRustAddress);
+        rustTypesTest = IRustTypesTest(FluentRustAddress);
     }
 
-    function getRustString() external view returns (string memory) {
-        string memory rustString = fluentRust.rustString();
+    function getRustString() external returns (string memory) {
+        string memory rustString = rustTypesTest.rustString();
         return string(abi.encodePacked(rustString, " World"));
     }
 
-    function getRustUint256() external view returns (uint256) {
-        uint256 rustUint256 = fluentRust.rustUint256();
+    function getRustUint256() external returns (uint256) {
+        uint256 rustUint256 = rustTypesTest.rustUint256();
         return rustUint256;
     }
 
-    function getRustInt256() external view returns (int256) {
-        int256 rustInt256 = fluentRust.rustInt256();
+    function getRustInt256() external returns (int256) {
+        int256 rustInt256 = rustTypesTest.rustInt256();
         return rustInt256;
     }
 
-    function getRustAddress() external view returns (address) {
-        address rustAddress = fluentRust.rustAddress();
+    function getRustAddress() external returns (address) {
+        address rustAddress = rustTypesTest.rustAddress();
         return rustAddress;
     }
 
-    function getRustBytes() external view returns (bytes memory) {
-        bytes memory rustBytes = fluentRust.rustBytes();
+    function getRustBytes() external returns (bytes memory) {
+        bytes memory rustBytes = rustTypesTest.rustBytes();
         return rustBytes;
     }
 
-    function getRustBytes32() external view returns (bytes32) {
-        bytes32 rustBytes32 = fluentRust.rustBytes32();
+    function getRustBytes32() external returns (bytes32) {
+        bytes32 rustBytes32 = rustTypesTest.rustBytes32();
         return rustBytes32;
     }
 
-    function getRustBool() external view returns (bool) {
-        bool rustBool = fluentRust.rustBool();
+    function getRustBool() external returns (bool) {
+        bool rustBool = rustTypesTest.rustBool();
         return rustBool;
     }
 
 }
 ```
 
-<details>
+### 2.3 Compile the Contract(s)
 
-<summary>Detailed Code Explanation</summary>
+Next, we can again compile the contracts wit `gblend`, now both the Solidity and Rust contracts:
 
-**Import Statement**: Imports the `IFluentGreeting` interface defined earlier.
+```bash
+gblend build
+```
 
-**Contract Definition**: Defines a contract `GreetingWithWorld`.
+:::best-practice[Best Practice: use gblend to blend]
 
-**State Variable**: Declares a state variable `fluentGreetingContract` of type `IFluentGreeting`. This variable will hold the address of the deployed Rust smart contract.
+Technically, for this step you could also use `forge build` to compile the Solidity contracts, as is shown in the [Soldiity dev guide](../smart-contracts/solidity.mdx).
 
-**Constructor**:
+However, this only works because you've already generated the Rust contract build artifacts in step 1. As you are importing the interface from the Rust contract in your Solidity contract, these need to be present beforehand.
 
-* Takes an address `_fluentGreetingContractAddress` as a parameter.
-* Initializes the `fluentGreetingContract` with the provided address.
+Hence it is recommended to always use `gblend` when building blended applications.
 
-* **Function `getGreeting`**:
-  * Calls the `greeting` function of the `fluentGreetingContract` to get the greeting message from the Rust contract.
-  * Concatenates the greeting message with ", World" using `abi.encodePacked` and returns the resulting string.
+:::
 
-#### Interaction with Rust Code:
+## Next Up
 
-* The `GreetingWithWorld` contract interacts with the Rust smart contract by calling the `greeting` function via the `IFluentGreeting` interface.
-* When `getGreeting` is called, it fetches the greeting message ("Hello") from the Rust contract, concatenates it with ", World", and returns the complete greeting ("Hello, World").
-
-#### How Solidity and Rust Interact:
-
-1. **Rust Smart Contract Deployment**: The Rust smart contract is compiled to Wasm and deployed to the blockchain. It contains a function that returns the greeting "Hello".
-2. **Solidity Interface (`IFluentGreeting`)**: The Solidity interface declares a `greeting` function that matches the function in the Rust contract.
-3. **Solidity Implementation (`GreetingWithWorld`)**:
-   * The `GreetingWithWorld` contract uses the `IFluentGreeting` interface to interact with the Rust contract.
-   * It initializes with the address of the deployed Rust contract.
-   * It calls the `greeting` function of the Rust contract to fetch the greeting message.
-   * It concatenates the Rust greeting with ", World" and returns the result.
-
-</details>
+In the following step you'll deploy the (compiled) contracts to Fluent Testnet.

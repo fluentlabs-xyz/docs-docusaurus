@@ -3,65 +3,106 @@ title: Step 1 - Start Rust Contract
 sidebar_position: 2
 ---
 
-# Step 1: Start Rust Contract
+Step 1: Start Rust Contract
+---
 
-<!-- ### 1.1 Set Up the Rust Project with Cargo
+This guide is based off of the template blended application in this [Github repo](https://github.com/fluentlabs-xyz/blended-template-foundry-cli).
+
+<!-- Make sure to clone the repo to follow along:
 
 ```bash
-cargo new --lib types_test
-cd types_test
+git clone https://github.com/fluentlabs-xyz/blended-template.git && \
+cd blended-template
 ``` -->
 
-### 1.1 Set Up the Rust Project with gblend
+:::prerequisite
 
+Make sure the [`gblend` tool is installed](../../gblend/installation.md) to continue. Check with:
 
-<!-- > ℹ️ **Note**  
->
-> You can also set up your first blended app with 
-> 
->```shell
->   gblend init
->``` -->
+```shell
+gblend --version
+```
 
-To install the Fluent scaffold CLI tool, run the following command in your terminal:
+:::
+
+## 1.1 Project Initialisation
+
+To start the project, you'll follow similar steps as in the [Rust contract dev guide](../smart-contracts/rust.mdx#start-a-new-project) (only with different names).
 
 ```bash
-cargo install gblend
+# Create a project called my-blended-template
+gblend init my-blended-template
 ```
 
-To create a project, run the following in your terminal:
+You can do some housekeeping by removing default files:
 
 ```bash
-gblend init
+rm src/BlendedCounter.sol
+rm script/BlendedCounter.s.sol
+rm test/BlendedCounter.t.sol
 ```
 
-then use the arrow keys to get to option:
+In this step of the guide we'll focus on the Rust contract, which can be found at `src/power-calculator`.
+
+Rename the Rust contract folder and package:
+
+- rename `src/power-calculator` folder to `src/rust-types-test`
+
+```bash
+mv src/power-calculator src/rust-types-test
 ```
-Rust
-```
-then press enter. This will generate the following files:
-```
->Cargo.toml (Rust dependencies)
->lib.rs (Rust contract)
+
+- rename package name in `src/rust-types-test/Cargo.toml` to "rust-types-test"
+
+```bash
+awk '
+  BEGIN { in_package = 0 }
+  /^\[package\]/ { in_package = 1; print; next }
+  /^\[.*\]/ { in_package = 0 }
+  in_package && /^name *= *".*"/ { print "name = \"rust-types-test\""; next }
+  { print }
+' src/rust-types-test/Cargo.toml > tmp.toml && mv tmp.toml src/rust-types-test/Cargo.toml
+
 ```
 
 ### 1.2 Write the Rust Smart Contract with Fluentbase SDK
 
+Now you'll move on to writing a Rust smart contract with Fluentbase SDK. Find the contract source file in `src/rust-types-test/src/lib.rs`. This is the file you'll edit...
+
+:::summary[What you'll be doing]
+
+This contract demonstrates how to use Fluentbase SDK to enable interoperability between Solidity and Rust (WASM) contracts, allowing Solidity contracts to call Rust functions with compatible data types.
+
+Effectively, we provide router functioniality. Please also refer to the [Fluentbase router macro documentation](../../fluentbase-sdk/router.md) for more detailed educational materials.
+
+:::
+
+In the new contract, you'll define a struct for the contract which will derive the Contract trait:
 ```rust
-pub trait RouterAPI
+#[derive(Contract)]
+struct ROUTER<SDK> {
+    sdk: SDK,
+}
 ```
-is used to define Solidity interfaces.
+
+and define a `RouterAPI` trait to define Solidity interfaces. The contract then needs to implement the trait and define the Solidity function implementations.
 
 ```rust
-impl<SDK: SharedAPI> RouterAPI for ROUTER<SDK> 
+pub trait RouterAPI {
+    // Define function signatures that correspond to Solidity interface you'll call from.
+    ...
+}
+...
+
+impl<SDK: SharedAPI> RouterAPI for ROUTER<SDK> {
+    // Here you'll implement the methods defined in the trait
+    ...
+}
 ```
-is used to define Solidity function implementations.
 
-The Rust contract is located in this file path:
+### Full Contract Source Code
 
-`src/lib.rs`
-
-for this guide, define the Rust contract as:
+Paste the following source code in `lib.rs` and examine it closely (there a collapsible compenent with detailed explanation below the code block).
 
 ```rust
 #![cfg_attr(target_arch = "wasm32", no_std)]
@@ -217,46 +258,12 @@ This Rust code defines a smart contract that will be compiled to WebAssembly. Th
 
 </details>
 
-### 1.3 Optional Example Rust Cargo.toml file with Fluentbase SDK
-
-You can manually create the TOML file for your rust project with the Fluentbase SDK as well like the example below.
-This is already done in the gblend tool for reference.
-
-`Cargo.toml`
-
-```toml
-[package]
-edition = "2021"
-name = "types_test"
-version = "0.1.0"
-
-[dependencies]
-alloy-sol-types = {version = "0.7.4", default-features = false}
-fluentbase-sdk = {git = "https://github.com/fluentlabs-xyz/fluentbase", default-features = false}
-
-[lib]
-crate-type = ["cdylib", "staticlib"] #For accessing the C lib
-path = "src/lib.rs"
-
-[profile.release]
-lto = true
-opt-level = 'z'
-panic = "abort"
-strip = true
-
-[features]
-default = []
-std = [
-  "fluentbase-sdk/std",
-]
-```
-
-### 1.4 Build the Wasm Project
+## 1.3 Build the Wasm Project
 
 Generate the WASM binary file with:
 
 ```bash
-gblend build rust -r
+gblend build
 ```
 
 We will deploy the compiled Rust contract with the WASM binary file later in this guide.
@@ -266,7 +273,13 @@ We will deploy the compiled Rust contract with the WASM binary file later in thi
 Note: to update Rust crate `fluentbase-sdk` if there are issues:
 
 ```shell
+# From src/rust-types-test/
 cargo clean
 cargo update -p fluentbase-sdk
 ```
+
 :::
+
+## Next Up
+
+In the following step you'll switch to the Solidity part of the blended project. You've now got the Rust functions the Solidity contract can call, time to implement the calling contract.
