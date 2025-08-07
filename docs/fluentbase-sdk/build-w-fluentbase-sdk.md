@@ -29,9 +29,9 @@ write smart contracts that can interact seamlessly across different virtual mach
 
 The Fluentbase SDK currently supports writing [smart contracts](../developer-guides/smart-contracts/README.md) in:
 
-* **[Rust](../developer-guides/smart-contracts/rust.md)** - Full featured support with derive macros and storage
+* **[Rust](../developer-guides/smart-contracts/rust.mdx)** - Full featured support with derive macros and storage
   optimization
-* **[Solidity](../developer-guides/smart-contracts/solidity.md)** - EVM-compatible contracts with seamless
+* **[Solidity](../developer-guides/smart-contracts/solidity.mdx)** - EVM-compatible contracts with seamless
   interoperability
 * **[Vyper](../developer-guides/smart-contracts/vyper.md)** - Alternative Python-like syntax for EVM contracts
 
