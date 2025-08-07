@@ -1,0 +1,168 @@
+---
+title: Rust
+sidebar_position: 2
+---
+
+Building in Rust
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+To benefit maximally from the efficiency of WASM based smart contracts, you can use the [Fluentbase SDK](../../fluentbase-sdk/build-w-fluentbase-sdk.md) to build your Rust contracts.
+
+For Rust smart contracts, any  **`no_std`** compatible crate (e.g., `rand`, `alloc`) can be used. Standard library crates are not supported. Verified libraries can be found on [**crates.io**](https://crates.io/categories/no-std).
+
+:::prerequisite
+
+Before getting started, make sure to install either of the following:
+
+* **Clang and CMake**: Install these if they are not already on your system.
+*   For macOS users, LLVM can be installed via Homebrew:
+
+    ```bash
+    brew install llvm
+    ```
+* **`gblend`**: find the installation instructions [here](../../gblend/installation.md)
+
+:::
+
+## Start a new Project
+
+To create a project, run the following in your terminal:
+
+```bash
+gblend init my-project
+```
+
+This will install a simple template that expands Foundry's _counter_ default example. The project when using the command above, has the following structure:
+
+```
+my-project/
+├── src/
+│   ├── BlendedCounter.sol        # Solidity contract
+│   └── power-calculator/          # Rust/WASM module
+│       ├── Cargo.toml
+│       └── src/
+│           └── lib.rs
+├── test/                          # Forge tests
+├── script/                        # Deployment scripts
+└── foundry.toml                   # Configuration
+```
+
+In this guide, you'll only be focusing on Rust contracts so you can remove:
+
+```bash
+rm src/BlendedCounter.sol
+rm script/BlendedCounter.s.sol
+rm test/BlendedCounter.t.sol
+```
+
+and rename `power-calculator/` to something more appropriate in this case,`greeting/`.
+
+Also rename the package name in `Cargo.toml` to `greeting`.
+
+## The Main Contract File: `lib.rs`
+
+Replace the `lib.rs` file located in the `src/greeting/src` folder with the following (representative of the structure for any Rust smart contract):
+
+`lib.rs`
+
+```rust
+// 1. Set the target to wasm32 and enable no_std for compatibility.
+// no_std is required since WebAssembly's minimal runtime lacks support for Rust’s standard library.
+#![cfg_attr(target_arch = "wasm32", no_std)]
+
+// 2. Import FluentBase SDK
+extern crate fluentbase_sdk;
+
+use fluentbase_sdk::{basic_entrypoint, derive::Contract, SharedAPI};
+
+// 3. Define Contract Struct with SDK: Acts as the core of the contract’s logic.
+#[derive(Contract)]
+struct GREETING<SDK> {
+    sdk: SDK,
+}
+
+impl<SDK: SharedAPI> GREETING<SDK> {
+    // 4. Deployment Logic: Placeholder for setup during deployment.
+    fn deploy(&mut self) {
+        // Add any custom deployment logic here
+    }
+
+    // 5. Core Contract Logic: writes "Hello, World" message to output.
+    fn main(&mut self) {
+        self.sdk.write("Hello, World".as_bytes());
+    }
+}
+
+// 6. Set Entry Point: Connects GREETING struct to the WASM runtime.
+basic_entrypoint!(GREETING);
+```
+
+This snippet shows how simple it is to interact with the Fluent VM: just call the SDK, initialize your contract, add the functions, and, if needed, define a custom deployment process.
+
+### **Compiling the Rust Smart Contract**
+
+Understanding the deployment process starts with comprehending the role of `gblend`, which compiles Rust code into rWasm and generates the necessary binaries that will be embedded in a tx for deployment.
+
+```shell
+gblend build
+```
+
+Executing this command compiles the code and generates build artifacts in the `out` directory.
+
+:::warning
+
+Update Rust crate `fluentbase-sdk` in the contract package if there are issues:
+
+```shell
+# from src/greeting/
+cargo clean
+cargo update -p fluentbase-sdk
+```
+:::
+
+### **Deploying the Contract**
+
+To deploy contract, use gblend cli:
+
+<Tabs>
+<TabItem value="testnet" label="Testnet">
+
+```shell
+gblend create Greeting.wasm \
+    --rpc-url https://rpc.testnet.fluent.xyz \
+    --private-key $PRIVATE_KEY \
+    --broadcast \
+    --verify \
+    --wasm \
+    --verifier blockscout \
+    --verifier-url https://testnet.fluentscan.xyz/api/
+```
+
+</TabItem>
+<TabItem value="devnet" label="Devnet">
+
+```shell
+gblend create Greeting.wasm \
+    --rpc-url https://rpc.dev.gblend.xyz \
+    --private-key $PRIVATE_KEY \
+    --broadcast \
+    --verify \
+    --wasm \
+    --verifier blockscout \
+    --verifier-url https://blockscout.dev.gblend.xyz/api/
+```
+
+</TabItem>
+</Tabs>
+
+Upon successful deployment, the receipt of your deployment transaction will be displayed, confirming the smart contract deployment on Fluent using the Fluentbasse SDK.
+
+To view your deployed Fluent contract, navigate to the Fluent block explorer. From there, you can input your contract address to explore your deployed contract.
+
+:::summary
+
+When building Rust contracts with Fluentbase SDK, you can use the `gblend` CLI to build, deploy and verify your contracts.
+:::

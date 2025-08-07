@@ -27,23 +27,36 @@ module.exports = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-         
           routeBasePath: "/",
-         
+
           // // Custom sidebars file logic defined here.
           // sidebarPath: require.resolve('./sidebars.js'),
-        
+
           // Sidebar plugins documentation:
           // https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-docs
-         
+
           // "sidebarCollapsible: false" forces all sidebars to be open at all times.
           // sidebarCollapsible: true,
           // "sidebarCollapsed: false" sets all sidebars to open by default. Might be over written in CSS.
           sidebarCollapsed: false,
-          
+
           // "Edit this page" will redirect to this defined full GitHub repository with the branch defined as well.
-          editUrl: "https://github.com/fluentlabs-xyz/docs-docusaurus/blob/main/",
-          
+          editUrl:
+            "https://github.com/fluentlabs-xyz/docs-docusaurus/blob/main/",
+
+          // Custom admonition types
+          admonitions: {
+            keywords: [
+              "tip",
+              "prerequisite",
+              "warning",
+              "info",
+              "danger",
+              "best-practice",
+              "summary",
+            ],
+            extendDefaults: true,
+          },
         },
         blog: false,
         theme: {
@@ -68,7 +81,7 @@ module.exports = {
       docs: {
         sidebar: {
           hideable: true,
-          // // autoCollapseCategories option would collapse all sibling categories when expanding one category. 
+          // // autoCollapseCategories option would collapse all sibling categories when expanding one category.
           // // This saves the user from having too many categories open and helps them focus on the selected section.
         },
       },
@@ -104,13 +117,13 @@ module.exports = {
             // className: 'navbar_item_button',
           },
           {
-            href: "https://dev.gblend.xyz/faucet/",
+            href: "https://testnet.gblend.xyz/",
             label: "Faucet",
             position: "left",
             // className: 'navbar_item_button',
           },
           {
-            href: "https://blockscout.dev.gblend.xyz/",
+            href: "https://testnet.fluentscan.xyz/",
             label: "Blockscout",
             position: "left",
             // className: 'navbar_item_button',
@@ -175,7 +188,7 @@ module.exports = {
       },
       prism: {
         theme: darkCodeTheme,
-        additionalLanguages: ["solidity", "python", "rust"],
+        additionalLanguages: ["solidity", "python", "rust", "bash", "toml"],
       },
       colorMode: {
         defaultMode: "dark",
@@ -188,5 +201,13 @@ module.exports = {
     "docusaurus-plugin-sass",
     "plugin-image-zoom",
     "docusaurus-lunr-search", // Local backup search bar once website is deployed.
+  ],
+
+  // Add custom scripts
+  scripts: [
+    {
+      src: "/js/sidebar-highlight.js",
+      async: true,
+    },
   ],
 };

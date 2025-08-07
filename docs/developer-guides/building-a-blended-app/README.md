@@ -4,8 +4,10 @@ title: Building a Blended App
 
 ## Introduction
 
-This guide provides detailed instructions on how to build a blended application on Fluent. 
+This guide provides detailed instructions on how to build a blended application on Fluent.
 It combines a Rust smart contract to return value types to a Solidity smart contract.
+
+:::summary
 
 This setup demonstrates:
 
@@ -14,21 +16,15 @@ This setup demonstrates:
 
 within a single execution environment.
 
-## Prerequisites
+:::
 
-### Overview 
+:::prerequisite
 
-* Rust and Cargo
-* Metamask for Remix IDE
-* Node.js and npm
+* **Rust and Cargo**: find the installation instructions [here](https://www.rust-lang.org/tools/install)
+* **EVM compatible wallet** for Remix IDE
+* **Node.js and npm** (or equivalent): find the installation instructions [here](https://nodejs.org/en/download)
+* **`gblend`**: find the installation instructions [here](../../gblend/installation.md)
 
-### Quick Install Dependencies
+:::
 
-This script combines multiple commands to install all packages needed using Brew and Cargo to develop Blended Apps
-
-```shell
-brew install rust && \
-brew install foundry && \
-brew install node && \
-cargo install gblend
-```
+If these are set up, get ready to start blending on the next page!
