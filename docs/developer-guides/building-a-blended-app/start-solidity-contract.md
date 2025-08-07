@@ -8,11 +8,6 @@ Step 2: Start Solidity Contract
 
 This guide is based off of the template blended application in this [Github repo](https://github.com/fluentlabs-xyz/blended-template-foundry-cli).
 
-:::prerequisite
-
-Make sure you've followed along [step 1](./start-rust-contract.md).
-
-:::
 
 ## Solidity Contract with Interface 
 
