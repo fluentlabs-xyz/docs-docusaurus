@@ -22,9 +22,9 @@ If you prefer Rust development, consider using [alloy-rs](https://github.com/all
 
 :::
 
-## 4.1 Add ethers.js to Foundry project
+## 4.1 Add ethers.js to the Foundry project
 
-Add ethers.js as a dependency to your Foundry project. Note that you'll first have to initialise an npm package (as this is not by default available in Foundry nor `gblend` projects).
+Add ethers.js as a dependency to your Foundry project. Note that you'll first have to initialize a npm package (as this is not by default available in Foundry nor `gblend` projects).
 
 ```shell
 mkdir js-client && cd js-client && \

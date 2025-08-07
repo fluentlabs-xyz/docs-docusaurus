@@ -73,7 +73,7 @@ Now you'll move on to writing a Rust smart contract with Fluentbase SDK. Find th
 
 This contract demonstrates how to use Fluentbase SDK to enable interoperability between Solidity and Rust (WASM) contracts, allowing Solidity contracts to call Rust functions with compatible data types.
 
-Effectively, we provide router functioniality. Please also refer to the [Fluentbase router macro documentation](../../fluentbase-sdk/router.md) for more detailed educational materials.
+Effectively, we provide router functionality. Please also refer to the [Fluentbase router macro documentation](../../fluentbase-sdk/router.md) for more detailed educational materials.
 
 :::
 

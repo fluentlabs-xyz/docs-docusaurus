@@ -58,7 +58,7 @@ gblend create src/FluentSolRustTypesTest.sol:FluentSolRustTypesTest \
 
 ## 3.3 Check with Block Explorer
 
-Go to the [Fluent testnet block explorer](https://testnet.fluentscan.xyz) and look for the contract address the contracts wer deployed to.
+Go to the [Fluent testnet block explorer](https://testnet.fluentscan.xyz) and look for the contract address the contracts were deployed to.
 
 ### Check Verification Status
 
