@@ -84,4 +84,4 @@ sudo systemctl start docker
 
 ## Still encountering issues?
 
-If none of the above solves the issue you're facing, refer [Discord](https://discord.com/invite/fluentxyz") for discussing the issue and getting support from fellow community devs and DevRels, in the _#developer-forum_ channel.
+If none of the above solves the issue you're facing, refer [Discord](https://discord.com/invite/fluentxyz") for discussing the issue and getting support from fellow community devs and DevRels, in the _#devs-forum_ channel.

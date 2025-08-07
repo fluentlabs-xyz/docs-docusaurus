@@ -229,7 +229,7 @@ impl<SDK: SharedAPI> MyContract<SDK> {
 - Compatible with `web3.js`, `ethers.js`, and other EVM tools
 - Larger payload size
 
-This mode uses the same encoding as described in the [Codec System documentation](./codec.md#solidity-mode-default).
+This mode uses the same encoding as described in the [Codec System documentation](./codec.md#solidityabi-default-for-evm).
 
 ### Fluent Mode
 
@@ -253,6 +253,8 @@ impl<SDK: SharedAPI> MyContract<SDK> {
 - Smaller payload size
 - Optimized for WASM execution
 - Not directly compatible with standard EVM tools
+
+This mode uses the same encoding as described in the [Codec System documentation](./codec.md#compactabi-fluent-mode).
 
 ## Special Methods
 
