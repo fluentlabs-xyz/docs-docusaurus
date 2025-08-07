@@ -3,16 +3,11 @@ title: Step 3 - Deploy Blended Contracts
 sidebar_position: 4
 ---
 
-Step 3 - Deploy Blended Contracts
+Step 3: Deploy Blended Contracts
 ---
 
 This guide is based off of the template blended application in this [Github repo](https://github.com/fluentlabs-xyz/blended-template-foundry-cli).
 
-:::prerequisite
-
-Make sure you've followed along [step 1](./start-rust-contract.md) and [step 2](start-solidity-contract.md).
-
-:::
 
 Now that both Solidity and Rust contracts have been created and compiled, the next step is to deploy (and verify) them.
 

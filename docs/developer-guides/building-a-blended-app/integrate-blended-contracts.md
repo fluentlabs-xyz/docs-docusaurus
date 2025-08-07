@@ -3,16 +3,11 @@ title: Step 4 - Integrate Blended Contracts
 sidebar_position: 5
 ---
 
-Step 4 - Integrate Blended Contracts
+Step 4: Integrate Blended Contracts
 ---
 
 This guide is based off of the template blended application in this [Github repo](https://github.com/fluentlabs-xyz/blended-template-foundry-cli).
 
-:::prerequisite
-
-Make sure you've followed along [step 1](./start-rust-contract.md), [step 2](start-solidity-contract.md) and [step 3](deploy-blended-contracts.md).
-
-:::
 
 Once a blended application is deployed, you can use popular libraries such as [ethers.js](https://docs.ethers.org/v5/) to integrate your application into user interfaces such as a frontend website.
 
