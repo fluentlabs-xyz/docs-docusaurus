@@ -109,6 +109,11 @@
   }
 }
 
+// Special styling for inline code in info admonitions
+.customAdmonition[data-type="info"] .admonitionContent :global(code) {
+  color: #00D4FF !important;
+}
+
 // Responsive design
 @media (max-width: 768px) {
   .customAdmonition {

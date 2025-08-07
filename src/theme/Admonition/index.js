@@ -59,6 +59,7 @@ export default function Admonition(props) {
   return (
     <div
       className={styles.customAdmonition}
+      data-type={type}
       style={{
         "--admonition-color": config.color,
         "--admonition-color-secondary": config.secondaryColor,
