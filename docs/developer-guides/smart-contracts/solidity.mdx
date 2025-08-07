@@ -1,0 +1,128 @@
+---
+title: Solidity
+sidebar_position: 1
+---
+
+Building in Solidity
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+Fluent is an EVM-compatible L2 that allows developers to deploy familiar applications written in Solidity. Note however that many of the unique technical value proposition lies in so called [_blended execution_](../../knowledge-base/blended-101.md), but nevertheless migration of existing Solidity based code bases is possible on Fluent.
+
+:::prerequisite
+
+Before getting started, make sure to install either of the following:
+
+* **`gblend`**: find the installation instructions [here](../../gblend/installation.md)
+* **Foundry**: find the installation instructions [in the official Foundry docs](https://book.getfoundry.sh/getting-started/installation)
+
+:::
+
+If you're starting a new project on Fluent Network, we recommend using `gblend` over regular Foundry forge, even if you have no immediate plans of making your application _blended_ by adding Fluentbase Rust contracts. Your application might still interact with another application that _is_ blended which may lead to issues relying on regular forge.
+
+Nevertheless, as the instructions to build Solidity contracts with `gblend` can be found in [the `gblend` usage docs](../../gblend/usage.md), this guide will use regular forge for demonstration purposes.
+
+## Start Foundry Project
+
+Generate Foundry file in your current directory
+
+```shell
+forge init 
+```
+
+In the `src` folder, create a new file called `SimpleStorage.sol` and copy the simple contract below:
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.28;
+
+contract SimpleStorage {
+
+    uint256 public storedData; //Do not set 0 manually it wastes gas!
+
+    event setEvent();
+    
+    function set(uint256 x) public {
+        storedData = x;
+        emit setEvent();
+    }
+
+}
+```
+
+### Deploy and Verify 
+
+<Tabs>
+<TabItem value="testnet" label="Testnet">
+
+```shell
+forge create SimpleStorage \
+--private-key $PRIVATE_KEY \
+--rpc-url https://rpc.testnet.fluent.xyz/ \
+--broadcast \
+--verify \
+--verifier blockscout \
+--verifier-url https://testnet.fluentscan.xyz/api/
+```
+
+</TabItem>
+<TabItem value="devnet" label="Devnet">
+
+```shell
+forge create SimpleStorage \
+--private-key $PRIVATE_KEY \
+--rpc-url https://rpc.dev.gblend.xyz/ \
+--broadcast \
+--verify \
+--verifier blockscout \
+--verifier-url https://blockscout.dev.gblend.xyz/api/
+```
+
+</TabItem>
+</Tabs>
+
+:::tip
+Blockscout verification might fail during deployment.
+If this happens, verify the contract after it is deployed.
+:::
+
+Make sure to capture the contract address from the output of the deployment step above.
+
+## Verify Contract Already Deployed 
+
+Replace variable `<contract_address>` in the commands below with the actual contract address from the deployment step above and run:
+
+<Tabs>
+<TabItem value="testnet" label="Testnet">
+
+```shell
+forge verify-contract \
+--rpc-url https://rpc.testnet.fluent.xyz/ \
+<contract_address> \
+SimpleStorage \
+--verifier blockscout \
+--verifier-url https://testnet.fluentscan.xyz/api/
+```
+
+</TabItem>
+<TabItem value="devnet" label="Devnet">
+
+```shell
+forge verify-contract \
+--rpc-url https://rpc.dev.gblend.xyz/ \
+<contract_address> \
+SimpleStorage \
+--verifier blockscout \
+--verifier-url https://blockscout.dev.gblend.xyz/api/
+```
+
+</TabItem>
+</Tabs>
+
+:::summary
+
+Even though Fluent Network has an innovative _blended execution_ engine, it is still an EVM-compatible L2. This means that Solidity contracts can be deployed and verified on Fluent Network just like on any other EVM-compatible network using Foundry and other familiar tools.
+
+:::
