@@ -69,22 +69,24 @@ Note that it may take up to 3 minutes to verify the contract, this is not out of
 
 _Did the contract verification fail?_
 
-Try again with these commands:
+Try again with these commands for:
 
-```bash
-# WASM contract verification
+Rust WASM contract verification:
+
+```shell
 gblend verify-contract <RustEvmTypesAddress> RustEvmTypes.wasm \
-    --wasm \
-    --verifier blockscout \
-    --verifier-url https://testnet.fluentscan.xyz/api/
+--wasm \
+--verifier blockscout \
+--verifier-url https://testnet.fluentscan.xyz/api/
 ```
 
+Solidity contract verification:
+
 ```bash
-# Solidity contract verification
 gblend verify-contract <FluentEvmRustTypesAddress> FluentEvmRustTypes \
-    --verifier blockscout \
-    --verifier-url https://testnet.fluentscan.xyz/api/ \
-    --constructor-args <RustEvmTypesAddress>
+--verifier blockscout \
+--verifier-url https://testnet.fluentscan.xyz/api/ \
+--constructor-args <RustEvmTypesAddress>
 ```
 
 If this still does not solve the issue, check out the [troubleshooting guide](../../gblend/troubleshooting.md#wasm-contract-verification-fails).

@@ -93,7 +93,6 @@ async function testSolidityContractRead() {
 This script should return the expected values the Solidity contract gets from the Rust contract.
 
 ```shell
-# From project root:
 node js-client/solidity.js
 ```
 
@@ -158,7 +157,6 @@ async function testRustContractRead() {
 This script should return the expected values directly from the Rust contract.
 
 ```shell
-# From project root:
 node js-client/rust.js
 ```
 
