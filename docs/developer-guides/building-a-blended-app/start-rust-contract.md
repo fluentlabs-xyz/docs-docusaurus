@@ -25,44 +25,23 @@ gblend --version
 
 :::
 
-## 1.1 Project Initialisation
+## 1.1 Project Setup
 
-To start the project, you'll follow similar steps as in the [Rust contract dev guide](../smart-contracts/rust.mdx#start-a-new-project) (only with different names).
+To start a project, you'll follow similar steps as in the [Rust contract dev guide](../smart-contracts/rust.mdx#start-a-new-project) (only with different names).
 
 ```bash
-# Create a project called my-blended-template
 gblend init my-blended-template
 ```
 
-You can do some housekeeping by removing default files:
+However for this guide, we will be using a project from this template to demonstrate EVM types between Rust and Solidity contracts:
 
-```bash
-rm src/BlendedCounter.sol
-rm script/BlendedCounter.s.sol
-rm test/BlendedCounter.t.sol
-```
+https://github.com/fluentlabs-xyz/blended-template-foundry-cli
 
-In this step of the guide we'll focus on the Rust contract, which can be found at `src/power-calculator`.
+Clone the template:
 
-Rename the Rust contract folder and package:
-
-- rename `src/power-calculator` folder to `src/rust-evm-test`
-
-```bash
-mv src/power-calculator src/rust-evm-test
-```
-
-- rename package name in `src/rust-evm-test/Cargo.toml` to "rust-evm-test"
-
-```bash
-awk '
-  BEGIN { in_package = 0 }
-  /^\[package\]/ { in_package = 1; print; next }
-  /^\[.*\]/ { in_package = 0 }
-  in_package && /^name *= *".*"/ { print "name = \"rust-evm-test\""; next }
-  { print }
-' src/rust-evm-test/Cargo.toml > tmp.toml && mv tmp.toml src/rust-evm-test/Cargo.toml
-
+```shell
+git clone git@github.com:fluentlabs-xyz/blended-template-foundry-cli.git
+cd blended-template-foundry-cli
 ```
 
 ### 1.2 Write the Rust Smart Contract with Fluentbase SDK
@@ -273,7 +252,7 @@ We will deploy the compiled Rust contract with the WASM binary file later in thi
 Note: to update Rust crate `fluentbase-sdk` if there are issues:
 
 ```shell
-# From src/rust-evm-test/
+cd src/rust-evm-test/
 cargo clean
 cargo update -p fluentbase-sdk
 ```
