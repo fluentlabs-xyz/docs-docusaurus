@@ -46,28 +46,28 @@ In this step of the guide we'll focus on the Rust contract, which can be found a
 
 Rename the Rust contract folder and package:
 
-- rename `src/power-calculator` folder to `src/rust-types-test`
+- rename `src/power-calculator` folder to `src/rust-evm-test`
 
 ```bash
-mv src/power-calculator src/rust-types-test
+mv src/power-calculator src/rust-evm-test
 ```
 
-- rename package name in `src/rust-types-test/Cargo.toml` to "rust-types-test"
+- rename package name in `src/rust-evm-test/Cargo.toml` to "rust-evm-test"
 
 ```bash
 awk '
   BEGIN { in_package = 0 }
   /^\[package\]/ { in_package = 1; print; next }
   /^\[.*\]/ { in_package = 0 }
-  in_package && /^name *= *".*"/ { print "name = \"rust-types-test\""; next }
+  in_package && /^name *= *".*"/ { print "name = \"rust-evm-test\""; next }
   { print }
-' src/rust-types-test/Cargo.toml > tmp.toml && mv tmp.toml src/rust-types-test/Cargo.toml
+' src/rust-evm-test/Cargo.toml > tmp.toml && mv tmp.toml src/rust-evm-test/Cargo.toml
 
 ```
 
 ### 1.2 Write the Rust Smart Contract with Fluentbase SDK
 
-Now you'll move on to writing a Rust smart contract with Fluentbase SDK. Find the contract source file in `src/rust-types-test/src/lib.rs`. This is the file you'll edit...
+Now you'll move on to writing a Rust smart contract with Fluentbase SDK. Find the contract source file in `src/rust-evm-test/src/lib.rs`. This is the file you'll edit...
 
 :::summary[What you'll be doing]
 
@@ -273,7 +273,7 @@ We will deploy the compiled Rust contract with the WASM binary file later in thi
 Note: to update Rust crate `fluentbase-sdk` if there are issues:
 
 ```shell
-# From src/rust-types-test/
+# From src/rust-evm-test/
 cargo clean
 cargo update -p fluentbase-sdk
 ```

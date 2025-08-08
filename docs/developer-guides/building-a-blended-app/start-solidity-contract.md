@@ -8,12 +8,6 @@ Step 2: Start Solidity Contract
 
 This guide is based off of the template blended application in this [Github repo](https://github.com/fluentlabs-xyz/blended-template-foundry-cli).
 
-:::prerequisite
-
-Make sure you've followed along [step 1](./start-rust-contract.md).
-
-:::
-
 ## Solidity Contract with Interface 
 
 Solidity interfaces are useful for calling external contracts that might 
@@ -45,7 +39,7 @@ pub trait RouterAPI {
 The Soldity interface then becomes:
 
 ```solidity
-interface IRustTypesTest {
+interface IRustEvmTypes {
     // Make sure type interfaces are defined here or else there will be a compiler error.
     function rustString() external view returns (string memory);
     function rustUint256() external view returns (uint256);    
@@ -68,7 +62,7 @@ So one can just import the interface in a Solidity contract like so:
 
 ```solidity
 // Import the generated interface
-import "../out/RustTypesTest.wasm/interface.sol";
+import "../out/IRustEvmTypes.wasm/interface.sol";
 ```
 
 :::
@@ -82,10 +76,10 @@ All that you need to do now, is write the Solidity contract which:
 - Handles different data types (string, uint256, int256, address, bytes, bytes32, bool)
 - Shows how Solidity can seamlessly interact with Rust/WASM contracts
 
-Create a new Solidity contract `FluentSolRustTypesTest.sol` in the `src/` folder:
+Create a new Solidity contract `FluentEvmRustTypes.sol` in the `src/` folder:
 
 ```shell
-touch src/FluentSolRustTypesTest.sol
+touch src/FluentEvmRustTypes.sol
 ```
 
 And copy the following contract:
@@ -94,49 +88,50 @@ And copy the following contract:
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.30;
 
-import "../out/RustTypesTest.wasm/interface.sol";
+// Solidity interface automatically generated with shell command `gblend build`.
+import {IRustEvmTypes} from "../out/RustEvmTypes.wasm/interface.sol";
 
-contract FluentSolRustTypesTest {
+contract FluentEvmRustTypes {
     
-    IRustTypesTest public immutable rustTypesTest;
+    IRustEvmTypes public immutable RUST_EVM_TYPES;
 
-    constructor(address FluentRustAddress) {
-        rustTypesTest = IRustTypesTest(FluentRustAddress);
-    }
-
-    function getRustString() external returns (string memory) {
-        string memory rustString = rustTypesTest.rustString();
-        return string(abi.encodePacked(rustString, " World"));
+    constructor(address fluentRustAddress) {
+        RUST_EVM_TYPES = IRustEvmTypes(fluentRustAddress);
     }
 
     function getRustUint256() external returns (uint256) {
-        uint256 rustUint256 = rustTypesTest.rustUint256();
+        uint256 rustUint256 = RUST_EVM_TYPES.rustUint256();
         return rustUint256;
     }
 
     function getRustInt256() external returns (int256) {
-        int256 rustInt256 = rustTypesTest.rustInt256();
+        int256 rustInt256 = RUST_EVM_TYPES.rustInt256();
         return rustInt256;
     }
 
     function getRustAddress() external returns (address) {
-        address rustAddress = rustTypesTest.rustAddress();
+        address rustAddress = RUST_EVM_TYPES.rustAddress();
         return rustAddress;
     }
 
     function getRustBytes() external returns (bytes memory) {
-        bytes memory rustBytes = rustTypesTest.rustBytes();
+        bytes memory rustBytes = RUST_EVM_TYPES.rustBytes();
         return rustBytes;
     }
 
     function getRustBytes32() external returns (bytes32) {
-        bytes32 rustBytes32 = rustTypesTest.rustBytes32();
+        bytes32 rustBytes32 = RUST_EVM_TYPES.rustBytes32();
         return rustBytes32;
-    }
+    }   
 
     function getRustBool() external returns (bool) {
-        bool rustBool = rustTypesTest.rustBool();
+        bool rustBool = RUST_EVM_TYPES.rustBool();
         return rustBool;
+    }
+
+    function getRustString() external returns (string memory) {
+        string memory rustString = RUST_EVM_TYPES.rustString();
+        return string(abi.encodePacked(rustString, " World"));
     }
 
 }

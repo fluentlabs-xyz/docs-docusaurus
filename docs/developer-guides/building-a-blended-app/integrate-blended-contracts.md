@@ -3,16 +3,11 @@ title: Step 4 - Integrate Blended Contracts
 sidebar_position: 5
 ---
 
-Step 4 - Integrate Blended Contracts
+Step 4: Integrate Blended Contracts
 ---
 
 This guide is based off of the template blended application in this [Github repo](https://github.com/fluentlabs-xyz/blended-template-foundry-cli).
 
-:::prerequisite
-
-Make sure you've followed along [step 1](./start-rust-contract.md), [step 2](start-solidity-contract.md) and [step 3](deploy-blended-contracts.md).
-
-:::
 
 Once a blended application is deployed, you can use popular libraries such as [ethers.js](https://docs.ethers.org/v5/) to integrate your application into user interfaces such as a frontend website.
 
@@ -36,9 +31,9 @@ cd ..
 
 ## 4.2 Test ethers.js script to call Solidity contract
 
-Add the following script to the `js-client/solidity.js` file that was created in the step above. This script calls the `FluentSolRustTypesTest.sol` contract, which then externally calls the Rust contract functions.
+Add the following script to the `js-client/solidity.js` file that was created in the step above. This script calls the `FluentEvmRustTypes.sol` contract, which then externally calls the Rust contract functions.
 
-Note: update string variable `contractAddress` with your deployed `FluentSolRustTypesTest` contract address.
+Note: update string variable `contractAddress` with your deployed `FluentEvmRustTypes` contract address.
 
 ```javascript
 const ethers = require("ethers") // npm i ethers@5.7.2 https://github.com/smartcontractkit/full-blockchain-solidity-course-js/discussions/5139#discussioncomment-5444517
@@ -104,7 +99,7 @@ node js-client/solidity.js
 
 ## 4.3 Test ethers.js script to call Rust contract
 
-Add the following script to the `js-client/rust.js` file that was created in the step above. This script calls the Rust contract directly with the `IRustTypesTest` Solidity interface.
+Add the following script to the `js-client/rust.js` file that was created in the step above. This script calls the Rust contract directly with the `IRustEvmTypes` Solidity interface.
 
 Note: update string variable `contractAddress` with your deployed Rust contract address
 

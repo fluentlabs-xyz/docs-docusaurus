@@ -3,16 +3,11 @@ title: Step 3 - Deploy Blended Contracts
 sidebar_position: 4
 ---
 
-Step 3 - Deploy Blended Contracts
+Step 3: Deploy Blended Contracts
 ---
 
 This guide is based off of the template blended application in this [Github repo](https://github.com/fluentlabs-xyz/blended-template-foundry-cli).
 
-:::prerequisite
-
-Make sure you've followed along [step 1](./start-rust-contract.md) and [step 2](start-solidity-contract.md).
-
-:::
 
 Now that both Solidity and Rust contracts have been created and compiled, the next step is to deploy (and verify) them.
 
@@ -21,14 +16,14 @@ Now that both Solidity and Rust contracts have been created and compiled, the ne
 First you'll deploy the Rust contract (**the order matters!**):
 
 ```shell
-gblend create RustTypesTest.wasm \
-    --rpc-url https://rpc.testnet.fluent.xyz \
-    --private-key $PRIVATE_KEY \
-    --broadcast \
-    --verify \
-    --wasm \
-    --verifier blockscout \
-    --verifier-url https://testnet.fluentscan.xyz/api/
+gblend create RustEvmTypes.wasm \
+--rpc-url https://rpc.testnet.fluent.xyz \
+--private-key $PRIVATE_KEY \
+--broadcast \
+--verify \
+--wasm \
+--verifier blockscout \
+--verifier-url https://testnet.fluentscan.xyz/api/
 ```
 
 Be sure to capture the address the contract is deployed to and save it somewhere.
@@ -46,14 +41,14 @@ Never use private keys linked to accounts with real funds, always use developmen
 Now you can deploy the Solidity contract. As mentioned above, the order matters because you'll need the address of the deployed Rust contract (`RustTypesTest.wasm`).
 
 ```bash
-gblend create src/FluentSolRustTypesTest.sol:FluentSolRustTypesTest \
-    --rpc-url https://rpc.testnet.fluent.xyz \
-    --private-key $PRIVATE_KEY \
-    --broadcast \
-    --constructor-args <RustTypesTestAddress> \
-    --verify \
-    --verifier blockscout \
-    --verifier-url https://testnet.fluentscan.xyz/api/
+gblend create src/FluentEvmRustTypes.sol:FluentEvmRustTypes \
+--constructor-args-path src/solidityConstructor/FluentEvmRustTypes.txt \
+--rpc-url https://rpc.testnet.fluent.xyz \
+--private-key $PRIVATE_KEY \
+--broadcast \
+--verify \
+--verifier blockscout \
+--verifier-url https://testnet.fluentscan.xyz/api/
 ```
 
 ## 3.3 Check with Block Explorer
@@ -78,7 +73,7 @@ Try again with these commands:
 
 ```bash
 # WASM contract verification
-gblend verify-contract <RustTypesTestAddress> RustTypesTest.wasm \
+gblend verify-contract <RustEvmTypesAddress> RustEvmTypes.wasm \
     --wasm \
     --verifier blockscout \
     --verifier-url https://testnet.fluentscan.xyz/api/
@@ -86,10 +81,10 @@ gblend verify-contract <RustTypesTestAddress> RustTypesTest.wasm \
 
 ```bash
 # Solidity contract verification
-gblend verify-contract <FluentSolRustTypesTestAddress> FluentSolRustTypesTest \
+gblend verify-contract <FluentEvmRustTypesAddress> FluentEvmRustTypes \
     --verifier blockscout \
     --verifier-url https://testnet.fluentscan.xyz/api/ \
-    --constructor-args <RustTypesTestAddress>
+    --constructor-args <RustEvmTypesAddress>
 ```
 
 If this still does not solve the issue, check out the [troubleshooting guide](../../gblend/troubleshooting.md#wasm-contract-verification-fails).
