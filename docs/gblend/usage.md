@@ -55,8 +55,15 @@ When you're working on bigger projects with a large set of contracts, it is reco
 
 ### 3. Build Contracts
 
-```bash
-# Build all contracts (Solidity + WASM)
+Build all contracts (Solidity + Rust WASM)
+
+:::warning
+
+Note: the first build might take a few minutes and should take a few seconds after the first run.
+
+:::
+
+```shell
 gblend build
 ```
 
