@@ -266,6 +266,12 @@ Generate the WASM binary file with:
 gblend build
 ```
 
+:::warning
+
+Note: the first build might take a few minutes and should take a few seconds after the first run.
+
+:::
+
 We will deploy the compiled Rust contract with the WASM binary file later in this guide.
 
 :::warning
