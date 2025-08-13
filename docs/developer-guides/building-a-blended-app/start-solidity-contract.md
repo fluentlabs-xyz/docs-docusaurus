@@ -62,7 +62,6 @@ While manually defining and adding the imported interface works, `gblend` improv
 So one can just import the interface in a Solidity contract like so:
 
 ```solidity
-// Import the generated interface
 import "../out/IRustEvmTypes.wasm/interface.sol";
 ```
 
