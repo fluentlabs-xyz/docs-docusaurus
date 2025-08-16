@@ -1,0 +1,13 @@
+# Fluent Labs Documentation
+
+This repository contains the documentation for Fluent Labs, powered by Docusaurus.
+
+## 🚀 Getting Started
+
+To run this project locally:
+
+```bash
+git clone https://github.com/dananganjy/docs-docusaurus.git
+cd docs-docusaurus
+npm install
+npm start
