@@ -1,4 +1,4 @@
----
+<!-- ---
 title: Vyper
 sidebar_position: 3
 ---
@@ -65,7 +65,7 @@ require("@nomiclabs/hardhat-vyper");
     module.exports = {
       networks: {
         fluent_devnet1: {
-          url: 'https://rpc.dev.gblend.xyz/', 
+          url: 'https://rpc.devnet.fluent.xyz/', 
           chainId: 20993, 
           accounts : [
             `0x${"ADD YOUR PRIVATE KEY HERE"}` ], // Replace with the private key of the deploying account
@@ -163,4 +163,4 @@ npx hardhat run scripts/deploy-vyper.js --network fluent_devnet1
 # Contract address: 
 ```
 
-To view your deployed Fluent contract, navigate to the [Fluent Devnet Explorer](https://blockscout.dev.gblend.xyz/). From there, you can input your token address to explore your deployed contract.
+To view your deployed Fluent contract, navigate to the [Fluent Devnet Explorer](https://devnet.fluentscan.xyz/). From there, you can input your token address to explore your deployed contract. -->

@@ -110,6 +110,12 @@ Understanding the deployment process starts with comprehending the role of `gble
 gblend build
 ```
 
+:::warning
+
+Note: the first build might take a few minutes and should take a few seconds after the first run.
+
+:::
+
 Executing this command compiles the code and generates build artifacts in the `out` directory.
 
 :::warning
@@ -132,13 +138,13 @@ To deploy contract, use gblend cli:
 
 ```shell
 gblend create Greeting.wasm \
-    --rpc-url https://rpc.testnet.fluent.xyz \
-    --private-key $PRIVATE_KEY \
-    --broadcast \
-    --verify \
-    --wasm \
-    --verifier blockscout \
-    --verifier-url https://testnet.fluentscan.xyz/api/
+--rpc-url https://rpc.testnet.fluent.xyz \
+--private-key $PRIVATE_KEY \
+--broadcast \
+--verify \
+--wasm \
+--verifier blockscout \
+--verifier-url https://testnet.fluentscan.xyz/api/
 ```
 
 </TabItem>
@@ -146,13 +152,13 @@ gblend create Greeting.wasm \
 
 ```shell
 gblend create Greeting.wasm \
-    --rpc-url https://rpc.dev.gblend.xyz \
-    --private-key $PRIVATE_KEY \
-    --broadcast \
-    --verify \
-    --wasm \
-    --verifier blockscout \
-    --verifier-url https://blockscout.dev.gblend.xyz/api/
+--rpc-url https://rpc.devnet.fluent.xyz \
+--private-key $PRIVATE_KEY \
+--broadcast \
+--verify \
+--wasm \
+--verifier blockscout \
+--verifier-url https://devnet.fluentscan.xyz/api/
 ```
 
 </TabItem>

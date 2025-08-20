@@ -11,8 +11,16 @@ Devnet (Fluent Developer Preview) will also remain available to developers with 
 
 ## Quickstart Wallet Connect
 
-To quickly integrate Fluent with your wallet, visit the [Fluent Dev Portal](https://testnet.gblend.xyz) and add network info:
+To quickly integrate Fluent with your wallet:
 
+### Testnet
+
+visit the [Fluent Testnet Portal](https://testnet.gblend.xyz) and add network info:
+
+### DevNet
+
+visit the [Fluent DevNet Portal](http://devnet.fluent.xyz/) and add network info:
+ 
 ![Connect your wallet](../static/img/add-wallet.png)
 
 Or add manually with the network info you find below.
@@ -82,10 +90,10 @@ The Fluent Devnet is experimental and may be reset at any time to apply upgrades
 ### Network Parameters
 
 <table><tbody><tr><td><strong class="row-name">Network Name:</strong></td><td>Fluent Developer Preview</td></tr>
-<tr><td><strong class="row-name">HTTPS RPC URL:</strong></td><td>https://rpc.dev.gblend.xyz</td></tr>
+<tr><td><strong class="row-name">HTTPS RPC URL:</strong></td><td>https://rpc.devnet.fluent.xyz/</td></tr>
 <tr><td><strong class="row-name">Chain ID:</strong></td><td>20993</td></tr>
 <tr><td><strong class="row-name">Symbol:</strong></td><td>ETH</td></tr>
-<tr><td><strong class="row-name">Explorer:</strong></td><td><a href="https://blockscout.dev.gblend.xyz/">https://blockscout.dev.gblend.xyz/</a></td></tr></tbody></table>
+<tr><td><strong class="row-name">Explorer:</strong></td><td><a href="https://devnet.fluentscan.xyz/">https://devnet.fluentscan.xyz/</a></td></tr></tbody></table>
 
 ### Network Resources
 
