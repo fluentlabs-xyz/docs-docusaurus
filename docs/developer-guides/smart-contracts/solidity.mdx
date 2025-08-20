@@ -73,11 +73,11 @@ forge create SimpleStorage \
 ```shell
 forge create SimpleStorage \
 --private-key $PRIVATE_KEY \
---rpc-url https://rpc.dev.gblend.xyz/ \
+--rpc-url https://rpc.devnet.fluent.xyz/ \
 --broadcast \
 --verify \
 --verifier blockscout \
---verifier-url https://blockscout.dev.gblend.xyz/api/
+--verifier-url https://devnet.fluentscan.xyz/api/
 ```
 
 </TabItem>
@@ -111,11 +111,11 @@ SimpleStorage \
 
 ```shell
 forge verify-contract \
---rpc-url https://rpc.dev.gblend.xyz/ \
+--rpc-url https://rpc.devnet.fluent.xyz/ \
 <contract_address> \
 SimpleStorage \
 --verifier blockscout \
---verifier-url https://blockscout.dev.gblend.xyz/api/
+--verifier-url https://devnet.fluentscan.xyz/api/
 ```
 
 </TabItem>
