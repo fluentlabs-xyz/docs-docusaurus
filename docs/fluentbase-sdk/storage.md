@@ -144,7 +144,7 @@ impl<SDK: SharedAPI> ArrayContract<SDK> {
 
 ### 4. Complex Types (Structs)
 
-Custom types that implement the `Codec` trait can be stored. See the [Codec documentation](./codec.md#when-you-need-custom-types) for details on making types codec-compatible:
+Custom types that implement the `Codec` trait can be stored. See the [Codec documentation](./codec.md) for details on making types codec-compatible:
 
 ```rust
 use fluentbase_sdk::{codec::Codec, derive::solidity_storage};

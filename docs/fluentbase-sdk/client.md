@@ -7,7 +7,7 @@ Client Generation
 
 The client generation system creates type-safe client code for interacting with Fluentbase smart contracts. It automatically generates client structs and methods from trait definitions, handling parameter encoding, contract calls, and result decoding. This enables seamless interaction with deployed contracts while maintaining type safety and consistency with the contract interface.
 
-:::prequisite
+:::prerequisite
 This documentation assumes you've already built contracts using the [Router System](./router.md). Clients are generated from trait definitions that match your contract's router interface.
 :::
 
@@ -170,7 +170,7 @@ impl<SDK: SharedAPI> TokenInterfaceClient<SDK> {
 
 ### Complex Data Types
 
-The client system handles complex types automatically when they implement the `Codec` trait (see [Codec documentation](./codec.md#when-you-need-custom-types)):
+The client system handles complex types automatically when they implement the `Codec` trait (see [Codec documentation](./codec.md)):
 
 ```rust
 use fluentbase_sdk::codec::Codec;

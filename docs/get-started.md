@@ -72,10 +72,10 @@ Get started in just a few commands with the [quick install](./gblend/installatio
 ## Why Developers Choose Fluent
 
 <!-- Responsive YouTube embed -->
-<div class="video-responsive">
+<!-- <div class="video-responsive">
   <iframe src="https://www.youtube.com/embed/WkDafMeCABg" title="The benefits of blended execution, explained in just 15 minutes." frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 </div>
-<br />
+<br /> -->
 
 **🚀 Write in Your Favorite Language**  
 Build with Solidity's ecosystem maturity, Rust's performance, or just blend it all in one app.

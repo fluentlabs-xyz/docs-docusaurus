@@ -11,15 +11,7 @@ Devnet (Fluent Developer Preview) will also remain available to developers with 
 
 ## Quickstart Wallet Connect
 
-To quickly integrate Fluent with your wallet:
-
-### Testnet
-
-visit the [Fluent Testnet Portal](https://testnet.gblend.xyz) and add network info:
-
-### DevNet
-
-visit the [Fluent DevNet Portal](http://devnet.fluent.xyz/) and add network info:
+To quickly integrate Fluent with your wallet, visit the [Fluent Developer Portal](https://testnet.fluent.xyz/dev-portal) and add network info:
  
 ![Connect your wallet](../static/img/add-wallet.png)
 
@@ -37,7 +29,7 @@ Or add manually with the network info you find below.
                 </a>
             </td>
             <td>
-                <a href="https://testnet.gblend.xyz/">
+                <a href="https://testnet.fluent.xyz/dev-portal/">
                     <strong>Fluent Dev Portal</strong>
                     <span>Add network info to your wallet from Fluent dev portal.</span>
                 </a>
@@ -50,7 +42,7 @@ Or add manually with the network info you find below.
             <strong>Chainlist</strong> 
             <span>Add network info to your wallet directly from Chainlist.</span>
         </a>
-        <a href="https://testnet.gblend.xyz/">
+        <a href="https://testnet.fluent.xyz/dev-portal">
             <strong>Fluent Dev Portal</strong>
             <span>Add network info to your wallet from Fluent dev portal.</span>
         </a>
@@ -75,7 +67,7 @@ The Fluent Testnet is more stable than Devnet, but it is still under active deve
 ### Network Resources
 
 <table>
-<tbody><tr><td><strong class="row-name">Faucet:</strong></td><td><a href="https://testnet.gblend.xyz/"> https://testnet.gblend.xyz/</a></td></tr>
+<tbody><tr><td><strong class="row-name">Faucet:</strong></td><td><a href="https://testnet.fluent.xyz/dev-portal"> https://testnet.fluent.xyz/dev-portal</a></td></tr>
 <tr><td><strong class="row-name">Websocket RPC URL:</strong></td><td>wss://rpc.testnet.fluent.xyz/ws</td></tr></tbody>
 </table>
 
@@ -98,7 +90,7 @@ The Fluent Devnet is experimental and may be reset at any time to apply upgrades
 ### Network Resources
 
 <table>
-<tbody><tr><td><strong class="row-name">Faucet:</strong></td><td><a href="https://dev.gblend.xyz/">https://dev.gblend.xyz/</a></td></tr>
+<tbody><tr><td><strong class="row-name">Faucet:</strong></td><td><a href="https://testnet.fluent.xyz/dev-portal">https://testnet.fluent.xyz/dev-portal</a></td></tr>
 <tr><td><strong class="row-name">Websocket RPC URL:</strong></td><td>wss://rpc.dev.gblend.xyz/ws</td></tr></tbody>
 </table>
 
