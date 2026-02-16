@@ -21,7 +21,6 @@
     "axios": "^1.7.2",
     "clsx": "^1.1.1",
     "dayjs": "^1.11.2",
-    "docusaurus-lunr-search": "^3.6.1",
     "docusaurus-plugin-sass": "^0.2.2",
     "plugin-image-zoom": "github:flexanalytics/plugin-image-zoom",
     "polipop": "^1.0.0",

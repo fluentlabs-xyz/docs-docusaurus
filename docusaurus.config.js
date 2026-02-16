@@ -201,7 +201,6 @@ module.exports = {
   plugins: [
     "docusaurus-plugin-sass",
     "plugin-image-zoom",
-    "docusaurus-lunr-search", // Local backup search bar once website is deployed.
   ],
 
   // Add custom scripts
