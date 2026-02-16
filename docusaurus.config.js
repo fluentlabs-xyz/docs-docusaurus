@@ -74,9 +74,10 @@ module.exports = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       algolia: {
-        appId: "M4JGWXQJP4",
-        apiKey: "5681f211df732bda5a2631e5d29b8efd",
-        indexName: "Fluent",
+        appId: "AYBP9SCWWP",
+        apiKey: "79260287324b24507bdde08601d28f24",
+        indexName: "fluent-docs",
+        askAi: "UemcwTGzvIAR",
       },
       docs: {
         sidebar: {
