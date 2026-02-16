@@ -76,7 +76,7 @@ module.exports = {
       algolia: {
         appId: "AYBP9SCWWP",
         apiKey: "79260287324b24507bdde08601d28f24",
-        indexName: "fluent docs",
+        indexName: "Fluent Docs",
         askAi: "UemcwTGzvIAR",
       },
       docs: {
