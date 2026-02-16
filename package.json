@@ -14,14 +14,13 @@
     "write-heading-ids": "docusaurus write-heading-ids"
   },
   "dependencies": {
-    "@docusaurus/core": "^3.8.1",
-    "@docusaurus/preset-classic": "^3.8.1",
+    "@docusaurus/core": "^3.9.2",
+    "@docusaurus/preset-classic": "^3.9.2",
     "@mdx-js/react": "^3.0.0",
     "@wojtekmaj/react-daterange-picker": "^3.4.0",
     "axios": "^1.7.2",
     "clsx": "^1.1.1",
     "dayjs": "^1.11.2",
-    "docusaurus-lunr-search": "^3.6.1",
     "docusaurus-plugin-sass": "^0.2.2",
     "plugin-image-zoom": "github:flexanalytics/plugin-image-zoom",
     "polipop": "^1.0.0",

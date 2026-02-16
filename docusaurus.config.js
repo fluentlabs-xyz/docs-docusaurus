@@ -74,9 +74,10 @@ module.exports = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       algolia: {
-        appId: "M4JGWXQJP4",
-        apiKey: "5681f211df732bda5a2631e5d29b8efd",
-        indexName: "Fluent",
+        appId: "AYBP9SCWWP",
+        apiKey: "f9e8d6400060bd257ff3820e19f13dd6",
+        indexName: "Fluent Docs",
+        askAi: "UemcwTGzvIAR",
       },
       docs: {
         sidebar: {
@@ -200,7 +201,6 @@ module.exports = {
   plugins: [
     "docusaurus-plugin-sass",
     "plugin-image-zoom",
-    "docusaurus-lunr-search", // Local backup search bar once website is deployed.
   ],
 
   // Add custom scripts
