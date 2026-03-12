@@ -10,7 +10,7 @@ We're excited that you want to contribute to Fluent documentation! Your contribu
 
 :::prerequisite[Ready to Get Started?]
 
-Check out our comprehensive [Contributing Guidelines](https://github.com/fluentblabs-xyz/docs-docusaurus/blob/main/CONTRIBUTING.md) for everything you need to know!
+Check out our comprehensive [Contributing Guidelines](https://github.com/fluentlabs-xyz/docs-docusaurus/blob/main/CONTRIBUTING.md) for everything you need to know!
 
 :::
 
@@ -40,7 +40,7 @@ And finally, for more advanced contributors:
 ## Need Help?
 
 - **Questions?** Join our [Discord community](https://discord.com/invite/fluentxyz) in the #developer-forum channel
-- **Guidelines?** Check out our [Contributing Guidelines](https://github.com/fluentblabs-xyz/docs-docusaurus/blob/main/CONTRIBUTING.md) for detailed instructions
+- **Guidelines?** Check out our [Contributing Guidelines](https://github.com/fluentlabs-xyz/docs-docusaurus/blob/main/CONTRIBUTING.md) for detailed instructions
 - **Issues?** Search existing issues or create a new one on GitHub
 
 ---

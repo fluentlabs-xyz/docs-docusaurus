@@ -161,7 +161,7 @@ When creating issues:
 
 - **Documentation**: Check existing docs first
 - **Issues**: Search existing issues before creating new ones
-- **Discussions**: Use [Discord](https://discord.com/invite/fluentxyz") for discussing, in the #developer-forum channel before opening an issue or PR if you're unsure
+- **Discussions**: Use [Discord](https://discord.com/invite/fluentxyz) for discussing, in the #developer-forum channel before opening an issue or PR if you're unsure
 - **Community**: Join our community channels for real-time help
 
 ## Recognition
