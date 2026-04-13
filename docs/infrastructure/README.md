@@ -25,5 +25,5 @@ Our mainnet is supported by the following infrastructure partners:
 * **[Swapper](https://swapper.finance/)**: On-ramping infrastructure
 
 :::info[Coming soon: dedicated developer guides]
-We're working on comprehensive developer guides for each infrastructure provider. These guides will include step-by-step tutorials, code examples, and best practices for integrating with Fluent's testnet. Stay tuned for detailed documentation on how to leverage each partner's services in your Fluent applications.
+We're working on comprehensive developer guides for each infrastructure provider. These guides will include step-by-step tutorials, code examples, and best practices for integrating across Fluent's mainnet and testnet environments. Stay tuned for detailed documentation on how to leverage each partner's services in your Fluent applications.
 :::
