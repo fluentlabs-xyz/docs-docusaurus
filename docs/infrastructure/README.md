@@ -16,6 +16,7 @@ Our mainnet is supported by the following infrastructure partners:
 * **[Quicknode](https://www.quicknode.com/docs/welcome)**: RPC provider and faucet services for internal and ecosystem teams
 * **[Privy](https://docs.privy.io/welcome)**: Smart and embedded wallets with social login support
 * **[Pyth](https://docs.pyth.network/)**: Real-time price feeds and event streaming
+* **[Safe](https://docs.safe.global/)**: Multi-chain wallet, multi-sig, and transaction management
 * **[thirdweb](https://portal.thirdweb.com/)**: RPC provider and native point of sale services like Checkout and Pay
 * **[Hyperlane](https://docs.hyperlane.xyz/)**: Cross-chain messaging and interoperability
 * **[Goldsky](https://docs.goldsky.com/chains/fluent)**: Blockchain indexing and data infrastructure
