@@ -16,6 +16,10 @@ module.exports = {
   onBrokenLinks: "throw",
   onBrokenAnchors: "warn",
   onBrokenMarkdownLinks: "warn",
+  markdown: {
+    mermaid: true,
+  },
+  themes: ["@docusaurus/theme-mermaid"],
   // favicon: 'img/logos/faviconDark.png',
   favicon: "img/logos/faviconPurple.png",
   organizationName: "Fluent", // Usually your GitHub org/user name.
