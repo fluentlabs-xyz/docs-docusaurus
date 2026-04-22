@@ -9,16 +9,7 @@ Fluent is an Ethereum-aligned L2 that runs EVM, Wasm, and (soon) SVM contracts o
 
 A Fluent node has three cooperating layers, and most of the interesting engineering lives at their boundaries.
 
-```mermaid
-flowchart TB
-    Shell["Node / Consensus Shell<br/>(modified Reth: tx, block, RPC)"]
-    Coord["Execution Coordination<br/>(REVM + host handlers)"]
-    Runtime["Runtime Execution<br/>(rWasm, contract & system modes)"]
-    Shell --> Coord
-    Coord -->|exec / resume| Runtime
-    Runtime -->|interruption| Coord
-    Coord -->|commit| Shell
-```
+![Three cooperating layers of a Fluent node: Node/Consensus Shell, Execution Coordination, and Runtime Execution, with call/commit flow up and exec/interruption flow down.](/img/system-architecture/three-layers.svg)
 
 **Node and consensus shell.** A modified [Reth](https://github.com/paradigmxyz/reth) stack handles networking, the mempool, block and transaction pipelines, and every JSON-RPC endpoint a wallet or indexer would expect. To an external client, a Fluent node looks like an Ethereum execution client — for most RPC calls, it behaves like one.
 

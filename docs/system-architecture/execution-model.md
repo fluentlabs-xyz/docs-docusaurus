@@ -23,23 +23,7 @@ Every concrete behavior on this page comes out of how those pieces interact. The
 
 A transaction lands on the node, REVM invokes the runtime, and the flow goes:
 
-```mermaid
-sequenceDiagram
-    participant User
-    participant REVM as REVM / Host
-    participant Runtime as rWasm Runtime
-    User->>REVM: call / create
-    REVM->>REVM: prepare frame input + fuel
-    REVM->>Runtime: invoke(input, fuel)
-    alt final result
-        Runtime-->>REVM: exit_code <= 0 + output
-        REVM->>REVM: apply journal, commit
-    else interruption
-        Runtime-->>REVM: exit_code > 0 (= call_id) + syscall payload
-        REVM->>REVM: handle host action
-        REVM->>Runtime: resume(call_id, result)
-    end
-```
+![Sequence diagram showing call / create from User to REVM, invoke into the rWasm Runtime, and the two possible return paths: final result with journal commit, or interruption with host action and runtime resume.](/img/system-architecture/call-lifecycle.svg)
 
 1. REVM prepares the frame: input bytes, caller, value, context flags, a fuel budget derived from remaining gas.
 2. It invokes the runtime with that input and fuel limit.

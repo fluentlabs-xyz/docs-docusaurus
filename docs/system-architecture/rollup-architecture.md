@@ -25,15 +25,7 @@ Fluent is an **optimistic-ZK hybrid**. Commitments and data publication are fast
 
 ## The five-stage verification pipeline
 
-```mermaid
-flowchart LR
-    A["Stage A<br/>commitBatch"] --> B["Stage B<br/>submitBlobs<br/>(EIP-4844 DA)"]
-    B --> C["Stage C<br/>preconfirmBatch<br/>(Nitro TEE + SP1)"]
-    C --> E["Stage E<br/>finalizeBatches<br/>(delay-based)"]
-    C -. disputed .-> D["Stage D<br/>challengeBatchRoot<br/>challengeBlock"]
-    D --> |SP1 proof| E2["Stage E<br/>finalizeWithProofs<br/>(proof-gated)"]
-    D -. unresolved .-> Halt["rollupCorrupted<br/>revertBatches"]
-```
+![Five-stage rollup verification pipeline: commitBatch, submitBlobs, preconfirmBatch, then finalizeBatches on the happy path; if disputed, challenge contracts resolve via SP1 proof into finalizeWithProofs, or the chain halts under rollupCorrupted and revertBatches.](/img/system-architecture/rollup-pipeline.svg)
 
 ### Stage A — Batch commitment
 
