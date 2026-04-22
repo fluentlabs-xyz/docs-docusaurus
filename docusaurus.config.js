@@ -124,8 +124,8 @@ module.exports = {
             // className: 'navbar_item_button',
           },
           {
-            href: "https://testnet.fluentscan.xyz/",
-            label: "Blockscout",
+            href: "https://fluentscan.xyz/",
+            label: "Explorer",
             position: "left",
             // className: 'navbar_item_button',
           },
