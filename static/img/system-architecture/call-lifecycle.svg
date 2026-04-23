@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 540" font-family="system-ui, -apple-system, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#cccccc"/>
+    </marker>
+  </defs>
+
+  <!-- Actor boxes -->
+  <rect x="40"  y="15" width="160" height="40" rx="4" fill="none" stroke="#cccccc" stroke-width="1.5"/>
+  <text x="120" y="41" text-anchor="middle" fill="#ffffff" font-size="15" font-weight="600">User</text>
+
+  <rect x="370" y="15" width="160" height="40" rx="4" fill="none" stroke="#cccccc" stroke-width="1.5"/>
+  <text x="450" y="41" text-anchor="middle" fill="#ffffff" font-size="15" font-weight="600">REVM / Host</text>
+
+  <rect x="700" y="15" width="160" height="40" rx="4" fill="none" stroke="#cccccc" stroke-width="1.5"/>
+  <text x="780" y="41" text-anchor="middle" fill="#ffffff" font-size="15" font-weight="600">rWasm Runtime</text>
+
+  <!-- Lifelines (dashed) -->
+  <line x1="120" y1="55" x2="120" y2="515" stroke="#666666" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="450" y1="55" x2="450" y2="515" stroke="#666666" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="780" y1="55" x2="780" y2="515" stroke="#666666" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- 1: User -&gt; REVM : call / create -->
+  <text x="285" y="88" text-anchor="middle" fill="#e5e5e5" font-size="13">call / create</text>
+  <line x1="120" y1="98" x2="445" y2="98" stroke="#cccccc" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- 2: REVM self : prepare frame input + fuel -->
+  <path d="M 450 128 L 515 128 L 515 148 L 455 148" fill="none" stroke="#cccccc" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="525" y="142" fill="#e5e5e5" font-size="13">prepare frame input + fuel</text>
+
+  <!-- 3: REVM -&gt; Runtime : invoke(input, fuel) -->
+  <text x="615" y="180" text-anchor="middle" fill="#e5e5e5" font-size="13">invoke(input, fuel)</text>
+  <line x1="455" y1="190" x2="775" y2="190" stroke="#cccccc" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Branch label: final result -->
+  <text x="65" y="232" fill="#a0a0a0" font-size="12" font-style="italic">[ final result ]</text>
+
+  <!-- 4: Runtime -&gt; REVM : exit_code &lt;= 0 + output -->
+  <text x="615" y="250" text-anchor="middle" fill="#e5e5e5" font-size="13">exit_code &lt;= 0 + output</text>
+  <line x1="780" y1="260" x2="455" y2="260" stroke="#cccccc" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- 5: REVM self : apply journal, commit -->
+  <path d="M 450 292 L 515 292 L 515 312 L 455 312" fill="none" stroke="#cccccc" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="525" y="306" fill="#e5e5e5" font-size="13">apply journal, commit</text>
+
+  <!-- Dashed separator between branches -->
+  <line x1="65" y1="345" x2="835" y2="345" stroke="#666666" stroke-width="1" stroke-dasharray="6,6"/>
+
+  <!-- Branch label: interruption -->
+  <text x="65" y="368" fill="#a0a0a0" font-size="12" font-style="italic">[ interruption ]</text>
+
+  <!-- 6: Runtime -&gt; REVM : exit_code &gt; 0 (= call_id) + syscall payload -->
+  <text x="615" y="386" text-anchor="middle" fill="#e5e5e5" font-size="13">exit_code &gt; 0 (= call_id) + syscall payload</text>
+  <line x1="780" y1="396" x2="455" y2="396" stroke="#cccccc" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- 7: REVM self : handle host action -->
+  <path d="M 450 428 L 515 428 L 515 448 L 455 448" fill="none" stroke="#cccccc" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="525" y="442" fill="#e5e5e5" font-size="13">handle host action</text>
+
+  <!-- 8: REVM -&gt; Runtime : resume(call_id, result) -->
+  <text x="615" y="482" text-anchor="middle" fill="#e5e5e5" font-size="13">resume(call_id, result)</text>
+  <line x1="455" y1="492" x2="775" y2="492" stroke="#cccccc" stroke-width="1.5" marker-end="url(#arrow)"/>
+</svg>

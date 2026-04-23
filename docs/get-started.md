@@ -38,7 +38,7 @@ The main audience for this documentation are smart contract developers deploying
                 </a>
             </td>
             <td>
-                <a href="knowledge-base/fluent-overview">
+                <a href="system-architecture/overview">
                     <strong>Study the Tech</strong> 
                     <span>Dive deep into rWasm and blended execution architecture.</span>
                 </a>
@@ -55,7 +55,7 @@ The main audience for this documentation are smart contract developers deploying
         <strong>Developer Guides</strong> 
         <span>Deploy blended apps in minutes. Rust ↔ Solidity made simple.</span>
     </a>
-    <a href="knowledge-base/fluent-overview">
+    <a href="system-architecture/overview">
         <strong>Study the Tech</strong> 
         <span>Dive deep into rWasm and blended execution architecture.</span>
     </a>
