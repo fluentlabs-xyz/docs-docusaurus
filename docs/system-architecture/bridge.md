@@ -3,13 +3,13 @@ title: Bridge Architecture
 sidebar_position: 10
 ---
 
-Fluent's bridge is the two-way surface between the L2 and Ethereum. It carries two kinds of traffic under two different trust models: **deposits** (L1 → L2) are optimistic — they become spendable on L2 once a rollup batch has consumed them — and **withdrawals** (L2 → L1) are Merkle-proven against the rollup's batch root. The bridge is a family of contracts deployed symmetrically on both chains, layered on top of the [rollup's batch lifecycle](./rollup-architecture.md).
+Fluent's bridge is the two-way interface between the L2 and Ethereum. It carries two kinds of traffic under two different trust models: **deposits** (L1 → L2) are optimistic — they become spendable on the L2 once a rollup batch has consumed them — and **withdrawals** (L2 → L1) are Merkle-proven against the rollup's batch root. The bridge is a family of contracts deployed symmetrically on both chains, layered on top of the [rollup's batch lifecycle](./rollup-architecture.md).
 
-This page describes the bridge at the protocol level: how a cross-chain message travels, where trust sits, and what stops an adversary from compromising either side.
+This page describes the bridge at the protocol level: how a cross-chain message travels, where trust resides, and what stops an adversary from compromising either side.
 
 ## Layered model
 
-The bridge follows the same three-layer pattern as the rest of the system, deployed symmetrically on L1 and L2.
+The bridge follows the same three-layer pattern as the rest of the system, deployed symmetrically on each layer.
 
 ![Bridge topology across L1 and L2, showing gateways on top of bridge contracts, with L1FluentBridge tied to the rollup and L2FluentBridge reading L1 oracles. Deposit traffic flows L1 to L2 via the sequencer; withdrawals flow L2 to L1 via Merkle proof against the rollup's batch root.](/img/system-architecture/bridge-topology.svg)
 
@@ -30,7 +30,7 @@ The bridge does four things at send time:
 3. Takes the next nonce, computes `validUntilBlockNumber = block.number + receiveMessageDeadline`, hashes the full message, and emits `SentMessage`.
 4. Appends the message hash to `_sentMessageHashes[_sentMessageBack++]` and freezes a per-slot processing deadline: `_sentMessageProcessByBlock[slot] = block.number + depositProcessingWindow`.
 
-Both deadlines — the receive expiry committed into the message hash and the per-slot processing window — are **frozen at send time**. Admin updates to either window parameter afterwards never retroactively affect messages already in the queue. Each value is either hashed or stored once and never re-read. The `depositProcessingWindow` is bounded at `MAX_DEPOSIT_PROCESSING_WINDOW = 50_400` blocks (~7 days at 12 s/block) and must be strictly greater than zero.
+Both deadlines — the receive expiry committed into the message hash and the per-slot processing window — are **frozen at send time**. Admin updates to either window parameter afterwards never retroactively affecting messages already in the queue. Each value is either hashed or stored once and never re-read. The `depositProcessingWindow` is bounded at `MAX_DEPOSIT_PROCESSING_WINDOW = 50_400` blocks (~7 days at 12 s/block) and must be strictly greater than zero.
 
 The rollup's sequencer commits batches via `Rollup.commitBatch`. That batch bundles the L2 transactions that execute the queued deposits; on L1, the rollup consumes the corresponding hashes via `consumeNextSentMessage` or `advanceSentMessageCursor`. Persistent semantics apply: consumed slots are not deleted — only the cursor moves forward. If a later `revertBatches` rewinds the rollup, `rewindSentMessageCursor` moves the bridge cursor backward to match, and the replacement batch re-consumes the same hashes.
 
@@ -73,7 +73,7 @@ Preconfirmation gives withdrawals fast user-perceived finality — the batch is 
 
 `FastWithdrawalList` is a per-chain, per-token rate-cap registry. Admin registers tokens with packed-`uint96` hourly and daily limits. The gateway, acting as `CONSUMER_ROLE`, calls `consumeUsage(token, amount)` on every optimistic-path withdrawal. Rolling windows are keyed by `block.timestamp / 1 hours` and `block.timestamp / 1 days` — a new window resets the counter for that token.
 
-Tokens can alias into a shared bucket: e.g. ETH and WETH registered under one canonical key, so an attacker cannot drain twice the cap by exploiting both parallel gateways. The alias is set by admin via `setAlias` and is enforced at consume time.
+Tokens can alias into a shared bucket: e.g. ETH and WETH registered under one canonical key, so an attacker cannot drain the cap twice by exploiting both parallel gateways. The alias is set by admin via `setAlias` and is enforced at consume time.
 
 The gate in `GatewayBase._consumeLimit` has four states:
 
@@ -122,4 +122,4 @@ A few practical notes for operators:
 - `L1BlockOracle` and `L1GasOracle` are liveness dependencies of the L2 bridge. Stale oracles break expiry checks (risk of stranded or prematurely expired messages) and fee calculations. Monitor their freshness.
 - `feeTreasury` must accept plain ETH transfers. The L2 outbound fee transfer uses a bare `call` — if the treasury address reverts on receive, `sendMessage` reverts with `FailedToDeductFee` and the user cannot bridge.
 - Rotate `RELAYER_ROLE` through the same operational process as the sequencer key. A compromised relayer cannot forge messages (the hash and proofs are public), but it can censor delivery order on L2 by stalling `receiveMessage`.
-- UUPS upgrades on the bridges, gateways, and safety registries are consensus-grade in the same sense as runtime upgrades (see [Runtime Upgrade](./runtime-upgrade.md)): deterministic artifacts, multisig authority, coherent rollout.
+- UUPS upgrades on the bridges, gateways, and safety registries are consensus-grade in the same sense as runtime upgrades (see [Runtime Upgrade](./runtime-upgrade.md)): deterministic artifacts, multisig authority, and coherent rollout.
