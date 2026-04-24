@@ -9,7 +9,7 @@ This page describes the verification pipeline at the protocol level: how batches
 
 ## Shared state, execution-agnostic settlement
 
-Blended execution — EVM, Wasm, and (soon) SVM contracts sharing one state machine — is documented in [Blended 101](../knowledge-base/blended-101.md). What matters for settlement is that Fluent verifies rollup commitments over **block headers and data roots**, not over VM-specific execution traces. Adding a new execution environment doesn't change what the rollup proves; it changes what fits into a block the rollup already knows how to settle.
+Blended execution — EVM, Wasm, and (soon) SVM contracts sharing one state machine — is documented in [Blended 101](../knowledge-base/blended-101.md). What matters for settlement is that Fluent verifies rollup commitments over **block headers and batch Merkle roots**, not over VM-specific execution traces. Adding a new execution environment doesn't change what the rollup proves; it changes what fits into a block the rollup already knows how to settle.
 
 Each batch is a sequential record identified by a root, a block span, a declared block count, an expected blob count, and timing windows for each phase. Verification parameters are frozen per batch at commit time, so retroactive governance edits can't change the security conditions of an in-flight batch.
 
@@ -21,7 +21,7 @@ Two well-known models sit on either side of what Fluent does.
 
 **Validity (ZK) rollups** require a succinct proof for every state transition before accepting it. Security is purely cryptographic at the transition level, but proving cost and latency are non-trivial, and prover decentralization is a hard open problem.
 
-Fluent is an **optimistic-ZK hybrid**. Commitments and data publication are fast. A TEE-based preconfirmation gives users rapid execution attestations. Challenges are economically bonded and resolved with SP1-backed proofs. Finalization has two modes: delay-based by default, proof-gated when block commitments are already proven. Users experience optimistic throughput; adversarial operation gets cryptographic adjudication.
+Fluent is an **optimistic-ZK hybrid**. Batch commitment and data publication are fast. A TEE-based preconfirmation gives users rapid execution attestations and is the prerequisite for any batch to finalize. Challenges are economically bonded and resolved with SP1-backed proofs. A preconfirmed batch finalizes after a configured delay by default, or sooner if every block in it has been proven through dispute resolution. Users experience optimistic throughput; adversarial operation gets cryptographic adjudication.
 
 ## The five-stage verification pipeline
 
@@ -45,25 +45,46 @@ The contract enforces continuity across batches: the previous batch's `toBlockHa
 
 The effect is a strong data-availability binding: on-chain adjudication is keyed to immutable blob hashes. Compression and serialization happen off-chain, but every downstream step — preconfirmation, challenge, resolution — is parameterized by the exact blob hash vector stored on-chain. Data published to the L1 blob store is what the protocol adjudicates over, and nothing else.
 
+The enclave itself is network-isolated and doesn't see what the host actually publishes on Ethereum. It receives the canonical batch payload from the host, decompresses it, cross-checks the decoded block hashes against the STF execution result, and computes the EIP-4844 commitments over the raw blob bytes itself — deriving its own versioned-hash vector rather than trusting anything the host might claim. The SP1 guest follows the same procedure during dispute resolution (Stage D), so Nitro and SP1 produce the same hashes from the same canonical data.
+
+That vector is bound into the preconfirmation signature (Stage C). If a malicious host feeds the enclave honest data but publishes *different* blobs on L1, the on-chain `blobhash` values won't match the ones signed over, signature recovery returns an address that is not in the attested-key whitelist, and the contract rejects the batch. The DA loop closes on that equality: on-chain adjudication, TEE signing, and ZK proving all key to the same derived hashes.
+
 ### Stage C — TEE preconfirmation
 
-`preconfirmBatch` accepts a signature over `(chain id, verifier contract, batch root, blob hash list)` from a whitelisted AWS Nitro enclave. The Nitro verifier contract runs a two-phase filter on admitted signing keys:
+`preconfirmBatch` accepts an ECDSA signature from a whitelisted AWS Nitro enclave over a digest that binds four things: the L1 chain id, the `NitroVerifier` contract's own address, the batch root, and the versioned blob-hash vector the enclave derived in Stage B. The digest is `sha256(abi.encode(chain_id, verifier_address, batch_root, versioned_hashes))`. The chain id and contract fields rule out replay across chains and across contracts; the batch-root and hash-vector fields tie the signature to a specific batch and its specific blobs.
+
+The signing key behind that signature never exists on disk. It's derived entirely inside the enclave's RAM from two independent entropy sources — a hardware secret bound to the specific Nitro instance, and a KMS-decrypted blob whose decrypt role is scoped to the enclave's live attestation — mixed into a single key through HKDF. AWS Nitro physically blocks reads of enclave RAM from the host, including from the host's root user, so the derived key cannot be extracted or mirrored. The matching public key is embedded in the enclave's attestation document (signed by the AWS Nitro root key) and reaches L1 only through the proof flow described below.
+
+The Nitro verifier contract runs a two-phase filter on admitted signing keys:
 
 - **Attestation phase.** The enclave-derived public key is admitted only after an SP1 proof verifies the enclave's attestation. Public outputs of that proof include the pubkey and an attestation timestamp, and a bounded freshness window stops stale attestations from being replayed.
 - **Batch-signature phase.** Only attested public keys are allowed to authorize batch signatures. The whitelist is maintained by governance; keys can be rotated or revoked.
 
 Fluent doesn't accept an arbitrary attester key. A key has to pass attestation verification before it's admitted, and the attestation is cryptographically bound to the expected enclave image measurement (PCR0) via the SP1 proof.
 
-### PCR0-bound key verification
+#### PCR0-bound key verification
 
-A critical detail: the enclave's signing identity isn't trusted on submission. The attestation pipeline verifies a statement whose public outputs include the enclave-derived pubkey and the attestation timestamp, and the SP1 proof is checked against the attestation program key before the pubkey is admitted for batch-signature checks. The sequence:
+The enclave's signing identity isn't trusted on submission. The attestation pipeline verifies a statement whose public outputs include the enclave-derived pubkey and the attestation timestamp, and the SP1 proof is checked against the attestation program key before the pubkey is admitted for batch-signature checks. The sequence:
 
-1. The enclave session generates a signing identity.
-2. Attestation evidence binds that identity to the expected enclave measurement context.
-3. SP1 verification validates the attestation statement on-chain.
+1. The enclave session derives a signing identity entirely inside its RAM, as in Stage C.
+2. Attestation evidence binds that identity to the enclave image's PCR0 measurement.
+3. An SP1 proof validates the attestation statement on-chain against a verification key pinned in the `NitroVerifier` contract.
 4. Only then is the pubkey accepted for batch-signature use.
 
 If an enclave image is modified outside the expected measurement, the attestation proof fails validation under the configured verification key, and the signer is never admitted. Preconfirmation signatures are grounded in a measured enclave context, not in an arbitrary off-chain key registration.
+
+#### The identity chain: source to on-chain verification key
+
+"PCR0-bound" is load-bearing only if the measurement can be tied back to reviewable source. The design's fundamental axiom is **source code = PCR0**: a hermetic build pipeline guarantees that an unchanged source tree compiles to the same PCR0 hash regardless of who's building it. That turns a measurement into a reproducible commitment to a specific audited codebase, not just to whatever binary happened to boot.
+
+From there the identity chain closes in four steps:
+
+1. The release build compiles the enclave image and computes its PCR0.
+2. That PCR0 is automatically injected into the attestation-validator source, per network.
+3. SP1 compiles the validator, producing a verification key that uniquely identifies that compiled program.
+4. The `NitroVerifier` contract pins that key. Swapping the validator — for example, removing the PCR0 check — changes the key and is rejected on-chain.
+
+The consequence: a valid attestation proof is cryptographically bound to a specific audited enclave image, which is bound to its source. Read end to end, the chain of trust is that the contract accepts the pubkey because the proof attested that PCR0 matches; PCR0 guarantees the expected STF code is what's running; that code signs only correctly computed state roots; and because the signing key cannot be extracted from hardware, a valid signature from it is an unforgeable claim that the STF executed honestly.
 
 ### Stage D — Challenge and ZK resolution
 
@@ -79,7 +100,16 @@ Resolution uses proof-backed validation:
 - `resolveBlockChallenge` verifies the SP1 proof against the challenged block, its header, and the batch's blob hash context.
 - `resolveBatchRootChallenge` verifies block-header chain consistency and recomputed batch-root agreement.
 
-Economic flows are explicit: when a prover successfully resolves a challenge, the challenger's deposit transfers to the prover. In emergency-revert paths, challengers can be refunded with configured incentive fees.
+What the proof actually certifies over a disputed block is a four-part statement:
+
+1. The State Transition Function ran step-by-step and produced the claimed block hash.
+2. That block is physically present in the supplied blob data.
+3. The supplied data strictly matches the EIP-4844 commitments — substitution or truncation of the transaction batch is mathematically impossible.
+4. The proof's public values include the versioned blob hashes derived from those commitments, and the resolver contract checks them against the real on-chain values recorded in Stage B.
+
+The public-values layout is a flat buffer carrying, in order, the block's parent hash, the block hash itself, a withdrawal-root hash, a deposit-root hash, and the versioned blob hashes. The resolver assembles this buffer from the prover-supplied header and the blob-hash vector recorded on-chain in Stage B, then passes it to the SP1 verifier against the pinned program verification key. The ZK circuit's committed public values must match the supplied buffer byte-for-byte, binding the proof to that exact header and to the on-chain blob-hash vector. That equality closes the symmetric-DA loop: Nitro and SP1 derive the same blob hashes from the same canonical data, the contract supplies the on-chain vector to the SP1 check, and a disagreement at any layer aborts resolution.
+
+Economic flows use a pull pattern. When a prover successfully resolves a challenge, the challenger's deposit accrues to the prover's reward balance, claimable via `withdrawProofReward`. In emergency-revert paths, the challenger's deposit is credited back along with a configured incentive fee, claimable via `withdrawChallengerReward`.
 
 :::info
 Challenge initiation is currently role-gated — only specific operational participants can open disputes. This is a temporary trust configuration. The target end-state is permissionless challenge access where any qualified participant can trigger dispute resolution under the same proof rules.
@@ -89,19 +119,17 @@ Challenge initiation is currently role-gated — only specific operational parti
 
 Two finalization paths exist, and which one applies depends on what's happened to the batch:
 
-- **`finalizeBatches`** (delay-based) — the default. A batch finalizes once preconfirmation is done and the configured `finalizationDelay` has elapsed without an unresolved challenge.
-- **`finalizeWithProofs`** (proof-gated) — accelerated. A batch can finalize as soon as all of its block commitments have been cryptographically proven, without waiting for the delay.
-
-Normal operation is throughput-oriented via delay-based finalization; adversarial operation is proof-oriented via proof-gated acceleration. Nothing requires every block to carry a proof up front. Proofs are produced when they're needed — to resolve disputes or to skip the delay window.
+- **`finalizeBatches`** (delay-based) — the default. Finalization is strictly sequential: the contract advances the finalization cursor one batch at a time, stopping at the first batch whose `finalizationDelay` has not elapsed or whose status is not `Preconfirmed`. No gaps, no out-of-order finalization.
+- **`finalizeWithProofs`** (proof-gated) — accelerated. Once every block in a batch has been resolved via SP1 proof, the batch can finalize without waiting for the remainder of `finalizationDelay`. Because a block is marked as proven only through successful challenge resolution, this path applies to batches that went through the dispute pipeline, not as a fast-track for unchallenged ones.
 
 ## Corruption detection and safety halt
 
-Fluent treats certain protocol violations as reasons to stop making forward progress. The `_rollupCorrupted` state is a first-class safety gate, and it fires when either:
+Fluent treats certain protocol violations as reasons to stop making forward progress. The corruption-detected state is a first-class safety gate, and it fires when either:
 
 - the bridge's deposit-liveness indicator shows the oldest unconsumed message has expired, or
 - the oldest non-finalized batch exceeds the deadline of its current phase (blob submission, preconfirmation, or challenge resolution).
 
-Once corrupted, privileged emergency flow can call `revertBatches` to undo non-finalized batches, rewind the bridge consumption cursor, clean challenge and proof state, and re-open safe progress from a deterministic index. The design explicitly favors safety over liveness: if invariants have been violated, the chain halts state-changing progress until operators intervene.
+The emergency role can call `revertBatches` to undo non-finalized batches, rewind the bridge consumption cursor, clean challenge and proof state, and re-open safe progress from a deterministic index. The corrupted state is the intended trigger, though the function itself accepts any non-finalized batch range. The design explicitly favors safety over liveness: if invariants have been violated, the chain halts state-changing progress until operators intervene.
 
 ## Roles and trust model
 
