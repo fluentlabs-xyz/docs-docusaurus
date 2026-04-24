@@ -48,6 +48,16 @@ Or add manually with the network info you find below.
         </a>
 </div> -->
 
+## Fluent Mainnet
+
+### Network Parameters
+
+<table><tbody><tr><td><strong class="row-name">Network Name:</strong></td><td>Fluent Mainnet</td></tr>
+<tr><td><strong class="row-name">HTTPS RPC URL:</strong></td><td>https://rpc.fluent.xyz/</td></tr>
+<tr><td><strong class="row-name">Chain ID:</strong></td><td>25363</td></tr>
+<tr><td><strong class="row-name">Symbol:</strong></td><td>ETH</td></tr>
+<tr><td><strong class="row-name">Explorer:</strong></td><td><a href="https://fluentscan.xyz/">https://fluentscan.xyz/</a></td></tr></tbody></table>
+
 ## Fluent Testnet
 
 :::warning
