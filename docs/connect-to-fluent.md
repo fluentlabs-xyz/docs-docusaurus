@@ -7,8 +7,6 @@ Connect to Fluent
 
 Fluent, the blended execution network, is now on testnet. Fluent and the Fluentbase SDK are explicitly designed for deploying and interacting with EVM and Rust-based smart contracts. Solidity and Rust contracts can be deployed independently, or call each other as part of a [blended application](./developer-guides/building-a-blended-app/README.md) that utilizes both types of contracts.
 
-Devnet (Fluent Developer Preview) will also remain available to developers with slightly different service levels (see the dedicated sections below for more info).
-
 ## Fluent Mainnet
 
 ### Network Parameters
@@ -25,9 +23,7 @@ Devnet (Fluent Developer Preview) will also remain available to developers with 
 ## Fluent Testnet
 
 :::warning
-
 The Fluent Testnet is more stable than Devnet, but it is still under active development and may experience occasional resets or downtime. While less frequent, network changes can still result in the loss of deployed contracts and data. Please use Testnet for development and testing only—do not rely on it for production use.
-
 :::
 
 ### Network Parameters
@@ -47,10 +43,10 @@ The Fluent Testnet is more stable than Devnet, but it is still under active deve
 
 ## Fluent Devnet
 
+Devnet (Fluent Developer Preview) will also remain available to developers with slightly different service levels (see the dedicated sections below for more info).
+
 :::danger
-
 The Fluent Devnet is experimental and may be reset at any time to apply upgrades or improve stability. Please be aware that network resets can result in the loss of deployed contracts and data.
-
 :::
 
 ### Network Parameters
