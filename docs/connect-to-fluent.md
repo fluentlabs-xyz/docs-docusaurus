@@ -9,54 +9,18 @@ Fluent, the blended execution network, is now on testnet. Fluent and the Fluentb
 
 Devnet (Fluent Developer Preview) will also remain available to developers with slightly different service levels (see the dedicated sections below for more info).
 
-## Quickstart Wallet Connect
-
-To quickly integrate Fluent with your wallet, visit the [Fluent Developer Portal](https://testnet.fluent.xyz/dev-portal) and add network info:
- 
-![Connect your wallet](../static/img/add-wallet.png)
-
-Or add manually with the network info you find below.
-
-<!-- To quickly integrate Fluent with your wallet, use one of these 1-click options:
-
-<table data-column-title-hidden data-view="cards">
-    <tbody>
-        <tr>
-            <td>
-                <a href="https://chainlist.org/?testnets=true&search=fluent">
-                    <strong>Chainlist</strong> 
-                    <span>Add network info to your wallet directly from Chainlist.</span>
-                </a>
-            </td>
-            <td>
-                <a href="https://testnet.fluent.xyz/dev-portal/">
-                    <strong>Fluent Dev Portal</strong>
-                    <span>Add network info to your wallet from Fluent dev portal.</span>
-                </a>
-            </td>
-        </tr>
-    </tbody>
-</table>
-<div data-view="cards">
-        <a href="https://chainlist.org/?testnets=true&search=fluent">
-            <strong>Chainlist</strong> 
-            <span>Add network info to your wallet directly from Chainlist.</span>
-        </a>
-        <a href="https://testnet.fluent.xyz/dev-portal">
-            <strong>Fluent Dev Portal</strong>
-            <span>Add network info to your wallet from Fluent dev portal.</span>
-        </a>
-</div> -->
-
 ## Fluent Mainnet
 
 ### Network Parameters
 
-<table><tbody><tr><td><strong class="row-name">Network Name:</strong></td><td>Fluent Mainnet</td></tr>
+<table><tbody>
+<tr><td><strong class="row-name">Network Name:</strong></td><td>Fluent Mainnet</td></tr>
 <tr><td><strong class="row-name">HTTPS RPC URL:</strong></td><td>https://rpc.fluent.xyz/</td></tr>
 <tr><td><strong class="row-name">Chain ID:</strong></td><td>25363</td></tr>
 <tr><td><strong class="row-name">Symbol:</strong></td><td>ETH</td></tr>
-<tr><td><strong class="row-name">Explorer:</strong></td><td><a href="https://fluentscan.xyz/">https://fluentscan.xyz/</a></td></tr></tbody></table>
+<tr><td><strong class="row-name">Explorer:</strong></td><td><a href="https://fluentscan.xyz/">https://fluentscan.xyz/</a></td></tr>
+<tr><td><strong class="row-name">Portal (Bridge):</strong></td><td><a href="https://portal.fluentscan.xyz/">https://portal.fluentscan.xyz/</a></td></tr>
+</tbody></table>
 
 ## Fluent Testnet
 
@@ -103,3 +67,42 @@ The Fluent Devnet is experimental and may be reset at any time to apply upgrades
 <tbody><tr><td><strong class="row-name">Faucet:</strong></td><td><a href="https://testnet.fluent.xyz/dev-portal">https://testnet.fluent.xyz/dev-portal</a></td></tr>
 <tr><td><strong class="row-name">Websocket RPC URL:</strong></td><td>wss://rpc.dev.gblend.xyz/ws</td></tr></tbody>
 </table>
+
+## Quickstart Testnet Connect
+
+To quickly integrate Fluent with your wallet, visit the [Fluent Developer Portal](https://testnet.fluent.xyz/dev-portal) and add network info:
+
+![Connect your wallet](../static/img/add-wallet.png)
+
+Or add manually with the network info you find below.
+
+<!-- To quickly integrate Fluent with your wallet, use one of these 1-click options:
+
+<table data-column-title-hidden data-view="cards">
+    <tbody>
+        <tr>
+            <td>
+                <a href="https://chainlist.org/?testnets=true&search=fluent">
+                    <strong>Chainlist</strong> 
+                    <span>Add network info to your wallet directly from Chainlist.</span>
+                </a>
+            </td>
+            <td>
+                <a href="https://testnet.fluent.xyz/dev-portal/">
+                    <strong>Fluent Dev Portal</strong>
+                    <span>Add network info to your wallet from Fluent dev portal.</span>
+                </a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div data-view="cards">
+        <a href="https://chainlist.org/?testnets=true&search=fluent">
+            <strong>Chainlist</strong> 
+            <span>Add network info to your wallet directly from Chainlist.</span>
+        </a>
+        <a href="https://testnet.fluent.xyz/dev-portal">
+            <strong>Fluent Dev Portal</strong>
+            <span>Add network info to your wallet from Fluent dev portal.</span>
+        </a>
+</div> -->
