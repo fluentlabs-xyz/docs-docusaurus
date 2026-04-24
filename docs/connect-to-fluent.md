@@ -103,9 +103,3 @@ The Fluent Devnet is experimental and may be reset at any time to apply upgrades
 <tbody><tr><td><strong class="row-name">Faucet:</strong></td><td><a href="https://testnet.fluent.xyz/dev-portal">https://testnet.fluent.xyz/dev-portal</a></td></tr>
 <tr><td><strong class="row-name">Websocket RPC URL:</strong></td><td>wss://rpc.dev.gblend.xyz/ws</td></tr></tbody>
 </table>
-
-### Current Features and Limitations (Devnet)
-
-In this version, the offering includes a basic Reth implementation, where the execution environment is substituted with Fluent's VM, rWasm. Rollup and zk functionalities are not available at this stage.
-
-It's essential to note that significant changes might occur in the VM structure, host SDK, and execution layer in subsequent releases.
