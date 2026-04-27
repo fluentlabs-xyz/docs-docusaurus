@@ -32,7 +32,7 @@ Reserved addresses for cryptographic verification primitives that have not yet b
 |---|---|
 | `0x0000000000000000000000000000000000520005` | WebAuthn verifier — reserved, not yet active |
 | `0x0000000000000000000000000000000000520006` | OAuth2 verifier — reserved, not yet active |
-| `0x0000000000000000000000000000000000520007` | Nitro verifier — reserved, not yet active. Nitro attestation is already used internally by the rollup preconfirmation flow (see [Rollup Architecture](../rollup-architecture.md)); the verifier precompile address itself is not yet callable. |
+| `0x0000000000000000000000000000000000520007` | Nitro verifier — reserved, not yet active |
 
 ## System contracts
 
