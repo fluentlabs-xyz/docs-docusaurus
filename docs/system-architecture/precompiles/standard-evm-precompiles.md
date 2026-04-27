@@ -3,29 +3,29 @@ title: Standard EVM Precompiles
 sidebar_position: 9
 ---
 
-Fluent ships every standard Ethereum precompile at addresses `0x01` through `0x11`. Each precompile is implemented as a system contract under `fluentbase/contracts/` that wraps the corresponding `revm_precompile` function — semantics are byte-for-byte identical to mainnet Ethereum, with one minor implementation note in BN254.
+Fluent ships every standard Ethereum precompile at addresses `0x01` through `0x11`. Each is implemented as a system contract that wraps the corresponding `revm_precompile` function — semantics are byte-for-byte identical to mainnet Ethereum, with one minor implementation note in BN254.
 
-| Address | Constant | EIP / Specification | Source |
-|---|---|---|---|
-| `0x...0001` | `PRECOMPILE_SECP256K1_RECOVER` | Frontier ecrecover | `contracts/ecrecover/` |
-| `0x...0002` | `PRECOMPILE_SHA256` | Frontier SHA-256 | `contracts/sha256/` |
-| `0x...0003` | `PRECOMPILE_RIPEMD160` | Frontier RIPEMD-160 | `contracts/ripemd160/` |
-| `0x...0004` | `PRECOMPILE_IDENTITY` | Frontier identity / data copy | `contracts/identity/` |
-| `0x...0005` | `PRECOMPILE_BIG_MODEXP` | EIP-198 modular exponentiation (Berlin schedule) | `contracts/modexp/` |
-| `0x...0006` | `PRECOMPILE_BN256_ADD` | EIP-196 BN254 G1 add | `contracts/bn256/` |
-| `0x...0007` | `PRECOMPILE_BN256_MUL` | EIP-196 BN254 G1 scalar multiplication | `contracts/bn256/` |
-| `0x...0008` | `PRECOMPILE_BN256_PAIR` | EIP-197 BN254 pairing check | `contracts/bn256/` |
-| `0x...0009` | `PRECOMPILE_BLAKE2F` | EIP-152 BLAKE2 F compression | `contracts/blake2f/` |
-| `0x...000a` | `PRECOMPILE_KZG_POINT_EVALUATION` | EIP-4844 KZG point evaluation | `contracts/kzg/` |
-| `0x...000b` | `PRECOMPILE_BLS12_381_G1_ADD` | EIP-2537 BLS12-381 G1 add | `contracts/bls12381/` |
-| `0x...000c` | `PRECOMPILE_BLS12_381_G1_MSM` | EIP-2537 BLS12-381 G1 multi-scalar mul | `contracts/bls12381/` |
-| `0x...000d` | `PRECOMPILE_BLS12_381_G2_ADD` | EIP-2537 BLS12-381 G2 add | `contracts/bls12381/` |
-| `0x...000e` | `PRECOMPILE_BLS12_381_G2_MSM` | EIP-2537 BLS12-381 G2 multi-scalar mul | `contracts/bls12381/` |
-| `0x...000f` | `PRECOMPILE_BLS12_381_PAIRING` | EIP-2537 BLS12-381 pairing | `contracts/bls12381/` |
-| `0x...0010` | `PRECOMPILE_BLS12_381_MAP_G1` | EIP-2537 map FP → G1 | `contracts/bls12381/` |
-| `0x...0011` | `PRECOMPILE_BLS12_381_MAP_G2` | EIP-2537 map FP² → G2 | `contracts/bls12381/` |
+| Address | Description |
+|---|---|
+| `0x0000000000000000000000000000000000000001` | `ecrecover` — secp256k1 signature recovery (Frontier) |
+| `0x0000000000000000000000000000000000000002` | SHA-256 hash (Frontier) |
+| `0x0000000000000000000000000000000000000003` | RIPEMD-160 hash (Frontier) |
+| `0x0000000000000000000000000000000000000004` | Identity / data copy (Frontier) |
+| `0x0000000000000000000000000000000000000005` | Modular exponentiation — EIP-198 (Berlin gas schedule) |
+| `0x0000000000000000000000000000000000000006` | BN254 G1 addition — EIP-196 |
+| `0x0000000000000000000000000000000000000007` | BN254 G1 scalar multiplication — EIP-196 |
+| `0x0000000000000000000000000000000000000008` | BN254 pairing check — EIP-197 |
+| `0x0000000000000000000000000000000000000009` | BLAKE2 F compression — EIP-152 |
+| `0x000000000000000000000000000000000000000a` | KZG point evaluation — EIP-4844 |
+| `0x000000000000000000000000000000000000000b` | BLS12-381 G1 addition — EIP-2537 |
+| `0x000000000000000000000000000000000000000c` | BLS12-381 G1 multi-scalar multiplication — EIP-2537 |
+| `0x000000000000000000000000000000000000000d` | BLS12-381 G2 addition — EIP-2537 |
+| `0x000000000000000000000000000000000000000e` | BLS12-381 G2 multi-scalar multiplication — EIP-2537 |
+| `0x000000000000000000000000000000000000000f` | BLS12-381 pairing — EIP-2537 |
+| `0x0000000000000000000000000000000000000010` | BLS12-381 map FP → G1 — EIP-2537 |
+| `0x0000000000000000000000000000000000000011` | BLS12-381 map FP² → G2 — EIP-2537 |
 
-The address column shows the canonical last-byte form. Full addresses follow `Address::with_last_byte` — e.g. `PRECOMPILE_SHA256` is `0x0000000000000000000000000000000000000002`.
+Implementations live under `fluentbase/contracts/<name>/`, where `<name>` matches the precompile: `ecrecover`, `sha256`, `ripemd160`, `identity`, `modexp`, `bn256`, `blake2f`, `kzg`, `bls12381`. Address constants are defined in `fluentbase/crates/types/src/genesis.rs` as `PRECOMPILE_<NAME>` via `Address::with_last_byte(0xNN)`.
 
 ## Notes on implementation
 
@@ -34,4 +34,4 @@ The address column shows the canonical last-byte form. Full addresses follow `Ad
 
 ## Source
 
-Each row's `Source` column points to the contract crate. Implementations delegate to `revm_precompile` for the underlying math, so any divergence from mainnet semantics would be visible in the wrapper code.
+Implementations delegate to `revm_precompile` for the underlying math, so any divergence from mainnet semantics would be visible in the wrapper code.
