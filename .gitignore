@@ -23,3 +23,9 @@ yarn-error.log*
 
 # IDE
 .idea
+
+# Claude Code
+# Per-developer state stays local; shared standards (.claude/*.md) and CLAUDE.md are committed.
+.claude/tasks/
+.claude/settings.local.json
+fluentbase-docs/
