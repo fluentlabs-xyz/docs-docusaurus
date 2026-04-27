@@ -62,6 +62,6 @@ Envelope decoding is part of the consensus surface. A malformed envelope or a mi
 
 ## The address map is part of consensus
 
-One subtlety: the set of addresses that triggers system mode is fixed in shared constants. That set includes the delegated runtime owners for each supported VM family (EVM, Wasm, SVM, Universal Token) and the protocol-owned contracts that run under privilege — runtime upgrade, fee manager, bridge, and so on.
+One subtlety: the set of addresses that triggers system mode is fixed in shared constants. That set includes the delegated runtime owners for each supported VM family (EVM, Wasm, SVM, Universal Token) and the protocol-owned contracts that run under privilege — runtime upgrade, fee manager, bridge, and so on. The full inventory is in [Precompiles](./precompiles/).
 
 Changing this map changes routing. Adding an address pulls a new runtime into the privileged set; removing one breaks every deployment that relied on it. That's why the address map is versioned at the protocol level and never modified as an incidental change.

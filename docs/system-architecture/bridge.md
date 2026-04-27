@@ -1,6 +1,6 @@
 ---
 title: Bridge Architecture
-sidebar_position: 10
+sidebar_position: 11
 ---
 
 Fluent's bridge is the two-way interface between the L2 and Ethereum. It carries two kinds of traffic under two different trust models: **deposits** (L1 → L2) are optimistic — they become spendable on the L2 once a rollup batch has consumed them — and **withdrawals** (L2 → L1) are Merkle-proven against the rollup's batch root. The bridge is a family of contracts deployed symmetrically on both chains, layered on top of the [rollup's batch lifecycle](./rollup-architecture.md).

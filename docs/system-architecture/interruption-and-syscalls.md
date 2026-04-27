@@ -1,6 +1,6 @@
 ---
 title: Interruption and Syscalls
-sidebar_position: 4
+sidebar_position: 5
 ---
 
 Runtime execution on Fluent isn't a single uninterrupted run. When a contract needs to read storage, emit an event, create a nested call, or touch shared state in any way, it doesn't do it. It yields back to the host, the host performs the operation, and the runtime resumes from where it stopped. That pattern — the **interruption protocol** — is how every privileged operation on Fluent is performed.

@@ -1,6 +1,6 @@
 ---
 title: Runtime Upgrade
-sidebar_position: 7
+sidebar_position: 8
 ---
 
 Fluent's delegated runtimes — the EVM runtime, the Wasm runtime, the Universal Token runtime, and others — are protocol-owned bytecode. They decide how every ownable account in their class behaves. Fixing bugs and evolving behavior in those runtimes without a full node rewrite is a design goal. Making absolutely sure no one else can do it is another.
@@ -28,7 +28,7 @@ The upgrade contract exposes a minimal surface:
 - `owner()` — returns the current owner.
 - `renounceOwnership()` — sets the owner to a designated system address, effectively freezing upgrades through the owner-based path while leaving a deterministic default.
 
-A default-owner fallback is defined for the unset state, so the contract always has a well-formed owner to check against.
+A default-owner fallback is defined for the unset state, so the contract always has a well-formed owner to check against. The address, calldata format, and authority constants live on the [Runtime Upgrade Precompile](./precompiles/runtime-upgrade.md) page.
 
 ## Host-side enforcement
 

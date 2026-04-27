@@ -1,6 +1,6 @@
 ---
 title: Rollup Architecture
-sidebar_position: 9
+sidebar_position: 10
 ---
 
 Fluent is an Ethereum-aligned L2 rollup. Every block produced on Fluent eventually settles to Ethereum under a cryptographic integrity story, and the way that story is composed — fast preconfirmation plus slow cryptographic adjudication — is what makes the chain usable and safe at the same time.

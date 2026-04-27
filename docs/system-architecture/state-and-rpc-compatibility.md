@@ -1,6 +1,6 @@
 ---
 title: State and RPC Compatibility
-sidebar_position: 6
+sidebar_position: 7
 ---
 
 Fluent's state model is deliberately Ethereum-shaped on the outside: one trie, account addresses, balances, nonces, code hashes. But some contracts are stored in the runtime-managed **ownable-account wrapper** (see [Runtime Routing](./runtime-routing-and-ownable-accounts.md)), so what a wallet or indexer reads from a Fluent node isn't always the bytes sitting in storage. The wrapper carries execution metadata that would confuse Ethereum tooling, so the node exposes two RPC views — one normalized for compatibility, one raw for infrastructure.

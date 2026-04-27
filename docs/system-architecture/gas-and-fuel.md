@@ -1,6 +1,6 @@
 ---
 title: Gas and Fuel
-sidebar_position: 5
+sidebar_position: 6
 ---
 
 Fluent charges work in two accounting units. **Gas** is what users pay with — the same EVM-visible unit wallets quote, explorers display, and transactions settle in ETH. **Fuel** is what the rWasm runtime consumes while executing. Every runtime step is metered in fuel; every transaction is paid in gas; a fixed deterministic conversion links them.
@@ -62,7 +62,7 @@ Not every system runtime meters fuel the same way.
 
 **Engine-metered runtimes** let the execution engine meter configured precompiles automatically. The runtime doesn't charge itself; the engine inserts fuel accounting at compilation time.
 
-The Universal Token runtime is currently in the engine-metered set. This is a per-runtime policy decision, not a global behavior — which runtimes are engine-metered is part of the protocol's runtime classification and is versioned accordingly.
+The Universal Token runtime is classified as engine-metered. This is a per-runtime policy decision, not a global behavior — which runtimes are engine-metered is part of the protocol's runtime classification and is versioned accordingly. The full classification table lives in [Precompiles](./precompiles/).
 
 ## Calldata surcharge
 
