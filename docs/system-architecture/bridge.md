@@ -1,6 +1,6 @@
 ---
 title: Bridge Architecture
-sidebar_position: 10
+sidebar_position: 11
 ---
 
 Fluent's bridge is the two-way interface between the L2 and Ethereum. It carries two kinds of traffic under two different trust models: **deposits** (L1 → L2) are optimistic — they become spendable on the L2 once a rollup batch has consumed them — and **withdrawals** (L2 → L1) are Merkle-proven against the rollup's batch root. The bridge is a family of contracts deployed symmetrically on both chains, layered on top of the [rollup's batch lifecycle](./rollup-architecture.md).
@@ -123,3 +123,44 @@ A few practical notes for operators:
 - `feeTreasury` must accept plain ETH transfers. The L2 outbound fee transfer uses a bare `call` — if the treasury address reverts on receive, `sendMessage` reverts with `FailedToDeductFee` and the user cannot bridge.
 - Rotate `RELAYER_ROLE` through the same operational process as the sequencer key. A compromised relayer cannot forge messages (the hash and proofs are public), but it can censor delivery order on L2 by stalling `receiveMessage`.
 - UUPS upgrades on the bridges, gateways, and safety registries are consensus-grade in the same sense as runtime upgrades (see [Runtime Upgrade](./runtime-upgrade.md)): deterministic artifacts, multisig authority, and coherent rollout.
+
+## Mainnet addresses
+
+Most bridge contracts use CREATE2 deterministic deployment — the same salt and bytecode produce the same address on L1 and L2. Implementations behind UUPS proxies are upgrade-target infrastructure and are not listed here.
+
+### L1 (Ethereum)
+
+| Contract | Address |
+|---|---|
+| FluentBridge | `0x9CAcf613fC29015893728563f423fD26dCdB8Ddc` |
+| Native gateway | `0x8976Ca4E0c8467097Da675399fB7DB454a1b56dd` |
+| ERC-20 gateway | `0xFD4C62647A34FF6d6802092F5fbe176099223B61` |
+| Token factory | `0xF6d49E874Cb64b8ee56D6F99BD340134B30AB225` |
+| Token factory beacon (UUPS) | `0xdd283a04cc711ab9c08d79e665835821beef710b` |
+| WETH gateway (proxy) | `0x1e1f5Df9D48e8E88C037e9255a769e77c9fe587b` |
+| FastWithdrawalList (proxy) | `0x3eFc3c84ecf259Da36E33692f2a107A0AB88D30E` |
+| Blacklist (proxy) | `0x05C5d46a5e6f92fB9CdA9A8b03E4440A175D1484` |
+
+### L2 (Fluent, chainId 25363)
+
+| Contract | Address |
+|---|---|
+| FluentBridge | `0x9CAcf613fC29015893728563f423fD26dCdB8Ddc` |
+| Native gateway | `0x8976Ca4E0c8467097Da675399fB7DB454a1b56dd` |
+| ERC-20 gateway | `0xFD4C62647A34FF6d6802092F5fbe176099223B61` |
+| Token factory | `0xF6d49E874Cb64b8ee56D6F99BD340134B30AB225` |
+| L1BlockOracle | `0x19e1b30C792E417BC1827f5E2F288052b5c05e8F` |
+| L1GasOracle | `0x207FBb4AC5227Ab598B8072BdC1E150dF687AC5B` |
+| WETH gateway (proxy) | `0x1e1f5Df9D48e8E88C037e9255a769e77c9fe587b` |
+
+The L2 FluentBridge address coincides with `PRECOMPILE_ROLLUP_BRIDGE` (see [Precompiles](./precompiles/)) — the bridge is genesis-deployed on Fluent via `PRECOMPILE_ROLLUP_BRIDGE_DEPLOYER` using the same CREATE2 salt as the L1 deployment.
+
+Pegged tokens minted by the ERC-20 gateway on Fluent L2 use the [Universal Token runtime](./precompiles/universal-token-runtime.md) (`PRECOMPILE_UNIVERSAL_TOKEN_RUNTIME = 0x0000000000000000000000000000000000520008`) as their implementation — each pegged token is an ownable account pointing at that runtime.
+
+### Operator EOAs
+
+| Role | Address |
+|---|---|
+| Relayer (`RELAYER_ROLE`) | `0x4A0e88275dC08a15Bad0d12e7805574Ca0853A48` |
+| L1BlockOracle submitter | `0xf1af41d33CfFdc8d08107713c0c2DF5De7f2Bd5c` |
+| L1GasOracle submitter | `0x1Bee0BD77E76aD9692F6A3b4388DdE371b69fdD7` |

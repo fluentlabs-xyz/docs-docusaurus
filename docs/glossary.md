@@ -31,7 +31,7 @@ Fluentbase is optimized for proving efficiency and integrates with modular compo
 
 ## Ownable Account
 
-An ownable account is how Fluent attaches execution logic to an account without storing runtime bytecode inside every account that uses it. Every contract on Fluent lives in an account whose code field is a small wrapper carrying a magic header, an `owner_address` pointing to a delegated runtime, and runtime-specific metadata. When the account is called, REVM loads the executable code from the owner, not from the account itself — while keeping the original account as the storage target.
+An ownable account is how Fluent attaches execution logic to an account without storing runtime bytecode inside every account that uses it. Most contracts on Fluent (Solidity, Universal Token) live in an account whose code field is a small wrapper carrying a magic header (`0xEF44`), an `owner_address` pointing to a delegated runtime, and runtime-specific metadata. When the account is called, REVM loads the executable code from the owner, not from the account itself — while keeping the original account as the storage target. Wasm contracts are stored differently: their compiled rWasm sits at the account directly (magic prefix `0xEF52`) without the wrapper indirection.
 
 This separation — account identity is local, execution logic is delegated — is what lets one state machine host EVM, Wasm, and SVM contracts together. A Solidity contract and a Rust contract end up as two ownable accounts pointing at two different delegated runtimes. They share the state trie, can call each other atomically, and the host mediates every privileged operation between them with the same rules.
 
@@ -43,7 +43,7 @@ A delegated runtime is the execution code that an ownable account points at. Eac
 
 Delegated runtimes are protocol-owned: their bytecode lives at fixed system addresses, is installed and replaced through a governed upgrade path, and is shared by every account that opts into its execution class. A bug fix or behaviour change in the delegated EVM runtime affects every EVM contract on Fluent at once — which is why runtime upgrades are treated as fork-critical change management.
 
-Delegated runtime addresses are not callable directly as normal contracts; the router blocks that path to keep user flows going through ownable-account semantics. See [Runtime Upgrade](system-architecture/runtime-upgrade.md).
+Delegated runtime addresses are not callable directly as normal contracts; the router blocks that path to keep user flows going through ownable-account semantics. See [Runtime Routing and Ownable Accounts](system-architecture/runtime-routing-and-ownable-accounts.md).
 
 ## Interruption Protocol
 

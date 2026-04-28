@@ -37,6 +37,7 @@ Day to day, app developers don't see this. You write Solidity or Rust, you deplo
 
 - [Execution Model](./execution-model.md) — normal call lifecycle, contract vs system modes, and the structured envelopes system runtimes use to hand state changes to the host.
 - [Runtime Routing and Ownable Accounts](./runtime-routing-and-ownable-accounts.md) — how one state machine hosts many execution environments without duplicating runtime logic per account.
+- [Precompiles](./precompiles/) — the full set of system precompiles installed at genesis: delegated runtimes, system contracts, and standard EVM precompiles.
 - [Interruption and Syscalls](./interruption-and-syscalls.md) — the `exec` / `resume` handshake and the two syscall surfaces on top of it.
 - [Gas and Fuel](./gas-and-fuel.md) — why Fluent has two metering units and how they settle against each other.
 - [State and RPC Compatibility](./state-and-rpc-compatibility.md) — shared state, ownable-account wrapping, and the two RPC views the node exposes.

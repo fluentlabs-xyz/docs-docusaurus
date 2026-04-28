@@ -1,6 +1,6 @@
 ---
 title: Security Invariants
-sidebar_position: 8
+sidebar_position: 9
 ---
 
 The other pages in this section describe how Fluent works. This page is the list of things that cannot stop being true without the chain breaking. These are the consensus-critical invariants — break any one and the failure mode isn't a bug, it's a consensus split, a privilege escalation, or a host-level instability that affects every account on the chain.

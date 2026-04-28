@@ -1,6 +1,6 @@
 ---
 title: Rollup Architecture
-sidebar_position: 9
+sidebar_position: 10
 ---
 
 Fluent is an Ethereum-aligned L2 rollup. Every block produced on Fluent eventually settles to Ethereum under a cryptographic integrity story, and the way that story is composed — fast preconfirmation plus slow cryptographic adjudication — is what makes the chain usable and safe at the same time.
@@ -143,6 +143,25 @@ Fluent's rollup is operated by a set of explicit roles, each with a scoped respo
 - `admin` / upgrader — governs the contract set itself.
 
 "No centralized override over the state transition function" is not the same as "zero trust." Fluent reduces unilateral-override risk by combining immutable batch and data commitments, bonded adversarial participation in challenges, cryptographic proof verification for disputed transitions, and explicit role separation — but governance and role-based trust in upgrade and emergency controls remain part of the model. The accurate framing is **structured, compartmentalized trust with cryptographic fault containment**, not trustlessness.
+
+## Mainnet addresses
+
+### L1 contracts
+
+| Contract | Address |
+|---|---|
+| Rollup | `0x1cF53Fd9CD0b713be29F2b41cA17A943f138727f` |
+| NitroVerifier | `0xFdB04b67ecD8352bA3885F66fFfddf1f5f25292F` |
+| Timelock | `0x7846C001835d889A29ba659f67A5B7ac98E73bF4` |
+
+### Operator EOAs
+
+| Role | Address |
+|---|---|
+| `SEQUENCER` | `0xFd58Bc438d910088C413b889Eaa0aded5C0d1c26` |
+| `FINALIZER` | `0x2caB823ed5bfDB8d9ea4AD6d34E07A499F8983e6` |
+| `PROVER` | `0xB9E6f78a0F35F96b806D0359AbB251117aCe255C` |
+| `SP1_ENCLAVE_ATTESTER` | `0xef9Dc1F87BAA090a35B985DAad9c8096440F2012` |
 
 ## Economic framing
 

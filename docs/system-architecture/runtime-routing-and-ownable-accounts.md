@@ -9,7 +9,7 @@ This routing mechanism — ownable accounts — is what makes cross-VM composabi
 
 ## The ownable account format
 
-Every contract deployed on Fluent lives in an account whose code field is an **ownable-account wrapper**. The wrapper carries three things:
+Most contracts deployed on Fluent live in an account whose code field is an **ownable-account wrapper** (magic prefix `0xEF44`). Wasm contracts are the exception: their account code is the compiled rWasm directly (magic prefix `0xEF52`), with the wrapper replaced during deploy — see [The Wasm-wrapper deploy rewrite](#the-wasm-wrapper-deploy-rewrite) below. For wrapped accounts, the wrapper carries three things:
 
 - a **magic and version header** identifying the account as runtime-owned,
 - an `owner_address` — the delegated runtime that should execute this account,
@@ -23,12 +23,12 @@ Which runtime owns a new account is decided at deployment. When init code arrive
 
 | Init code prefix | Delegated runtime |
 |---|---|
-| Wasm / rWasm magic | Wasm delegated runtime |
-| SVM ELF payload *(feature-gated)* | SVM delegated runtime |
-| `UNIVERSAL_TOKEN_MAGIC_BYTES = 0x45524320` (`"ERC "`) | Universal Token runtime |
-| Anything else | Delegated EVM runtime |
+| Wasm / rWasm magic | [Wasm delegated runtime](./precompiles/wasm-runtime.md) |
+| SVM ELF payload *(feature-gated)* | SVM delegated runtime *(reserved — see [Precompiles](./precompiles/))* |
+| `UNIVERSAL_TOKEN_MAGIC_BYTES = 0x45524320` (`"ERC "`) | [Universal Token runtime](./precompiles/universal-token-runtime.md) |
+| Anything else | [Delegated EVM runtime](./precompiles/evm-runtime.md) |
 
-Two things happen next. The new account's code is set to the ownable-account wrapper pointing at the chosen runtime, and the original init payload is passed to the delegated runtime for whatever deploy-time logic that runtime defines — constructor execution, storage initialization, role assignment.
+Two things happen next. The new account's code is set to the ownable-account wrapper pointing at the chosen runtime, and the original init payload is passed to the delegated runtime for whatever deploy-time logic that runtime defines — constructor execution, storage initialization, role assignment. Wasm contracts undergo one extra step at the end of this flow that swaps the wrapper for compiled rWasm — see [The Wasm-wrapper deploy rewrite](#the-wasm-wrapper-deploy-rewrite) below.
 
 After that, the account's execution class is frozen. There's no later toggle that switches a Solidity contract to the Wasm runtime. Ownership is established at deploy and is part of the account's identity.
 
@@ -69,9 +69,14 @@ Static-context mutations — anything invoked from a `STATICCALL` frame — are 
 
 ## The Wasm-wrapper deploy rewrite
 
-One special path worth knowing about if you're auditing the deployment flow. The Wasm runtime's deploy output can contain a compiled rWasm payload followed by a constructor tail. In that case, the deployed code is rewritten: the account's code is set to the compiled rWasm bytecode directly, not to the ownable-account wrapper, and the constructor tail runs with the remaining deployment parameters.
+Wasm contracts take a different storage path. After the Wasm runtime's `deploy_entry` returns the compiled rWasm module (plus any constructor tail), the executor replaces the temporary ownable wrapper at the deployed address with the rWasm bytes directly. The on-chain code at that address starts with the rWasm magic prefix `0xEF52` instead of the wrapper's `0xEF44`. The constructor tail then runs with the remaining deployment parameters.
 
-This supports Wasm-wrapper deployment flows where the final on-chain representation is the compiled artifact rather than a pointer to a delegated runtime. From an execution-semantics perspective the account is still routed consistently; the rewrite is a storage-level detail.
+Execution semantics are unchanged — the rWasm runs under the same engine that ownable accounts dispatch into. The difference is representational:
+
+- **Wrapped accounts** (`0xEF44`): code field is `wrapper(owner_address, metadata)`; REVM looks up the runtime via `owner_address` on every call.
+- **Direct rWasm accounts** (`0xEF52`): code field is the compiled rWasm itself; REVM executes it without an owner-address indirection. Metadata syscalls (`METADATA_SIZE`, `METADATA_ACCOUNT_OWNER`, `METADATA_WRITE`) recognize only the wrapped form and return null or halt against direct rWasm.
+
+The rewrite happens because the Wasm runtime's compiled output is already a complete rWasm module — wrapping it with another indirection layer would only add lookup cost. For Solidity and Universal Token contracts the wrapper stays, because their EVM/UT bytecode lives inside the wrapper's `metadata` field, not at the account address itself.
 
 ## Why this model
 
