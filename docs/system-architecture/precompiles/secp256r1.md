@@ -21,12 +21,19 @@ Input: 160 bytes total, big-endian.
 
 Output:
 - Valid signature: 1 byte `0x01`.
-- Invalid signature or malformed input: empty bytes.
+- Invalid signature, malformed coordinates, or input length other than 160 bytes: empty bytes.
+
+Invalid signatures and malformed coordinates are **not** errors — the precompile returns success with empty output. The contract is a thin wrapper around `revm_precompile::secp256r1::p256_verify`.
 
 ## Gas
 
-Flat cost per call: `P256VERIFY_BASE_GAS_FEE = 3,450 gas`.
+Flat cost per call: `P256VERIFY_BASE_GAS_FEE = 3,450 gas`. Charged unconditionally before verification runs.
+
+## Errors
+
+- `OutOfFuel` — `revm_precompile` returned `PrecompileError::OutOfGas`.
+- `PrecompileError` — any other underlying precompile error.
 
 ## Source
 
-`fluentbase/contracts/eip7951/`
+`fluentbase/contracts/eip7951/`. Underlying implementation: `revm_precompile::secp256r1`.

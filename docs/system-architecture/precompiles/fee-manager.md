@@ -17,7 +17,7 @@ The system contract that holds accumulated protocol fees. The owner can withdraw
 |---|---|
 | `DEFAULT_FEE_MANAGER_AUTH` | `0xa7bf6a9168fe8a111307b7c94b8883fe02b30934` |
 
-The owner defaults to the genesis-init value. Live networks rotate it. `changeOwner(address)` transfers ownership (zero-address rejected); `renounceOwnership()` sets the owner to the system address.
+The owner defaults to the genesis-init value. Live networks rotate it. The contract reads its stored owner first and falls back to the default only when the slot is zero. `changeOwner(address)` transfers ownership (zero-address rejected); `renounceOwnership()` sets the owner to the system address (`0xfffffffffffffffffffffffffffffffffffffffe`).
 
 ## Interface
 
@@ -28,7 +28,7 @@ function owner() external view returns (address);
 function renounceOwnership() external;
 ```
 
-`withdraw` is owner-only and transfers the contract's full balance to `recipient`.
+`withdraw` is owner-only and transfers the contract's full balance to `recipient`. Reverts if the contract balance is zero (`fee-manager: nothing to withdraw`).
 
 ## Events
 
@@ -36,6 +36,19 @@ function renounceOwnership() external;
 event FeeWithdrawn(address recipient, uint256 amount);
 event OwnerChanged(address newOwner);
 ```
+
+## Errors
+
+All failure paths use Rust `panic!` and surface as EVM revert. Messages:
+
+- `fee-manager: incorrect caller`
+- `fee-manager: nothing to withdraw`
+- `fee-manager: can't send funds to recipient`
+- `fee-manager: can't obtain self balance`
+
+## Routing note
+
+`PRECOMPILE_FEE_MANAGER` is not in `EXECUTE_USING_SYSTEM_RUNTIME_ADDRESSES`. The contract is pre-deployed at genesis and executes as a normal rWasm contract — no system-runtime envelope, no per-runtime storage prefetch. Standard `CALL` semantics apply.
 
 ## Source
 

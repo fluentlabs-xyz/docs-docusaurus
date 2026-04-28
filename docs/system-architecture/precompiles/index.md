@@ -65,4 +65,27 @@ Two privileged keys exist at genesis. Both default to `0xa7bf6a9168fe8a111307b7c
 - **Runtime upgrade owner** (constant `DEFAULT_UPDATE_GENESIS_AUTH`) — initial caller permitted to invoke `upgradeTo` on the [Runtime Upgrade Precompile](./runtime-upgrade.md).
 - **Fee manager owner** (constant `DEFAULT_FEE_MANAGER_AUTH`) — initial caller permitted to invoke `withdraw` on the [Fee Manager](./fee-manager.md).
 
-Both constants are defined in `fluentbase/crates/types/src/genesis.rs`.
+Both contracts read their stored owner first and only fall back to the default when the slot is zero. The constants live in `fluentbase/crates/types/src/genesis.rs`.
+
+## Bytecode model
+
+Every account on Fluent stores its code as one of four `Bytecode` variants. Knowing which variant a contract uses determines whether metadata syscalls work, whether REVM dispatches through an owner address, and what the leading bytes of `account.code` look like.
+
+| Variant | Magic prefix | Used by |
+|---|---|---|
+| `LegacyAnalyzed` | (no Fluent magic) | Plain analyzed EVM bytecode (legacy chain accounts). |
+| `Eip7702` | `0xEF01` | EIP-7702 account-code delegation (EOAs that delegate to a contract). |
+| `OwnableAccount` | `0xEF44` | Solidity contracts (owner = EVM Runtime), Universal Token contracts (owner = UT Runtime), and the EVM-style system precompiles. |
+| `Rwasm` | `0xEF52` | Wasm contracts (after the deploy-time wrapper rewrite), and system contracts pre-deployed at genesis as raw rWasm (Runtime Upgrade, Fee Manager, EIP-2935, secp256r1, etc.). |
+
+`OwnableAccount` carries `owner_address` plus runtime-specific `metadata` bytes; the runtime is dispatched through on every call. `Rwasm` accounts execute their bytes directly with no owner-address indirection.
+
+## Magic bytes reference
+
+| Constant | Value | Module |
+|---|---|---|
+| `WASM_MAGIC_BYTES` | `0x0061736d` (standard `\0asm`) | `crates/types/src/lib.rs` |
+| `UNIVERSAL_TOKEN_MAGIC_BYTES` | `0x45524320` (`"ERC "`) | `crates/types/src/lib.rs` |
+| `RWASM_MAGIC_BYTES` | `0xef52` | `revm-bytecode/.../rwasm.rs` |
+| `OWNABLE_ACCOUNT_MAGIC_BYTES` | `0xef44` | `revm-bytecode/.../ownable_account.rs` |
+| `EIP7702_MAGIC_BYTES` | `0xef01` | `revm-bytecode/.../eip7702.rs` |

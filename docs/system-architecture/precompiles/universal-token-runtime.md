@@ -3,7 +3,7 @@ title: Universal Token Runtime
 sidebar_position: 3
 ---
 
-A shared ERC-20 implementation that every Universal Token deployment routes through. One contract, many tokens — each token is an ownable account pointing at this runtime, with its name, symbol, decimals, and balances stored under the account's own address.
+A shared ERC-20 implementation that every Universal Token deployment routes through. One contract, many tokens — each token is an ownable account pointing at this runtime, with its name, symbol, decimals, balances, and (optional) wrapped-token state stored under the account's own address.
 
 ## Address
 
@@ -13,14 +13,14 @@ A shared ERC-20 implementation that every Universal Token deployment routes thro
 
 ## Routing
 
-Init code starting with `UNIVERSAL_TOKEN_MAGIC_BYTES = 0x45524320` (ASCII `"ERC "`) routes to this runtime at deploy time.
+Init code starting with `UNIVERSAL_TOKEN_MAGIC_BYTES = 0x45524320` (ASCII `"ERC "`) routes to this runtime at deploy time. Direct calls to the runtime address are rejected; user contracts reach it only via the ownable-account indirection.
 
 ## Constructor payload
 
-Deployment input must be:
+Deployment input is the magic prefix followed by the SolidityABI-encoded `InitialSettings` struct:
 
 ```text
-0x45524320 ++ abi.encode(token_name, token_symbol, decimals, initial_supply, minter, pauser)
+0x45524320 ++ abi.encode(token_name, token_symbol, decimals, initial_supply, minter, pauser, wrapped)
 ```
 
 | Field | ABI type | Notes |
@@ -29,12 +29,15 @@ Deployment input must be:
 | `token_symbol` | `bytes32` | Fixed 32-byte field. |
 | `decimals` | `uint8` | Standard ERC-20 decimals. |
 | `initial_supply` | `uint256` | Credited to deployer if non-zero. |
-| `minter` | `address` | Stored only if non-zero; gates `mint` / `burn`. |
-| `pauser` | `address` | Stored only if non-zero; gates `pause` / `unpause`. |
+| `minter` | `address` | Stored even when zero; gates `mint` / `burn`. |
+| `pauser` | `address` | Stored even when zero; gates `pause` / `unpause`. |
+| `wrapped` | `bool` | Marks this token as a wrapped-asset deployment that gates `deposit` / `withdraw`. |
+
+Wrapped tokens cannot have a non-zero `minter` — deploys with `wrapped == true && minter != address(0)` are rejected with `ERR_UST_NOT_MINTABLE`.
 
 ### `bytes32` name and symbol — not `string`
 
-Name and symbol are 32-byte fixed values. The runtime reads the leading bytes of each `bytes32`, stops at the first `0x00`, and validates UTF-8 (malformed input is rejected). Encode human-readable text in the leading bytes; leave the tail zero-padded.
+Name and symbol are 32-byte fixed values. The runtime reads the leading bytes of each `bytes32`, stops at the first `0x00`, and validates UTF-8 (malformed input is rejected with `MalformedBuiltinParams`). Encode human-readable text in the leading bytes; leave the tail zero-padded.
 
 ```solidity
 function stringToBytes32(string memory s) internal pure returns (bytes32 out) {
@@ -49,8 +52,7 @@ function stringToBytes32(string memory s) internal pure returns (bytes32 out) {
 
 On a successful deploy the runtime:
 
-- stores `name`, `symbol`, and `decimals` in account metadata,
-- stores `minter` and `pauser` only if they are non-zero,
+- stores `name`, `symbol`, `decimals`, `minter`, `pauser`, and the `wrapped` flag in account metadata,
 - if `initial_supply > 0`: credits the deployer's balance, sets `totalSupply`, and emits `Transfer(address(0), deployer, initial_supply)`.
 
 A minimal Solidity-side deploy:
@@ -60,7 +62,7 @@ bytes4 constant UNIVERSAL_TOKEN_MAGIC = 0x45524320; // "ERC "
 
 bytes memory initCode = bytes.concat(
     UNIVERSAL_TOKEN_MAGIC,
-    abi.encode(name32, symbol32, decimals, initialSupply, minter, pauser)
+    abi.encode(name32, symbol32, decimals, initialSupply, minter, pauser, wrapped)
 );
 
 address token;
@@ -100,6 +102,13 @@ Privileged selectors active only when the corresponding role was set at deploy:
 | `pause()` | `pauser` |
 | `unpause()` | `pauser` |
 
+Wrapped-asset selectors active only on tokens deployed with `wrapped == true`:
+
+| Selector | Behavior |
+|---|---|
+| `deposit()` | Mints the caller a wrapped balance equal to the `msg.value` sent. |
+| `withdraw(uint256 wad)` | Burns the caller's wrapped balance and transfers the underlying value back. |
+
 Unknown selectors return `ERR_UST_UNKNOWN_METHOD`.
 
 ## Events
@@ -109,6 +118,8 @@ event Transfer(address indexed from, address indexed to, uint256 amount);
 event Approval(address indexed owner, address indexed spender, uint256 amount);
 event Paused(address pauser);
 event Unpaused(address pauser);
+event Deposit(address indexed dst, uint256 wad);
+event Withdrawal(address indexed src, uint256 wad);
 ```
 
 ## Errors
@@ -117,12 +128,14 @@ Role and state checks return distinct error classes:
 
 - `ERR_UST_NOT_MINTABLE`, `ERR_UST_MINTER_MISMATCH` — mint or burn against a token deployed without a minter, or by the wrong caller.
 - `ERR_UST_NOT_PAUSABLE`, `ERR_UST_PAUSER_MISMATCH` — pause or unpause against a non-pausable token, or by the wrong caller.
+- `ERR_UST_NOT_WRAPPED` — `deposit` / `withdraw` against a token deployed without `wrapped == true`.
 - `ERR_PAUSABLE_ENFORCED_PAUSE`, `ERR_PAUSABLE_EXPECTED_PAUSE` — pause when already paused, unpause when not paused, or transfer / mint / burn while paused.
 - `ERR_ERC20_INVALID_RECEIVER`, `ERR_ERC20_INVALID_SENDER` — mint to or burn from the zero address.
+- `ERR_ERC20_INSUFFICIENT_BALANCE`, `ERR_ERC20_INSUFFICIENT_ALLOWANCE` — transfer or approve more than the caller has, or spend more than was approved.
 
 ## Storage
 
-Balances and allowances are stored under the token's own account address using the Fluentbase SDK's storage primitives (`StorageMap`). Token configuration (name, symbol, decimals, minter, pauser, frozen flag, total supply) lives in account metadata at deterministic slots set during deployment.
+Each Universal Token contract is stored as `Bytecode::OwnableAccount(owner = PRECOMPILE_UNIVERSAL_TOKEN_RUNTIME, metadata = original constructor input)`. The metadata payload is the SolidityABI-encoded `InitialSettings` struct itself; per-token configuration (name, symbol, decimals, minter, pauser, wrapped flag) is read from this metadata at runtime. Balances, allowances, and totalSupply live in the deployed account's regular storage slots.
 
 ## Source
 
