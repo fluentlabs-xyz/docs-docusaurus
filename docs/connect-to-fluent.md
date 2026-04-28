@@ -17,7 +17,7 @@ Fluent, the blended execution network, is now on testnet. Fluent and the Fluentb
 <tr><td><strong class="row-name">Chain ID:</strong></td><td>25363</td></tr>
 <tr><td><strong class="row-name">Symbol:</strong></td><td>ETH</td></tr>
 <tr><td><strong class="row-name">Explorer:</strong></td><td><a href="https://fluentscan.xyz/">https://fluentscan.xyz/</a></td></tr>
-<tr><td><strong class="row-name">Portal (Bridge):</strong></td><td><a href="https://portal.fluentscan.xyz/">https://portal.fluentscan.xyz/</a></td></tr>
+<tr><td><strong class="row-name">Portal (Bridge):</strong></td><td><a href="https://portal.fluent.xyz/">https://portal.fluent.xyz/</a></td></tr>
 </tbody></table>
 
 ## Fluent Testnet
