@@ -14,6 +14,11 @@ The guide here goes step by step to explain in detail each part of a template bl
 
 and gives the instruction to build and deploy the contracts using Fluent's [`gblend` tooling](../../gblend/README.md).
 
+Network parameters and configs:
+
+- [Fluent testnet](../../connect-to-fluent.md#fluent-testnet)
+- [Fluent devnet](../../connect-to-fluent.md#fluent-devnet)
+
 :::tip[Prefer the quickest of starts?]
 
 If you don't want the explanation and simply want to deploy as soon as possible, you can follow the reduced instructions in the [Github repo](https://github.com/fluentlabs-xyz/blended-template-foundry-cli).
