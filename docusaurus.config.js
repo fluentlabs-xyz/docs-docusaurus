@@ -122,7 +122,7 @@ module.exports = {
             // className: 'navbar_item_button',
           },
           {
-            href: "https://testnet.fluent.xyz/dev-portal",
+            href: "https://portal.fluent.xyz/builder/faucet",
             label: "Faucet",
             position: "left",
             // className: 'navbar_item_button',
