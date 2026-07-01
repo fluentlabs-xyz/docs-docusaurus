@@ -3,6 +3,9 @@ title: Rollup Architecture
 sidebar_position: 10
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 Fluent is an Ethereum-aligned L2 rollup. Every block produced on Fluent eventually settles to Ethereum under a cryptographic integrity story, and the way that story is composed — fast preconfirmation plus slow cryptographic adjudication — is what makes the chain usable and safe at the same time.
 
 This page describes the verification pipeline at the protocol level: how batches are committed, how data is made available, how execution is preconfirmed, how disputes are resolved, and how the system halts itself when something breaks. Running a node isn't covered here; see the node runbook in the upstream `fluentbase/docs`.
@@ -85,6 +88,94 @@ From there the identity chain closes in four steps:
 4. The `NitroVerifier` contract pins that key. Swapping the validator — for example, removing the PCR0 check — changes the key and is rejected on-chain.
 
 The consequence: a valid attestation proof is cryptographically bound to a specific audited enclave image, which is bound to its source. Read end to end, the chain of trust is that the contract accepts the pubkey because the proof attested that PCR0 matches; PCR0 guarantees the expected STF code is what's running; that code signs only correctly computed state roots; and because the signing key cannot be extracted from hardware, a valid signature from it is an unforgeable claim that the STF executed honestly.
+
+#### Per-network trust anchors
+
+The identity chain above resolves to concrete, per-network values, each corresponding to one step in that chain:
+
+- **PCR0** — the enclave image measurement from step 1, hardcoded into each network's attestation-validator source.
+- **Nitro-validator vkey** — the SP1 verification key from step 3, pinned in that network's `NitroVerifier` contract to gate attestation admission (Stage C).
+- **RSP-client vkey** — the SP1 verification key for the STF proving program itself, checked by the resolver contracts during dispute resolution (Stage D).
+
+<Tabs>
+<TabItem value="mainnet" label="Mainnet" default>
+
+<div style={{border: '1px solid var(--ifm-border-color)', borderRadius: '10px', padding: '1.5rem'}}>
+
+**PCR0**
+
+```
+a474b8f16b737905c34baccb32f168e2744e5459d9c41f6821f8fc1ea1489c272e37dd05ea4b09997097512b210f5baf
+```
+
+**Nitro-validator vkey**
+
+```
+0x00fb9ae7af3b4852bd4524789cb15dbf188ee47b1d3838bdd39062821c6182e6
+```
+
+**RSP-client vkey**
+
+```
+0x008d7349be8664fc35e4ca96f5368d679c94134b2f33bd9867cc8a26ee721fcf
+```
+
+</div>
+
+</TabItem>
+<TabItem value="testnet" label="Testnet">
+
+<div style={{border: '1px solid var(--ifm-border-color)', borderRadius: '10px', padding: '1.5rem'}}>
+
+**PCR0**
+
+```
+fdf01c7615d49bc5ad18701bb79cc1b613f905a61afdfeaa95ee106d9f905b8d8f39927b781d2d96dd6c8ae0d43dbbe7
+```
+
+**Nitro-validator vkey**
+
+```
+0x0090aaf7b887dfbd2e03ffe10da5aab3585e55cc02da431ff8f11b0c7a2724be
+```
+
+**RSP-client vkey**
+
+```
+0x00b9d9cf7125c47e3656b3177210a71b439206a1233f279e087a47bb381c8d05
+```
+
+</div>
+
+</TabItem>
+<TabItem value="devnet" label="Devnet">
+
+<div style={{border: '1px solid var(--ifm-border-color)', borderRadius: '10px', padding: '1.5rem'}}>
+
+**PCR0**
+
+```
+fde6c6c721b6fcd1f902d19eebce36d195b47c8117fad9e6efbbdd54f998b49491afc6f2af4543b269042b9ab7326d5f
+```
+
+**Nitro-validator vkey**
+
+```
+0x00ae16b888bf9280f90a8162275d3b18ca26d518b389bbe4fa7493cd270ea1bc
+```
+
+**RSP-client vkey**
+
+```
+0x00df046d5edbf70fde60f185033f8c12da0e7a15bf3c49cd7d10d1ab1585a408
+```
+
+</div>
+
+</TabItem>
+</Tabs>
+
+A mismatch in any one of these — a rebuilt enclave with a different PCR0, or a swapped validator or proving program — changes the corresponding value and breaks the chain at that link, which is what the on-chain pinning is designed to catch. These anchors are release-scoped and regenerated automatically on each STF release; the [`fluent-stf`](https://github.com/fluentlabs-xyz/fluent-stf) repository README is the live source of truth if a value here goes stale.
 
 ### Stage D — Challenge and ZK resolution
 
