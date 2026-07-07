@@ -24,6 +24,7 @@ Our mainnet is supported by the following infrastructure partners:
 * **[BitGo](https://bitgo.com/)**: Multi-chain wallet and transaction management
 * **[Blockscout](https://docs.blockscout.com/)**: Open-source blockchain explorer for inspecting, analyzing, and interacting with blockchains
 * **[Swapper](https://swapper.finance/)**: On-ramping infrastructure
+* **[GetBlock](https://getblock.io/nodes/fluent/)**: RPC node provider and infrastructure platform for Web3 and AI
 
 :::info[Coming soon: dedicated developer guides]
 We're working on comprehensive developer guides for each infrastructure provider. These guides will include step-by-step tutorials, code examples, and best practices for integrating across Fluent's mainnet and testnet environments. Stay tuned for detailed documentation on how to leverage each partner's services in your Fluent applications.
