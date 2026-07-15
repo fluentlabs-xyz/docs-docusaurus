@@ -8,7 +8,6 @@ Step 2: Start Solidity Contract
 
 This guide is based off of the template blended application in this [Github repo](https://github.com/fluentlabs-xyz/blended-template-foundry-cli).
 
-
 ## Solidity Contract with Interface 
 
 Solidity interfaces are useful for calling external contracts that might 
