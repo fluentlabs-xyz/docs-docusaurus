@@ -11,7 +11,7 @@ console.log(`Using baseUrl: ${baseUrl}`);
 module.exports = {
   title: "Fluent Docs",
   tagline: "Explore Fluent Docs",
-  url: "https://docs.fluent.org",
+  url: "https://docs.fluent.xyz",
   baseUrl,
   onBrokenLinks: "throw",
   onBrokenAnchors: "warn",
