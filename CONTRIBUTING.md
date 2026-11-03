@@ -135,7 +135,7 @@ chore: update dependencies
 **PR Best Practices:**
 - **Clear title**: Describe what the PR does
 - **Detailed description**: Explain the changes and why they're needed
-- **Testing**: Confirm no build errors and Cloudflare Pages preview works
+- **Testing**: Confirm no build errors and Vercel preview works
 - **Scope**: Keep changes focused and manageable
 
 ### Issue Guidelines
@@ -155,7 +155,7 @@ When creating issues:
 3. **Address feedback** and make requested changes
 4. **Merge** once approved
 
-> **Important**: All PRs must pass build checks and have a successful Cloudflare Pages preview before merging.
+> **Important**: All PRs must pass build checks and have a successful Vercel preview before merging.
 
 ## Getting Help
 

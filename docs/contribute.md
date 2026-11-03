@@ -22,7 +22,7 @@ To contribute to the Fluent documentation written in Docusaurus, fork the follow
 
 Then create a branch to modify changes locally. There's a detailed guide to test changes locally with Docusaurus in the GitHub project README.
 
-Once tests are done locally, open a pull request for review. Make sure your changes have no build errors and that the Cloudflare Pages preview has no unexpected behavior.
+Once tests are done locally, open a pull request for review. Make sure your changes have no build errors and that the Vercel preview has no unexpected behavior.
 
 :::tip[What Can You Contribute?]
 
