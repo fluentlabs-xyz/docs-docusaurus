@@ -43,6 +43,12 @@ The main audience for this documentation are smart contract developers deploying
                     <span>Dive deep into rWasm and blended execution architecture.</span>
                 </a>
             </td>
+            <td>
+                <a href="fluent-connect/">
+                    <strong>Fluent Connect SDK</strong>
+                    <span>Connect a Fluent ID or wallet and run batch operations from your React app.</span>
+                </a>
+            </td>
         </tr>
     </tbody>
 </table>
@@ -58,6 +64,10 @@ The main audience for this documentation are smart contract developers deploying
     <a href="system-architecture/overview">
         <strong>Study the Tech</strong> 
         <span>Dive deep into rWasm and blended execution architecture.</span>
+    </a>
+    <a href="fluent-connect/">
+        <strong>Fluent Connect SDK</strong>
+        <span>Connect a Fluent ID or wallet and run batch operations from your React app.</span>
     </a>
 </div>
 
