@@ -6,7 +6,7 @@ title: Fluent Connect SDK
 
 This section documents `@fluent.xyz/connect` 0.6.1, the React widget that connects a person's Widget account, a Fluent ID smart account or an External wallet, to your App and executes Batch operations and signatures with it. The source is the [fluent-connect-sdk](https://github.com/fluentlabs-xyz/fluent-connect-sdk) repository.
 
-An App needs an `appId` and a login client from Fluent before it can mount the widget. To request access, write to [fc-partners@fluentlabs.xyz](mailto:fc-partners@fluentlabs.xyz).
+An App needs an `appId` and a login client from Fluent before it can mount the widget. To request access, fill in the [access request form](https://tally.so/r/5XbrAE).
 
 | Page | Covers |
 |---|---|
